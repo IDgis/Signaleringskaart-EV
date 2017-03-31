@@ -10,11 +10,11 @@ services:
     ports:
       - "8080:8080"
     external_links: 
-      - "docker_postgis_1:db"
+      - "docker_db_1:db"
     expose:
       - "8080"
     volumes:
-      - deegree_config_ev:/root/.deegree/ev 
+      - deegree_config_ev:/root/.deegree/ev
 networks:
   default:
     external:

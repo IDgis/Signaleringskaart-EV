@@ -2,8 +2,8 @@ version: '2'
 
 services:
 
-  postgis:
-    image: mdillon/postgis:latest
+  db:
+    build: database
     ports:
       - "5432:5432"
     expose:
@@ -13,4 +13,4 @@ services:
 networks:
   default:
     external:
-      name: ev        
+      name: ev      
