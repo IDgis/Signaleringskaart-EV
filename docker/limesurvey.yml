@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  limesurvey:
+    expose:
+     - "80"
+    environment:
+     LETSENCRYPT_EMAIL: "support@idgis.nl"
+     LETSENCRYPT_HOST: "ev.local.nl"
+     VIRTUAL_HOST: "ev.local.nl"
+    volumes:
+      - upload:/app/upload
+    image:
+      crramirez/limesurvey:latest
+volumes:
+  upload:
+networks:
+  default:
+    external:
+      name: ev  
+  

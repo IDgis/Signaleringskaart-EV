@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+
+  postgis:
+    image: mdillon/postgis:latest
+    ports:
+      - "5432:5432"
+    expose:
+     - "5432"
+    environment:
+      DEBUG: "false"
+networks:
+  default:
+    external:
+      name: ev        
