@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--ontw -->
+<veiligheidstoets
+	risicokaartWFSUrl="http://servicesprof.risicokaart.nl/rk_services_prof/services/WFS-risicokaart"
+	risicokaartWMSUrl="http://servicesprof.risicokaart.nl/rk_services_prof/services/WMS-risicokaart"
+	veiligheidstoetsWFSUrl="http://192.168.122.108:8080/veiligheidstoets/services/veiligheidstoets_wfs"
+	risicokaartUserName="linda.vels@idgis.nl" risicokaartPassword="Sp5vehaf"
+	shapeLoadError="Tijdens het laden van de shape file is een fout opgetreden, controleer de shapefile input of neem contact op met de applicatie beheerder."
+	wktError="Het ingetekende plangebied bevat een ongeldige geometrie" />
