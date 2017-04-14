@@ -10,7 +10,7 @@
         <license>GNU General Public License version 2 or later</license>
         <version>1.0</version>
         <description>LimeSurvey Template.</description>
-        <last_update>2016-12-14 16:02:44</last_update>
+        <last_update>2017-04-14 15:35:14</last_update>
     </metadatas>
 
     <!--
@@ -29,6 +29,7 @@
         <js>
             <filename>scripts/template.js</filename>
             <filename>scripts/bootstrap-slider.js</filename>
+            <filename>scripts/veiligheidstoets.js</filename>
         </js>
         <print_css>
             <filename>css/print_template.css</filename>
@@ -53,6 +54,7 @@
             <js>
                 <filename>scripts/template.js</filename>
                 <filename>scripts/bootstrap-slider.js</filename>
+                <filename>scripts/veiligheidstoets.js</filename>
             </js>
             <print_css>
                 <filename>css/print_template-rtl.css</filename>
@@ -73,6 +75,7 @@
             <js>
                 <filename>scripts/template.js</filename>
                 <filename>scripts/bootstrap-slider.js</filename>
+                <filename>scripts/veiligheidstoets.js</filename>
             </js>
     </files_editable>
 

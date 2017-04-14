@@ -20,7 +20,7 @@
         background-position: -1px -24px;
     }    
 </style>
-<script type="text/javascript" src="{TEMPLATEURL}/files/veiligheidstoets.js"></script>
+<script type="text/javascript" src="{TEMPLATEURL}/scripts/veiligheidstoets.js"></script>
 
 
 </head>

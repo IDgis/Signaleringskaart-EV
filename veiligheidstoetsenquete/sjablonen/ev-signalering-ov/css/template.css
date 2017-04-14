@@ -62,7 +62,7 @@ div[id^="group-"]>div {
  */
 
  #navigator-container {
-     margin-top: 4em;
+     margin-top: 0em; /*was 4*/
      padding-top: 1em;
      padding-bottom: 1em;
  }
@@ -885,7 +885,7 @@ table.numbers-only th, table.numbers-only input {
 /** Question Design **/
 
 body div.row .question-container {
-    margin-bottom: 2em;
+    margin-bottom: 1em; /*was 2*/
 }
 
 .answer-container, .question-help-container
@@ -896,7 +896,7 @@ body div.row .question-container {
 .answer-container
 {
     border-width: 0px 1px 0px 1px;
-    padding-top: 3em;
+    padding-top: 1em;/*was 3*/
     background-color: white;
 }
 
@@ -1091,3 +1091,15 @@ div.yes-no .btn-group label {
 .label-danger {
     white-space: normal;
 }
+
+
+.fa-info-circle {
+    margin-left: 10px;
+}
+
+.ev-map {
+    width: 700px;
+    height: 700px;
+    position: relative;
+}
+
