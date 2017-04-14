@@ -50,7 +50,7 @@ public class ShapeToWKTServlet extends HttpServlet {
 	public void loadConfig(){
 		
 		try{
-			String configdir = "/etc/veiligheidstoets/veiligheidstoets.xml";
+			String configdir = "/etc/veiligheidstoets";
 			System.out.println("configdir == "+ configdir); 
 			File configfile= new File(configdir + File.separator + "veiligheidstoets.xml");
 			if(configfile.exists()){
