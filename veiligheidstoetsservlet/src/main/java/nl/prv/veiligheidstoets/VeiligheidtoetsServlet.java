@@ -65,7 +65,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	public void loadConfig(){
 		
 		try{
-			String configdir = System.getProperty("VEILIGHEIDSTOETS_CONFIGDIR");
+			String configdir = "/etc/veiligheidstoets/veiligheidstoets.xml";
 			System.out.println("configdir == "+ configdir); 
 			File configfile= new File(configdir + File.separator + "veiligheidstoets.xml");
 			if(configfile.exists()){
