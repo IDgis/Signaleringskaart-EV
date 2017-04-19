@@ -2,6 +2,7 @@ version: '2'
 
 services:
   limesurvey:
+    container_name: limesurvey
     expose:
      - "80"
     environment:

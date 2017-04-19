@@ -8,6 +8,7 @@ volumes:
 
 services:
   nginx:
+    container_name: nginx
     restart: always
     build: nginx
     ports:
@@ -22,6 +23,7 @@ services:
       - base_vhost:/etc/nginx/vhost.d
       - base_html:/usr/share/nginx/html
   nginx-letsencrypt:
+    container_name: nginx-letsencrypt
     restart: always
     image: jrcs/letsencrypt-nginx-proxy-companion
     volumes_from:

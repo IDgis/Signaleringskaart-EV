@@ -5,6 +5,7 @@ volumes:
 
 services:
   deegree:
+    container_name: deegree
     restart: always
     build: deegree
     expose:
