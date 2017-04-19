@@ -7,10 +7,10 @@ services:
   deegree:
     restart: always
     build: deegree
-    ports:
-      - "8080:8080"
     expose:
       - "8080"
+    environment:
+     VIRTUAL_HOST: "evs.local.nl"  
     volumes:
       - deegree_config_ev:/root/.deegree/ev
 networks:
