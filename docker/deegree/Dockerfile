@@ -6,6 +6,7 @@ EXPOSE 8080
 
 ENV DEEGREE_VERSION 3.3.18
 
+
 # download deegree
 RUN wget http://repo.deegree.org/content/repositories/public/org/deegree/deegree-webservices/${DEEGREE_VERSION}/deegree-webservices-${DEEGREE_VERSION}.zip -O /tmp/deegree.zip
 
@@ -13,6 +14,11 @@ RUN wget http://repo.deegree.org/content/repositories/public/org/deegree/deegree
 RUN unzip /tmp/deegree.zip -d /opt/ && \
     ln -s /opt/deegree-webservices-${DEEGREE_VERSION}/ /opt/deegree && \
     rm /tmp/deegree.zip
+
+#kopieer war en config veiligheidstoetsserlvlet
+COPY veiligheidstoetsservlet.war /opt/deegree-webservices-${DEEGREE_VERSION}/webapps
+#COPY crossdomain.xml /opt/deegree-webservices-${DEEGREE_VERSION}/webapps/ROOT
+COPY veiligheidstoets.xml /etc/veiligheidstoets/veiligheidstoets.xml
 
 # run tomcat
 CMD /opt/deegree/bin/catalina.sh run
