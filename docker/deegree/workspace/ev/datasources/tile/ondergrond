@@ -1,0 +1,17 @@
+<RemoteWMTSTileStore xmlns="http://www.deegree.org/datasource/tile/remotewmts" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.deegree.org/datasource/tile/remotewmts http://schemas.deegree.org/datasource/tile/remotewmts/3.2.0/remotewmts.xsd" configVersion="3.2.0">
+
+    
+    <RemoteWMTSId>tms-ondergrond</RemoteWMTSId>
+    
+    <TileDataSet> 
+        <TileMatrixSetId>epsg28992</TileMatrixSetId>
+        <RequestParams>
+            <Layer>brtachtergrondkaart</Layer>
+            <Style>default</Style>
+            <Format>image/png8</Format>
+            <TileMatrixSet>EPSG:28992</TileMatrixSet>
+        </RequestParams>
+    </TileDataSet>
+    
+</RemoteWMTSTileStore>
+

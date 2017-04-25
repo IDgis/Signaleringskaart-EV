@@ -1,0 +1,6 @@
+<RemoteWMTS xmlns="http://www.deegree.org/remoteows/wmts" configVersion="3.2.0">
+    <CapabilitiesDocumentLocation location="http://geodata.nationaalgeoregister.nl/wmts/brtachtergrondkaart?request=GetCapabilities&amp;service=WMTS&amp;version=1.0.0"/>
+    <ConnectionTimeout>10</ConnectionTimeout>
+    <RequestTimeout>30</RequestTimeout>
+    
+</RemoteWMTS>
