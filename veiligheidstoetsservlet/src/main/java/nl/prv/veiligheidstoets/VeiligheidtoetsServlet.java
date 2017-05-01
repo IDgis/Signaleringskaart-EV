@@ -63,7 +63,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 */
 	@Override
 	public void init() {
-		//System.out.println("init servlet");
+		System.out.println("init servlet");
 		loadConfig();
 	}
 
@@ -128,7 +128,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			
 			int myIndex = incomingURLs.indexOf(clientOrigin);
 			if(myIndex != -1) {
-				response.setHeader("Access-Control-Allow_Origin", clientOrigin);
+				response.addHeader("Access-Control-Allow-Origin", clientOrigin);
 				response.setHeader("Access-Control-Allow-Methods", "POST");
 				response.setHeader("Access-Control-Allow-Headers", "Content-Type");
 				response.setHeader("Access-Control-Max-Age", "86400");
