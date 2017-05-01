@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -26,7 +28,6 @@ import org.w3c.dom.Element;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
@@ -106,10 +107,35 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LogStream logStream = new LogStream(new ByteArrayOutputStream());
-		response.setContentType("application/json");
 		Map<String, String> returnMessage = new HashMap<>();
 		
 		try(PrintWriter out = response.getWriter()) {
+			
+			//////////////////// Cross-Origin stuff /////////////////////////////////////
+					
+			List<String> incomingURLs = Arrays.asList(getServletContext().getInitParameter("incomingURLs").trim().split(","));
+			String clientOrigin = request.getHeader("origin");
+			
+			String ipAddress = request.getHeader("x-forwarded-for");
+			if(ipAddress == null) {
+				ipAddress = request.getRemoteAddr();
+			}
+			
+			response.setContentType("application/json");
+			response.setHeader("Cache-control", "no-cache, no-store");
+			response.setHeader("Pragma", "no-cache");
+			response.setHeader("Expires", "-1");
+			
+			int myIndex = incomingURLs.indexOf(clientOrigin);
+			if(myIndex != -1) {
+				response.setHeader("Access-Control-Allow_Origin", clientOrigin);
+				response.setHeader("Access-Control-Allow-Methods", "POST");
+				response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+				response.setHeader("Access-Control-Max-Age", "86400");
+			}
+			
+			/////////////////////////////////////////////////////////////////////////////////
+	
 			Map <String, String[]> params = request.getParameterMap();
 			Map <String,String> props = new HashMap<>();
 			Iterator<Entry<String, String[]>> it  = params.entrySet().iterator();
