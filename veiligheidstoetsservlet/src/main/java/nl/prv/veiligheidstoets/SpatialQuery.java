@@ -105,7 +105,7 @@ public class SpatialQuery {
 			int result = Integer.parseInt(element.getAttribute("numberOfFeatures"));
 			numFeatures.put("numberOfFeaturesFound", Integer.toString(result));
 		} catch (IOException | ParserConfigurationException | SAXException e) {
-			numFeatures.put("error", e.getMessage());
+			numFeatures.put("error", "An error occurred: " + e.getMessage());
 			throw new Exception(e);
 		}
 		return numFeatures;
@@ -134,7 +134,7 @@ public class SpatialQuery {
 			}
 			
 		} catch (ParserConfigurationException | SAXException | IOException e) {
-			featureProps.put("error", e.getMessage());
+			featureProps.put("error", "An error occurred: " + e.getMessage());
 			throw new Exception(e);
 		}
 		return featureProps;
