@@ -63,7 +63,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 */
 	@Override
 	public void init() {
-		System.out.println("init servlet");
+		System.out.println("init servlet...");
 		loadConfig();
 	}
 
@@ -111,30 +111,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		
 		try(PrintWriter out = response.getWriter()) {
 			
-			//////////////////// Cross-Origin stuff /////////////////////////////////////
-					
-			List<String> incomingURLs = Arrays.asList(getServletContext().getInitParameter("incomingURLs").trim().split(","));
-			String clientOrigin = request.getHeader("origin");
-			
-			String ipAddress = request.getHeader("x-forwarded-for");
-			if(ipAddress == null) {
-				ipAddress = request.getRemoteAddr();
-			}
-			
 			response.setContentType("application/json");
-			response.setHeader("Cache-control", "no-cache, no-store");
-			response.setHeader("Pragma", "no-cache");
-			response.setHeader("Expires", "-1");
-			
-			int myIndex = incomingURLs.indexOf(clientOrigin);
-			if(myIndex != -1) {
-				response.addHeader("Access-Control-Allow-Origin", clientOrigin);
-				response.setHeader("Access-Control-Allow-Methods", "POST");
-				response.setHeader("Access-Control-Allow-Headers", "Content-Type");
-				response.setHeader("Access-Control-Max-Age", "86400");
-			}
-			
-			/////////////////////////////////////////////////////////////////////////////////
 			
 			Map <String, String[]> params = request.getParameterMap();
 			Map <String,String> props = new HashMap<>();
@@ -145,7 +122,9 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			}
 			
 			// Check request type
+			System.out.println("Checking request type...");
 			if(props.containsKey("requesttype")) {
+				System.out.println("Requesttype present...");
 				if(props.get("requesttype").equals("polygonIsValid")) {
 					// Check wktIsValid
 					returnMessage = checkWktValid(props, "\"" + wktError + "\"");
@@ -159,6 +138,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				}
 			}
 			else {
+				System.out.println("requesttype missing!");
 				returnMessage.put("error", "\"Request type is missing!\"");
 			}
 			
@@ -198,10 +178,12 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				if(poly != null && !(poly.isValid())) {
 					checkResult.put("isValid", "false");
 					checkResult.put("error", wktError);
+					System.out.println("checkWktValid() = false");
 					return checkResult;
 				}
 				else {
 					checkResult.put("isValid", "true");
+					System.out.println("checkWktValid() = true");
 					return checkResult;
 				}
 			} catch (ParseException e) {
@@ -210,6 +192,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			}
 		}
 		checkResult.put("error", "\"Wkt is missing!\"");
+		System.out.println("checkWktValid() = missing wkt");
 		return checkResult;
 	}
 	
