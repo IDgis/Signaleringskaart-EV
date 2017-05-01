@@ -75,8 +75,8 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private void loadConfig(){
 		
 		try{
-			String configdir = "C:/Users/Kevin/Signaleringskaart/git/veiligheidstoetsservlet/config";
-			//String configdir = "/etc/veiligheidstoets";
+			//String configdir = "C:/Users/Kevin/Signaleringskaart/git/veiligheidstoetsservlet/config";
+			String configdir = "/etc/veiligheidstoets";
 			File configfile= new File(configdir + File.separator + "veiligheidstoets.xml");
 			if(configfile.exists()){
 				DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -135,7 +135,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			}
 			
 			/////////////////////////////////////////////////////////////////////////////////
-	
+			
 			Map <String, String[]> params = request.getParameterMap();
 			Map <String,String> props = new HashMap<>();
 			Iterator<Entry<String, String[]>> it  = params.entrySet().iterator();
@@ -248,8 +248,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		
 		// Check properties
 		SpatialQuery sq = new SpatialQuery(url, filter, risicokaartUserName, risicokaartPassword);
-		features = getFeatureProperties(props, sq);
-		return features;
+		return sq.getPropertyResult();
 	}
 	
 	/**
@@ -303,33 +302,6 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			return filterHandler.getFilter(fn, props);
 		}
 		return null;
-	}
-	
-	/**
-	 * Returns a Map of the property with all features as value in a single String. If no
-	 * properties given, this will give the number of features.
-	 * @param props
-	 * @param sq
-	 * @return
-	 * @throws Exception
-	 */
-	private Map<String, String> getFeatureProperties(Map<String, String> props, SpatialQuery sq) throws Exception {
-		Map<String, String> featureProps;
-		if(props.containsKey("properties")) {
-			String s = props.get("properties");
-			String[] properties = s.split(";");
-			
-			if(properties.length > 0) {
-				featureProps = sq.getFeatureProperties(properties);
-			}
-			else { // no properties entered
-				featureProps = sq.getNumFeatures();
-			}
-		}
-		else { // resultType="hits"
-			featureProps = sq.getNumFeatures();
-		}
-		return featureProps;
 	}
 
 	/**

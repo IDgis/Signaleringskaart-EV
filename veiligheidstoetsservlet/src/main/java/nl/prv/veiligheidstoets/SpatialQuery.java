@@ -89,53 +89,67 @@ public class SpatialQuery {
 			}
 		} 
 	}
-
+	
 	/**
-	 * Returns the number of features in this query and returns them as a value in a Map
+	 * Returns the number of properties found or a json of the features with the properties specified in the filter.
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, String> getNumFeatures() throws Exception {
-		Map<String, String> numFeatures = new HashMap<>();
+	public Map<String, String> getPropertyResult() throws Exception {
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
-			Element element = doc.getDocumentElement();
-			int result = Integer.parseInt(element.getAttribute("numberOfFeatures"));
-			numFeatures.put("numberOfFeaturesFound", Integer.toString(result));
-		} catch (IOException | ParserConfigurationException | SAXException e) {
-			numFeatures.put("error", "An error occurred: " + e.getMessage());
+			
+			Document filterDoc = builder.parse(new InputSource(new ByteArrayInputStream(filter.getBytes())));
+			String resultType = filterDoc.getDocumentElement().getAttribute("resultType");
+			if(resultType.equals("hits")) {
+				
+				return getNumFeatures(doc);
+			}
+			
+			NodeList elementList = filterDoc.getElementsByTagName("ogc:PropertyName");
+			List<String> filteredFeatures = new ArrayList<>();
+			for(int i = 0; i < elementList.getLength(); i++) {
+				filteredFeatures.add(elementList.item(i).getTextContent());
+			}
+			return getProperties(filteredFeatures, doc.getElementsByTagName("*"));
+		} 
+		catch (IOException | ParserConfigurationException | SAXException e) {
 			throw new Exception(e);
 		}
+	}
+	
+	/**
+	 * Returns the number of features found in the given document
+	 * @param doc
+	 * @return
+	 */
+	private Map<String, String> getNumFeatures(Document doc) {
+		Map<String, String> numFeatures = new HashMap<>();
+		
+		Element element = doc.getDocumentElement();
+		int result = Integer.parseInt(element.getAttribute("numberOfFeatures"));
+		numFeatures.put("numberOfFeaturesFound", Integer.toString(result));
+		
 		return numFeatures;
 	}
 	
 	/**
-	 * Gets the features for the given properties in a Map<FeatureName, values>
-	 * @param properties
+	 * Returns the features for the given properties
+	 * @param filteredFeatures
+	 * @param elementList
 	 * @return
-	 * @throws Exception
 	 */
-	public Map<String, String> getFeatureProperties(String[] properties) throws Exception {
+	private Map<String, String> getProperties(List<String> filteredFeatures, NodeList elementList) {
 		Map<String, String> featureProps = new HashMap<>();
-		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
-			NodeList elementList = doc.getElementsByTagName("*");
+		
+		for(int i = 0; i < filteredFeatures.size(); i++) {
+			List<String> valueList = getPropertyValues(elementList, filteredFeatures.get(i));
+			String[] values = valueList.toArray(new String[0]);
+			String valueString = parseToJsonArrayString(values);
 			
-			for(int i = 0; i < properties.length; i++) {
-				List<String> valueList = getPropertyValues(elementList, properties[i]);
-				String[] values = valueList.toArray(new String[0]);
-				String valueString = parseToJsonArrayString(values);
-				
-				featureProps.put(properties[i], valueString);
-			}
-			
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			featureProps.put("error", "An error occurred: " + e.getMessage());
-			throw new Exception(e);
+			featureProps.put(filteredFeatures.get(i), valueString);
 		}
 		return featureProps;
 	}
