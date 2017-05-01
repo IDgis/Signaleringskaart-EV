@@ -168,9 +168,9 @@ public class SpatialQuery {
 		sb.append("[");
 		
 		for(int i = 0; i < values.length - 1; i++) {
-			sb.append(values[i] + ",");
+			sb.append("\"" + values[i] + "\"" + ",");
 		}
-		sb.append(values[values.length - 1] + "]");
+		sb.append("\"" + values[values.length - 1] + "\"]");
 		return sb.toString();
 	}
 }

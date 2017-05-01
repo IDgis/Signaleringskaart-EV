@@ -55,11 +55,6 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private String veiligheidstoetsWFSUrl;
 	private TemplateHandler filterHandler;
 	
-	private static final String ERROR = "error";
-	private static final String IS_VALID = "isValid";
-	private static final String REQUESTTYPE = "requesttype";
-	private static final String SERVICENAME = "servicename";
-	
 	/**
 	 * initializes the servlet
 	 * reads configuration
@@ -124,21 +119,21 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			}
 			
 			// Check request type
-			if(props.containsKey(REQUESTTYPE)) {
-				if(props.get(REQUESTTYPE).equals("polygonIsValid")) {
+			if(props.containsKey("requesttype")) {
+				if(props.get("requesttype").equals("polygonIsValid")) {
 					// Check wktIsValid
-					returnMessage = checkWktValid(props, wktError);
+					returnMessage = checkWktValid(props, "\"" + wktError + "\"");
 				}
-				else if(props.get(REQUESTTYPE).equals("getEVFeatures")) {
+				else if(props.get("requesttype").equals("getEVFeatures")) {
 					// getEVFeatures
 					returnMessage = getEVFeatures(props);
 				}
 				else {
-					returnMessage.put(ERROR, REQUESTTYPE + " is invalid!");
+					returnMessage.put("error", "\"Request type is invalid!\"");
 				}
 			}
 			else {
-				returnMessage.put(ERROR, REQUESTTYPE + " is missing!");
+				returnMessage.put("error", "\"Request type is missing!\"");
 			}
 			
 			JsonObject json = new JsonObject();
@@ -148,7 +143,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			while(iter.hasNext()) {
 				String key = iter.next();
 				String value = returnMessage.get(key);
-				json.add(key, parser.parse(value.replaceAll(" ", "_")));
+				json.add(key, parser.parse(value));
 			}
 			out.println(json);
 			out.flush();
@@ -175,20 +170,20 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			try {
 				poly = (Polygon) reader.read(wktGeom);
 				if(poly != null && !(poly.isValid())) {
-					checkResult.put(IS_VALID, "false");
-					checkResult.put(ERROR, wktError);
+					checkResult.put("isValid", "false");
+					checkResult.put("error", wktError);
 					return checkResult;
 				}
 				else {
-					checkResult.put(IS_VALID, "true");
+					checkResult.put("isValid", "true");
 					return checkResult;
 				}
 			} catch (ParseException e) {
-				checkResult.put(IS_VALID, "false");
-				checkResult.put(ERROR, "an error occurred: " + e.getMessage());
+				checkResult.put("isValid", "false");
+				checkResult.put("error", "\"an error occurred: " + e.getMessage() + "\"");
 			}
 		}
-		checkResult.put(ERROR, "Wkt is missing!");
+		checkResult.put("error", "\"Wkt is missing!\"");
 		return checkResult;
 	}
 	
@@ -203,25 +198,25 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		// Check servicename
 		String url = getServiceName(props);
 		if(url == null) {
-			features.put(ERROR, "Servicename is missing!");
+			features.put("error", "\"Servicename is missing!\"");
 			return features;
 		}
 		else if(url.equals("INVALID")) {
-			features.put(ERROR, "Servicename is invalid!");
+			features.put("error", "\"Servicename is invalid!\"");
 			return features;
 		}
 		
 		// Check plangebied-wkt
 		boolean plangebiedPresent = getPlangebiedWkt(props);
 		if(!plangebiedPresent) {
-			features.put(ERROR, "Plangebied Wkt is missing!");
+			features.put("error", "\"Plangebied Wkt is missing!\"");
 			return features;
 		}
 		
 		// Check filter
 		String filter = getTemplateFilter(props);
 		if(filter == null) {
-			features.put(ERROR, "Filter is missing!");
+			features.put("error", "\"Filter is missing!\"");
 			return features;
 		}
 		
@@ -237,11 +232,11 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 * @return The url for the given servicename, INVALID if the servicename is invalid.
 	 */
 	private String getServiceName(Map<String, String> props) {
-		if(props.containsKey(SERVICENAME)){
-			if(props.get(SERVICENAME).equals("risicokaartWFS")) {
+		if(props.containsKey("servicename")){
+			if(props.get("servicename").equals("risicokaartWFS")) {
 				return risicokaartWFSUrl;
 			} 
-			else if(props.get(SERVICENAME).equals("veiligheidstoetsWFS")) {
+			else if(props.get("servicename").equals("veiligheidstoetsWFS")) {
 				return veiligheidstoetsWFSUrl;
 			}
 			return "INVALID";
