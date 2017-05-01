@@ -15,24 +15,7 @@
 		<servlet-name>VeiligheidtoetsServlet</servlet-name>
 		<url-pattern>/toets</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<servlet-name>ShapeToWKTServlet</servlet-name>
-		<servlet-class>nl.prv.veiligheidstoets.ShapeToWKTServlet
-		</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ShapeToWKTServlet</servlet-name>
-		<url-pattern>/shp2wkt</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>WKTIsValidServlet</servlet-name>
-		<servlet-class>nl.prv.veiligheidstoets.WKTIsValidServlet
-		</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>WKTIsValidServlet</servlet-name>
-		<url-pattern>/wktvalid</url-pattern>
-	</servlet-mapping>
+	
 <filter>
     <filter-name>CORS</filter-name>
     <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
