@@ -15,7 +15,7 @@ RUN unzip /tmp/deegree.zip -d /opt/ && \
     ln -s /opt/deegree-webservices-${DEEGREE_VERSION}/ /opt/deegree && \
     rm /tmp/deegree.zip
 
-//kopieer de default workspace setting
+#kopieer de default workspace setting
 COPY webapps.properties /root/.deegree
 
 #kopieer war en config veiligheidstoetsserlvlet
