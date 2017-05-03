@@ -3,7 +3,7 @@ version: '2'
 services:
 
   db:
-    container_name: db
+    container_name: db-ov
     build: database
     ports:
       - "5432:5432"
@@ -14,4 +14,4 @@ services:
 networks:
   default:
     external:
-      name: ev      
+      name: ev-ov     
