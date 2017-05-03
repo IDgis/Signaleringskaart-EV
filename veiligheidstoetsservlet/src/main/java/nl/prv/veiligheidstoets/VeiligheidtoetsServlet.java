@@ -48,6 +48,7 @@ import nl.prv.veiligheidstoets.util.WKT2GMLParser;
 public class VeiligheidtoetsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	private String basisnetWFSUrl;
 	private String risicokaartWFSUrl;
 	private String risicokaartUserName;
 	private String risicokaartPassword;
@@ -75,7 +76,6 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private void loadConfig(){
 		
 		try{
-			//String configdir = "C:/Users/Kevin/Signaleringskaart/git/veiligheidstoetsservlet/config";
 			String configdir = "/etc/veiligheidstoets";
 			File configfile= new File(configdir + File.separator + "veiligheidstoets.xml");
 			if(configfile.exists()){
@@ -83,6 +83,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				DocumentBuilder builder = documentBuilderFactory.newDocumentBuilder();
 				FileInputStream fis = new FileInputStream(configfile);
 				Document configDoc = builder.parse(fis);
+				basisnetWFSUrl = getConfigProperty(configDoc, "basisnetWFSUrl");
 				risicokaartWFSUrl = getConfigProperty(configDoc,"risicokaartWFSUrl");
 				risicokaartUserName = getConfigProperty(configDoc,"risicokaartUserName");
 				risicokaartPassword = getConfigProperty(configDoc,"risicokaartPassword");
@@ -122,9 +123,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			}
 			
 			// Check request type
-			System.out.println("Checking request type...");
 			if(props.containsKey("requesttype")) {
-				System.out.println("Requesttype present...");
 				if(props.get("requesttype").equals("polygonIsValid")) {
 					// Check wktIsValid
 					returnMessage = checkWktValid(props, "\"" + wktError + "\"");
@@ -138,7 +137,6 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				}
 			}
 			else {
-				System.out.println("requesttype missing!");
 				returnMessage.put("error", "\"Request type is missing!\"");
 			}
 			
@@ -178,12 +176,10 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				if(poly != null && !(poly.isValid())) {
 					checkResult.put("isValid", "false");
 					checkResult.put("error", wktError);
-					System.out.println("checkWktValid() = false");
 					return checkResult;
 				}
 				else {
 					checkResult.put("isValid", "true");
-					System.out.println("checkWktValid() = true");
 					return checkResult;
 				}
 			} catch (ParseException e) {
@@ -192,7 +188,6 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			}
 		}
 		checkResult.put("error", "\"Wkt is missing!\"");
-		System.out.println("checkWktValid() = missing wkt");
 		return checkResult;
 	}
 	
@@ -247,6 +242,9 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			else if(props.get("servicename").equals("veiligheidstoetsWFS")) {
 				return veiligheidstoetsWFSUrl;
 			}
+			else if(props.get("servicename").equals("basisnetWFS")) {
+				return basisnetWFSUrl;
+			}
 			return "INVALID";
 		}
 		return null;
@@ -261,6 +259,13 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private boolean getPlangebiedWkt(Map<String, String> props) throws Exception {
 		if(props.containsKey("plangebiedWkt")){
 			String wktGeom = props.get("plangebiedWkt");
+			
+			int hidestart = wktGeom.indexOf("hidestart");
+			int hideend = wktGeom.indexOf("hideend");
+			if(hidestart != -1 && hideend != -1) {
+				wktGeom = wktGeom.substring(hidestart + "hidestart".length(), hideend);
+			}
+			
 			String gml = null;
 			try {
 				gml = WKT2GMLParser.parse(wktGeom);
