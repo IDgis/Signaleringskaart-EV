@@ -8,13 +8,12 @@
  version="1.1.0"
  outputFormat="text/xml; subtype=gml/3.1.1"
  resultType="hits">
-    <wfs:Query typeName="reserveringtrace_buisleiding">
+    <wfs:Query typeName="verblijfsobject_ov">
         <ogc:Filter>
-            <ogc:DWithin>
-                <ogc:PropertyName>the_geom</ogc:PropertyName>
-                $plangebiedgml$                           
-                <ogc:Distance units="m">$distance$</ogc:Distance>
-            </ogc:DWithin>
+	        <ogc:Within>
+	            <ogc:PropertyName>geom</ogc:PropertyName>
+	            	$plangebiedgml$                            
+	        </ogc:Within>
         </ogc:Filter>
     </wfs:Query>
 </wfs:GetFeature>

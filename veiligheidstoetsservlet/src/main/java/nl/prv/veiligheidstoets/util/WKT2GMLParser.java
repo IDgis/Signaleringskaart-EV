@@ -1,14 +1,10 @@
 package nl.prv.veiligheidstoets.util;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringWriter;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-
-
 
 import org.deegree.cs.exceptions.TransformationException;
 import org.deegree.cs.exceptions.UnknownCRSException;
@@ -21,13 +17,13 @@ import org.deegree.gml.GMLStreamWriter;
 import org.deegree.gml.GMLVersion;
 import org.deegree.gml.geometry.GML3GeometryWriter;
 
-
-
 import com.vividsolutions.jts.io.ParseException;
 
 public class WKT2GMLParser {
 	
-	public static String parse(String wktGeometry) throws ParseException, XMLStreamException, TransformationException, UnknownCRSException, IOException  {
+	private WKT2GMLParser() {}
+	
+	public static String parse(String wktGeometry) throws ParseException, XMLStreamException, UnknownCRSException, TransformationException {
 		CRSRef crs = CRSManager.getCRSRef("EPSG:28992");	
 		WKTReader reader = new WKTReader(crs);
 		Geometry geom = reader.read(wktGeometry);
@@ -39,9 +35,6 @@ public class WKT2GMLParser {
 		ggw.export(geom);
 		gtw.close();
 		xtw.close();
-		String resultGml = sw.toString(); 
-		return resultGml;	
+		return sw.toString(); 	
 	}
-      
-
 }

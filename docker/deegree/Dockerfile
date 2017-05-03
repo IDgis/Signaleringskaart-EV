@@ -15,10 +15,12 @@ RUN unzip /tmp/deegree.zip -d /opt/ && \
     ln -s /opt/deegree-webservices-${DEEGREE_VERSION}/ /opt/deegree && \
     rm /tmp/deegree.zip
 
-#kopieer war en config veiligheidstoetsserlvlet
-COPY veiligheidstoetsservlet.war /opt/deegree-webservices-${DEEGREE_VERSION}/webapps
-#COPY crossdomain.xml /opt/deegree-webservices-${DEEGREE_VERSION}/webapps/ROOT
-COPY veiligheidstoets.xml /etc/veiligheidstoets/veiligheidstoets.xml
+//kopieer de default workspace setting
+COPY webapps.properties /root/.deegree
 
+#kopieer war en config veiligheidstoetsserlvlet
+COPY veiligheidstoets/veiligheidstoetsservlet.war /opt/deegree-webservices-${DEEGREE_VERSION}/webapps
+COPY veiligheidstoets/veiligheidstoets.xml /etc/veiligheidstoets/veiligheidstoets.xml
+COPY veiligheidstoets/templates /opt/deegree-webservices-${DEEGREE_VERSION}/webapps/veiligheidstoetsservlet/WEB-INF/classes/nl/prv/veiligheidstoets
 # run tomcat
 CMD /opt/deegree/bin/catalina.sh run

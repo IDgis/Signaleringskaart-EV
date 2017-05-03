@@ -1,0 +1,16 @@
+<SQLFeatureStore xmlns="http://www.deegree.org/datasource/feature/sql" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" configVersion="3.2.0" xsi:schemaLocation="http://www.deegree.org/datasource/feature/sql http://schemas.deegree.org/datasource/feature/sql/3.2.0/sql.xsd">
+
+  <JDBCConnId>jdbc_ev_services_ov</JDBCConnId>
+
+    <FeatureTypeMapping xmlns:myapp="http://www.deegree.org/myapp" table="verblijfsobject" name="myapp:verblijfsobject">
+        <FIDMapping>
+            <Column name="ogc_fid" />
+            <AutoIdGenerator />
+        </FIDMapping>
+        <Primitive path="Gebruiksdoel" mapping="gebruiksdoel" />
+        <Geometry path="geom" mapping="geom">
+            <StorageCRS srid="-1">EPSG:28992</StorageCRS>
+        </Geometry>
+    </FeatureTypeMapping>
+
+</SQLFeatureStore>
