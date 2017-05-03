@@ -53,12 +53,12 @@ public class SpatialQuery {
 		 try{
 			 hpcon = (HttpURLConnection) url.openConnection();   
 			 hpcon.setRequestMethod("POST");
-			 if (hpcon instanceof HttpsURLConnection) {
+			 /*if (hpcon instanceof HttpsURLConnection) {
 				    String userPassword = un + ":" + pw;
 				    String encoding = java.util.Base64.getEncoder().encodeToString(userPassword.getBytes());
 					//String encoding = new sun.misc.BASE64Encoder().encode(userPassword.getBytes());
 				    hpcon.setRequestProperty("Authorization", "Basic " + encoding);	
-			}
+			}*/
 			hpcon.setRequestProperty("Content-Length", "" + Integer.toString(filter.getBytes().length));      
 			hpcon.setRequestProperty("Content-Type", "xml/text");
 			hpcon.setUseCaches (false);
@@ -104,10 +104,8 @@ public class SpatialQuery {
 			Document filterDoc = builder.parse(new InputSource(new ByteArrayInputStream(filter.getBytes())));
 			String resultType = filterDoc.getDocumentElement().getAttribute("resultType");
 			if(resultType.equals("hits")) {
-				
 				return getNumFeatures(doc);
 			}
-			
 			NodeList elementList = filterDoc.getElementsByTagName("ogc:PropertyName");
 			List<String> filteredFeatures = new ArrayList<>();
 			for(int i = 0; i < elementList.getLength(); i++) {
@@ -143,10 +141,12 @@ public class SpatialQuery {
 	 */
 	private Map<String, String> getProperties(List<String> filteredFeatures, NodeList elementList) {
 		Map<String, String> featureProps = new HashMap<>();
-		
 		for(int i = 0; i < filteredFeatures.size(); i++) {
+			if(filteredFeatures.get(i).equals("the_geom")) {
+				continue;
+			}
 			List<String> valueList = getPropertyValues(elementList, filteredFeatures.get(i));
-			String[] values = valueList.toArray(new String[0]);
+			String[] values = valueList.toArray(new String[valueList.size()]);
 			String valueString = parseToJsonArrayString(values);
 			
 			featureProps.put(filteredFeatures.get(i), valueString);
