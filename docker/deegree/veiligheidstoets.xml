@@ -4,6 +4,4 @@
 	risicokaartWMSUrl="http://servicesprof.risicokaart.nl/rk_services_prof/services/WMS-risicokaart"
 	basisnetWFSUrl="http://servicespub.risicokaart.nl/geoserver/wfs"
 	veiligheidstoetsWFSUrl="http://evs/services/veiligheidstoets_wfs"
-	risicokaartUserName=""
-	risicokaartPassword=""
 	wktError="Het ingetekende plangebied bevat een ongeldige geometrie" /> 

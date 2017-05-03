@@ -5,10 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -50,8 +48,6 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	
 	private String basisnetWFSUrl;
 	private String risicokaartWFSUrl;
-	private String risicokaartUserName;
-	private String risicokaartPassword;
 	private String wktError;
 	
 	private String veiligheidstoetsWFSUrl;
@@ -85,8 +81,6 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				Document configDoc = builder.parse(fis);
 				basisnetWFSUrl = getConfigProperty(configDoc, "basisnetWFSUrl");
 				risicokaartWFSUrl = getConfigProperty(configDoc,"risicokaartWFSUrl");
-				risicokaartUserName = getConfigProperty(configDoc,"risicokaartUserName");
-				risicokaartPassword = getConfigProperty(configDoc,"risicokaartPassword");
 				veiligheidstoetsWFSUrl  = getConfigProperty(configDoc,"veiligheidstoetsWFSUrl");
 				wktError = getConfigProperty(configDoc, "wktError");
 				filterHandler = new TemplateHandler();
@@ -225,7 +219,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		}
 		
 		// Check properties
-		SpatialQuery sq = new SpatialQuery(url, filter, risicokaartUserName, risicokaartPassword);
+		SpatialQuery sq = new SpatialQuery(url, filter);
 		return sq.getPropertyResult();
 	}
 	

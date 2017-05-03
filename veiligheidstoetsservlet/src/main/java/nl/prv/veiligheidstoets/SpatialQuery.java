@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -28,14 +27,10 @@ import org.xml.sax.SAXException;
 public class SpatialQuery {
 	private String urlstr;
 	private String filter;
-	private String un;
-	private String pw;
 
-	public SpatialQuery(String urlstr, String filter, String un, String pw) {
+	public SpatialQuery(String urlstr, String filter) {
 		this.urlstr = urlstr;
 		this.filter = filter;
-		this.un = un;
-		this.pw = pw;
 	}
 
 	private String getResult() throws IOException {
@@ -51,14 +46,8 @@ public class SpatialQuery {
 		 URL url = new URL(urlstr);
 		 HttpURLConnection hpcon = null;
 		 try{
-			 hpcon = (HttpURLConnection) url.openConnection();   
-			 hpcon.setRequestMethod("POST");
-			 /*if (hpcon instanceof HttpsURLConnection) {
-				    String userPassword = un + ":" + pw;
-				    String encoding = java.util.Base64.getEncoder().encodeToString(userPassword.getBytes());
-					//String encoding = new sun.misc.BASE64Encoder().encode(userPassword.getBytes());
-				    hpcon.setRequestProperty("Authorization", "Basic " + encoding);	
-			}*/
+			hpcon = (HttpURLConnection) url.openConnection();   
+			hpcon.setRequestMethod("POST");
 			hpcon.setRequestProperty("Content-Length", "" + Integer.toString(filter.getBytes().length));      
 			hpcon.setRequestProperty("Content-Type", "xml/text");
 			hpcon.setUseCaches (false);
