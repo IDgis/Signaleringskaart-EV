@@ -26,7 +26,6 @@ import org.w3c.dom.Element;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
@@ -47,9 +46,8 @@ import nl.prv.veiligheidstoets.util.WKT2GMLParser;
 public class VeiligheidtoetsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	private String basisnetWFSUrl;
 	private String risicokaartWFSUrl;
-	private String risicokaartUserName;
-	private String risicokaartPassword;
 	private String wktError;
 	
 	private String veiligheidstoetsWFSUrl;
@@ -62,7 +60,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 */
 	@Override
 	public void init() {
-		//System.out.println("init servlet");
+		System.out.println("init servlet...");
 		loadConfig();
 	}
 
@@ -74,17 +72,15 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private void loadConfig(){
 		
 		try{
-			String configdir = "C:/Users/Kevin/Signaleringskaart/git/veiligheidstoetsservlet/config";
-			//String configdir = "/etc/veiligheidstoets";
+			String configdir = "/etc/veiligheidstoets";
 			File configfile= new File(configdir + File.separator + "veiligheidstoets.xml");
 			if(configfile.exists()){
 				DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder builder = documentBuilderFactory.newDocumentBuilder();
 				FileInputStream fis = new FileInputStream(configfile);
 				Document configDoc = builder.parse(fis);
+				basisnetWFSUrl = getConfigProperty(configDoc, "basisnetWFSUrl");
 				risicokaartWFSUrl = getConfigProperty(configDoc,"risicokaartWFSUrl");
-				risicokaartUserName = getConfigProperty(configDoc,"risicokaartUserName");
-				risicokaartPassword = getConfigProperty(configDoc,"risicokaartPassword");
 				veiligheidstoetsWFSUrl  = getConfigProperty(configDoc,"veiligheidstoetsWFSUrl");
 				wktError = getConfigProperty(configDoc, "wktError");
 				filterHandler = new TemplateHandler();
@@ -106,10 +102,12 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LogStream logStream = new LogStream(new ByteArrayOutputStream());
-		response.setContentType("application/json");
 		Map<String, String> returnMessage = new HashMap<>();
 		
 		try(PrintWriter out = response.getWriter()) {
+			
+			response.setContentType("application/json");
+			
 			Map <String, String[]> params = request.getParameterMap();
 			Map <String,String> props = new HashMap<>();
 			Iterator<Entry<String, String[]>> it  = params.entrySet().iterator();
@@ -145,6 +143,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				String value = returnMessage.get(key);
 				json.add(key, parser.parse(value));
 			}
+			
 			out.println(json);
 			out.flush();
 		}			
@@ -166,9 +165,8 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		if(props.containsKey("wkt")) {
 			String wktGeom = props.get("wkt");
 			WKTReader reader = new WKTReader();
-			Polygon poly;
 			try {
-				poly = (Polygon) reader.read(wktGeom);
+				Polygon poly = (Polygon) reader.read(wktGeom);
 				if(poly != null && !(poly.isValid())) {
 					checkResult.put("isValid", "false");
 					checkResult.put("error", wktError);
@@ -214,16 +212,21 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		}
 		
 		// Check filter
-		String filter = getTemplateFilter(props);
-		if(filter == null) {
+		String[] filters = props.get("filter").split("x");
+		if(filters == null) {
 			features.put("error", "\"Filter is missing!\"");
 			return features;
 		}
+		String filter = filterHandler.getFilter(filters[0], props);
+		System.out.println("FILTER: \n" + filter);
+		SpatialQuery sq = new SpatialQuery(url, filter);
+		if(filters.length > 1) {
+			KwetsbaarObject[] kwObjects = sq.getKwetsbareObjecten();
+			return createSecondaryFilter(kwObjects, url, props);
+		}
 		
 		// Check properties
-		SpatialQuery sq = new SpatialQuery(url, filter, risicokaartUserName, risicokaartPassword);
-		features = getFeatureProperties(props, sq);
-		return features;
+		return sq.getPropertyResult();
 	}
 	
 	/**
@@ -239,6 +242,9 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			else if(props.get("servicename").equals("veiligheidstoetsWFS")) {
 				return veiligheidstoetsWFSUrl;
 			}
+			else if(props.get("servicename").equals("basisnetWFS")) {
+				return basisnetWFSUrl;
+			}
 			return "INVALID";
 		}
 		return null;
@@ -253,6 +259,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private boolean getPlangebiedWkt(Map<String, String> props) throws Exception {
 		if(props.containsKey("plangebiedWkt")){
 			String wktGeom = props.get("plangebiedWkt");
+			
 			String gml = null;
 			try {
 				gml = WKT2GMLParser.parse(wktGeom);
@@ -266,44 +273,32 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		return false;
 	}
 	
-	/**
-	 * Gets the template filter
-	 * @param props
-	 * @return
-	 */
-	private String getTemplateFilter(Map<String, String> props) {
-		if(props.containsKey("filter")) {
-			String fn = props.get("filter");
-			return filterHandler.getFilter(fn, props);
+	private Map<String, String> createSecondaryFilter(KwetsbaarObject[] kwObjects, String url, Map<String, String> props) throws Exception {
+		Map<String, String> features = new HashMap<>();
+		if(kwObjects.length == 0) {
+			features.put("error", "Geen kwetsbare objecten in het plangebied aanwezig");
+			return features;
 		}
-		return null;
-	}
-	
-	/**
-	 * Returns a Map of the property with all features as value in a single String. If no
-	 * properties given, this will give the number of features.
-	 * @param props
-	 * @param sq
-	 * @return
-	 * @throws Exception
-	 */
-	private Map<String, String> getFeatureProperties(Map<String, String> props, SpatialQuery sq) throws Exception {
-		Map<String, String> featureProps;
-		if(props.containsKey("properties")) {
-			String s = props.get("properties");
-			String[] properties = s.split(";");
+		for(int i = 0; i < kwObjects.length; i++) {
+			String pointGeom = kwObjects[i].getPoint().toString();
+			String gml = null;
+			try {
+				gml = WKT2GMLParser.parse(pointGeom);
+			} 
+			catch (ParseException | XMLStreamException | UnknownCRSException | TransformationException e) {
+				throw new Exception(e);
+			} 
+			props.put("plangebiedgml", gml);
 			
-			if(properties.length > 0) {
-				featureProps = sq.getFeatureProperties(properties);
-			}
-			else { // no properties entered
-				featureProps = sq.getNumFeatures();
-			}
+			String[] filters = props.get("filter").split("x");
+			String filter = filterHandler.getFilter(filters[1], props);
+			System.out.println("FILTER_2: \n" + filter);
+			
+			SpatialQuery sq2 = new SpatialQuery(url, filter);
+			Map<String, String> bufferResult = sq2.getNumFeatures(kwObjects[i], i);
+			
 		}
-		else { // resultType="hits"
-			featureProps = sq.getNumFeatures();
-		}
-		return featureProps;
+		return features;
 	}
 
 	/**
