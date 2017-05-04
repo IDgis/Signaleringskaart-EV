@@ -19,11 +19,11 @@
         <ogc:PropertyName>B2WK</ogc:PropertyName>
         <ogc:PropertyName>Breedte</ogc:PropertyName>
         <ogc:Filter>
-            <ogc:DWithin>
-                <ogc:PropertyName>the_geom</ogc:PropertyName> 
-                    $plangebiedgml$ 
-                <ogc:Distance units="meter">200</ogc:Distance>
-            </ogc:DWithin>
+		        <ogc:DWithin>
+		            <ogc:PropertyName>the_geom</ogc:PropertyName> 
+		                $plangebiedgml$ 
+		            <ogc:Distance units="meter">200</ogc:Distance>
+		        </ogc:DWithin>
         </ogc:Filter>
     </wfs:Query>
 </wfs:GetFeature>

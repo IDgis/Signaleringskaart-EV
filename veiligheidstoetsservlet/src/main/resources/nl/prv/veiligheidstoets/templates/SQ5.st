@@ -65,7 +65,7 @@
 	                    <ogc:Distance units="meter">67</ogc:Distance>
 	                </ogc:DWithin>
 	            </ogc:And>
-	          </ogc:Or>      
+	        </ogc:Or>      
         </ogc:Filter>
     </wfs:Query>
 </wfs:GetFeature>
