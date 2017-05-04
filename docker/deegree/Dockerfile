@@ -16,6 +16,7 @@ RUN unzip /tmp/deegree.zip -d /opt/ && \
     rm /tmp/deegree.zip
 
 #kopieer de default workspace setting
+COPY workspace/ev /root/.deegree/ev
 COPY webapps.properties /root/.deegree
 
 #kopieer war en config veiligheidstoetsserlvlet
