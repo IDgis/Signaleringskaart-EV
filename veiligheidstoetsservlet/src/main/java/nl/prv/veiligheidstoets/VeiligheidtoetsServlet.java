@@ -26,7 +26,6 @@ import org.w3c.dom.Element;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
@@ -144,6 +143,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				String value = returnMessage.get(key);
 				json.add(key, parser.parse(value));
 			}
+			
 			out.println(json);
 			out.flush();
 		}			
@@ -218,6 +218,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			return features;
 		}
 		String filter = filterHandler.getFilter(filters[0], props);
+		System.out.println("FILTER: \n" + filter);
 		SpatialQuery sq = new SpatialQuery(url, filter);
 		if(filters.length > 1) {
 			KwetsbaarObject[] kwObjects = sq.getKwetsbareObjecten();
@@ -291,6 +292,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			
 			String[] filters = props.get("filter").split("x");
 			String filter = filterHandler.getFilter(filters[1], props);
+			System.out.println("FILTER_2: \n" + filter);
 			
 			SpatialQuery sq2 = new SpatialQuery(url, filter);
 			

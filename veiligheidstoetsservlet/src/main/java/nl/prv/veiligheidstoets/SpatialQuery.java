@@ -88,8 +88,9 @@ public class SpatialQuery {
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse("test3.xml");
-			Document filterDoc = builder.parse("SQ1.st");
+			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
+			
+			Document filterDoc = builder.parse(new InputSource(new ByteArrayInputStream(filter.getBytes())));
 			String resultType = filterDoc.getDocumentElement().getAttribute("resultType");
 			if(resultType.equals("hits")) {
 				return getNumFeatures(doc);
@@ -152,7 +153,7 @@ public class SpatialQuery {
 				Node featureMemberValue = featureMemberList.item(j);
 				
 				for(int k = 0; k < filteredFeatures.size(); k++) {
-					if(filteredFeatures.get(k).equals("the_geom")) {
+					if(filteredFeatures.get(k).equals("the_geom") || filteredFeatures.get(k).equals("geometrie")) {
 						filteredFeatures.remove(k);
 						continue;
 					}
@@ -170,6 +171,7 @@ public class SpatialQuery {
 		for(int i = 0; i < valueStringArray.length; i++) {
 			features.put(resultNames.get(i), valueStringArray[i]);
 		}
+		
 		return features;
 	}
 	
@@ -186,11 +188,11 @@ public class SpatialQuery {
 		
 		for(int i = 0; i < numIters; i++) { // 2x
 			StringBuilder sb = new StringBuilder();
-			sb.append("[");
+			sb.append("{");
 			for(int j = 0; j < filterArray.length - 1; j++) {
 				sb.append("\"" + filterArray[j] + "\":\"" + propertyArray[index++] + "\",");
 			}
-			sb.append("\"" + filterArray[filterArray.length - 1] + "\":\"" + propertyArray[index++] + "\"]");
+			sb.append("\"" + filterArray[filterArray.length - 1] + "\":\"" + propertyArray[index++] + "\"}");
 			list.add(sb.toString());
 		}
 		return list.toArray(new String[list.size()]);
