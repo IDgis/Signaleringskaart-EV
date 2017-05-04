@@ -127,7 +127,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 					returnMessage = getEVFeatures(props);
 				}
 				else {
-					returnMessage.put("error", "\"Request type is invalid!\"");
+					returnMessage.put("error", "\"Request type is invalid: " + props.get("requesttype") + "\"");
 				}
 			}
 			else {
@@ -200,7 +200,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			return features;
 		}
 		else if(url.equals("INVALID")) {
-			features.put("error", "\"Servicename is invalid!\"");
+			features.put("error", "\"Servicename is invalid: " + props.get("servicename") + "\"");
 			return features;
 		}
 		
@@ -296,6 +296,11 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			
 			SpatialQuery sq2 = new SpatialQuery(url, filter);
 			Map<String, String> bufferResult = sq2.getNumFeatures(kwObjects[i], i);
+			for(Iterator<String> iter = bufferResult.keySet().iterator(); iter.hasNext(); ) {
+				String key = iter.next();
+				String value = bufferResult.get(key);
+				features.put(key, value);
+			}
 			
 		}
 		return features;
