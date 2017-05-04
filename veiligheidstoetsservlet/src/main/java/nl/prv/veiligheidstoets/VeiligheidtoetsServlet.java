@@ -26,6 +26,7 @@ import org.w3c.dom.Element;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
@@ -164,9 +165,8 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		if(props.containsKey("wkt")) {
 			String wktGeom = props.get("wkt");
 			WKTReader reader = new WKTReader();
-			Polygon poly;
 			try {
-				poly = (Polygon) reader.read(wktGeom);
+				Polygon poly = (Polygon) reader.read(wktGeom);
 				if(poly != null && !(poly.isValid())) {
 					checkResult.put("isValid", "false");
 					checkResult.put("error", wktError);
@@ -212,14 +212,19 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		}
 		
 		// Check filter
-		String filter = getTemplateFilter(props);
-		if(filter == null) {
+		String[] filters = props.get("filter").split("x");
+		if(filters == null) {
 			features.put("error", "\"Filter is missing!\"");
 			return features;
 		}
+		String filter = filterHandler.getFilter(filters[0], props);
+		SpatialQuery sq = new SpatialQuery(url, filter);
+		if(filters.length > 1) {
+			KwetsbaarObject[] kwObjects = sq.getKwetsbareObjecten();
+			return createSecondaryFilter(kwObjects, url, props);
+		}
 		
 		// Check properties
-		SpatialQuery sq = new SpatialQuery(url, filter);
 		return sq.getPropertyResult();
 	}
 	
@@ -254,12 +259,6 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		if(props.containsKey("plangebiedWkt")){
 			String wktGeom = props.get("plangebiedWkt");
 			
-			int hidestart = wktGeom.indexOf("hidestart");
-			int hideend = wktGeom.indexOf("hideend");
-			if(hidestart != -1 && hideend != -1) {
-				wktGeom = wktGeom.substring(hidestart + "hidestart".length(), hideend);
-			}
-			
 			String gml = null;
 			try {
 				gml = WKT2GMLParser.parse(wktGeom);
@@ -273,17 +272,30 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		return false;
 	}
 	
-	/**
-	 * Gets the template filter
-	 * @param props
-	 * @return
-	 */
-	private String getTemplateFilter(Map<String, String> props) {
-		if(props.containsKey("filter")) {
-			String fn = props.get("filter");
-			return filterHandler.getFilter(fn, props);
+	private Map<String, String> createSecondaryFilter(KwetsbaarObject[] kwObjects, String url, Map<String, String> props) throws Exception {
+		Map<String, String> features = new HashMap<>();
+		if(kwObjects.length == 0) {
+			features.put("error", "Geen kwetsbare objecten in het plangebied aanwezig");
+			return features;
 		}
-		return null;
+		for(int i = 0; i < kwObjects.length; i++) {
+			String pointGeom = kwObjects[i].getPoint().toString();
+			String gml = null;
+			try {
+				gml = WKT2GMLParser.parse(pointGeom);
+			} 
+			catch (ParseException | XMLStreamException | UnknownCRSException | TransformationException e) {
+				throw new Exception(e);
+			} 
+			props.put("plangebiedgml", gml);
+			
+			String[] filters = props.get("filter").split("x");
+			String filter = filterHandler.getFilter(filters[1], props);
+			
+			SpatialQuery sq2 = new SpatialQuery(url, filter);
+			
+		}
+		return features;
 	}
 
 	/**

@@ -153,7 +153,7 @@ public class SpatialQuery {
 		List<String> valueList = new ArrayList<>();
 		for(int i = 0; i < elementList.getLength(); i++) {
 			Node value = elementList.item(i);
-			if(value.getNodeName().endsWith(":" + property)) {
+			if(value.getNodeName().contains(":" + property)) {
 				String text = value.getTextContent().replaceAll("\"", "\'");
 				valueList.add(text.trim());
 			}
@@ -175,5 +175,35 @@ public class SpatialQuery {
 		}
 		sb.append("\"" + values[values.length - 1] + "\"]");
 		return sb.toString();
+	}
+	
+	/**
+	 * Returns a KwetsbaarObject[] for the given filter.
+	 * @throws Exception
+	 */
+	public KwetsbaarObject[] getKwetsbareObjecten() throws Exception {
+		List<KwetsbaarObject> kwetsbaarObjList = new ArrayList<>();
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
+			NodeList elementList = doc.getElementsByTagName("gml:featureMember");
+			if(elementList.getLength() == 0) {
+				return new KwetsbaarObject[0];
+			}
+			
+			for(int i = 0; i < elementList.getLength(); i++) {
+				Node node = elementList.item(i);
+				Element element = (Element)node;
+				NodeList childList = element.getElementsByTagName("*");
+				KwetsbaarObject obj = new KwetsbaarObject();
+				obj.setAttributes(childList);
+				kwetsbaarObjList.add(obj);
+			}
+		} catch (ParserConfigurationException | SAXException | IOException e) {
+			throw new Exception(e);
+		}
+		
+		return kwetsbaarObjList.toArray(new KwetsbaarObject[kwetsbaarObjList.size()]);
 	}
 }
