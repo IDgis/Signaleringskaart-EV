@@ -295,6 +295,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			System.out.println("FILTER_2: \n" + filter);
 			
 			SpatialQuery sq2 = new SpatialQuery(url, filter);
+			Map<String, String> bufferResult = sq2.getNumFeatures(kwObjects[i], i);
 			
 		}
 		return features;

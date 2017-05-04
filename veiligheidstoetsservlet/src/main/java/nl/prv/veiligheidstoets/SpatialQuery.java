@@ -23,6 +23,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.vividsolutions.jts.geom.Point;
+
 
 public class SpatialQuery {
 	private String urlstr;
@@ -117,6 +119,28 @@ public class SpatialQuery {
 		catch (IOException | ParserConfigurationException | SAXException e) {
 			throw new Exception(e);
 		}
+	}
+	
+	public Map<String, String> getNumFeatures(KwetsbaarObject kwObject, int index) throws Exception {
+		Map<String, String> numFeatures = new HashMap<>();
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
+			numFeatures = getNumFeatures(doc);
+			if(numFeatures.size() == 1) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("{\"name\":\"" + kwObject.getName() + "\",");
+				sb.append("\"id\":\"" + kwObject.getId() + "\",");
+				sb.append("\"location\":\"" + kwObject.getCoordX() + "," + kwObject.getCoordY() + "\"}");
+				String result = sb.toString();
+				numFeatures.put(Integer.toString(index), result);
+			}
+		}
+		catch(IOException | ParserConfigurationException | SAXException e) {
+			throw new Exception(e);
+		}
+		return numFeatures;
 	}
 	
 	/**
