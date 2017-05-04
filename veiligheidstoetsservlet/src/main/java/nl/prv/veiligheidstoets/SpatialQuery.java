@@ -88,19 +88,30 @@ public class SpatialQuery {
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
-			
-			Document filterDoc = builder.parse(new InputSource(new ByteArrayInputStream(filter.getBytes())));
+			Document doc = builder.parse("test3.xml");
+			Document filterDoc = builder.parse("SQ1.st");
 			String resultType = filterDoc.getDocumentElement().getAttribute("resultType");
 			if(resultType.equals("hits")) {
 				return getNumFeatures(doc);
 			}
-			NodeList elementList = filterDoc.getElementsByTagName("ogc:PropertyName");
+			
+			// Getting properties to filter
 			List<String> filteredFeatures = new ArrayList<>();
+			NodeList elementList = filterDoc.getElementsByTagName("ogc:PropertyName");
 			for(int i = 0; i < elementList.getLength(); i++) {
 				filteredFeatures.add(elementList.item(i).getTextContent());
 			}
-			return getProperties(filteredFeatures, doc.getElementsByTagName("*"));
+			
+			// Getting names of the results
+			List<String> resultNames = new ArrayList<>();
+			NodeList featureList = doc.getElementsByTagName("gml:featureMember");
+			for(int i = 0; i < featureList.getLength(); i++) {
+				Node node = featureList.item(i);
+				Element element = (Element)node;
+				Element nameElement = (Element)element.getElementsByTagName("*").item(0);
+				resultNames.add(nameElement.getAttribute("fid"));
+			}
+			return getProperties(filteredFeatures, resultNames, doc.getElementsByTagName("gml:featureMember"));
 		} 
 		catch (IOException | ParserConfigurationException | SAXException e) {
 			throw new Exception(e);
@@ -123,58 +134,66 @@ public class SpatialQuery {
 	}
 	
 	/**
-	 * Returns the features for the given properties
+	 * Returns a Map with the name and json array string of the features found
 	 * @param filteredFeatures
+	 * @param resultNames
 	 * @param elementList
 	 * @return
 	 */
-	private Map<String, String> getProperties(List<String> filteredFeatures, NodeList elementList) {
-		Map<String, String> featureProps = new HashMap<>();
-		for(int i = 0; i < filteredFeatures.size(); i++) {
-			if(filteredFeatures.get(i).equals("the_geom")) {
-				continue;
-			}
-			List<String> valueList = getPropertyValues(elementList, filteredFeatures.get(i));
-			String[] values = valueList.toArray(new String[valueList.size()]);
-			String valueString = parseToJsonArrayString(values);
-			
-			featureProps.put(filteredFeatures.get(i), valueString);
-		}
-		return featureProps;
-	}
-	
-	/**
-	 * 
-	 * @param elementList
-	 * @param property
-	 * @return a list of nodes for the given property
-	 */
-	private List<String> getPropertyValues(NodeList elementList, String property) {
-		List<String> valueList = new ArrayList<>();
-		for(int i = 0; i < elementList.getLength(); i++) {
-			Node value = elementList.item(i);
-			if(value.getNodeName().contains(":" + property)) {
-				String text = value.getTextContent().replaceAll("\"", "\'");
-				valueList.add(text.trim());
-			}
-		}
-		return valueList;
-	}
-	
-	/**
-	 * Creates a String starting with '[' and ending with ']' from an array
-	 * @param values
-	 * @return A single String containing the array
-	 */
-	private String parseToJsonArrayString(String[] values) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("[");
+	private Map<String, String> getProperties(List<String> filteredFeatures, List<String> resultNames, NodeList elementList) {
+		Map<String, String> features = new HashMap<>();
 		
-		for(int i = 0; i < values.length - 1; i++) {
-			sb.append("\"" + values[i] + "\"" + ",");
+		List<String> propertyList = new ArrayList<>();
+		for(int i = 0; i < elementList.getLength(); i++) {
+			Node featureMemberNode = elementList.item(i);
+			Element featureMemberElement = (Element)featureMemberNode;
+			NodeList featureMemberList = featureMemberElement.getElementsByTagName("*");
+			for(int j = 0; j < featureMemberList.getLength(); j++) {
+				Node featureMemberValue = featureMemberList.item(j);
+				
+				for(int k = 0; k < filteredFeatures.size(); k++) {
+					if(filteredFeatures.get(k).equals("the_geom")) {
+						filteredFeatures.remove(k);
+						continue;
+					}
+					if(featureMemberValue.getNodeName().endsWith(":" + filteredFeatures.get(k))) {
+						propertyList.add(featureMemberValue.getTextContent());
+					}
+				}
+			}
+			
 		}
-		sb.append("\"" + values[values.length - 1] + "\"]");
-		return sb.toString();
+		String[] propertyArray = propertyList.toArray(new String[propertyList.size()]);
+		String[] filterArray = filteredFeatures.toArray(new String[filteredFeatures.size()]);
+		String[] valueStringArray = parseToSingleStringArray(filterArray, propertyArray);
+		
+		for(int i = 0; i < valueStringArray.length; i++) {
+			features.put(resultNames.get(i), valueStringArray[i]);
+		}
+		return features;
+	}
+	
+	/**
+	 * Gets an array of Strings converted to json from 2 other String[] combined
+	 * @param filterArray the smallest array
+	 * @param propertyArray the longest array
+	 * @return
+	 */
+	private String[] parseToSingleStringArray(String[] filterArray, String[] propertyArray) {
+		List<String> list = new ArrayList<>();
+		int index = 0;
+		int numIters = propertyArray.length / filterArray.length;
+		
+		for(int i = 0; i < numIters; i++) { // 2x
+			StringBuilder sb = new StringBuilder();
+			sb.append("[");
+			for(int j = 0; j < filterArray.length - 1; j++) {
+				sb.append("\"" + filterArray[j] + "\":\"" + propertyArray[index++] + "\",");
+			}
+			sb.append("\"" + filterArray[filterArray.length - 1] + "\":\"" + propertyArray[index++] + "\"]");
+			list.add(sb.toString());
+		}
+		return list.toArray(new String[list.size()]);
 	}
 	
 	/**

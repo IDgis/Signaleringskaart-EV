@@ -55,13 +55,13 @@ public class KwetsbaarObject {
 	public void setAttributes(NodeList list) {
 		for(int i = 0; i < list.getLength(); i++) {
 			Node node = list.item(i);
-			if(node.getNodeName().contains(":pos")) {
+			if(node.getNodeName().endsWith(":pos")) {
 				setPoint(node.getTextContent().trim());
 			}
-			else if(node.getNodeName().contains(":AOBJECTID")) {
+			else if(node.getNodeName().endsWith(":AOBJECTID")) {
 				setId(Integer.parseInt(node.getTextContent().trim()));
 			}
-			else if(node.getNodeName().contains(":NAAM")) {
+			else if(node.getNodeName().endsWith(":NAAM")) {
 				setName(node.getTextContent().replaceAll("\"", "\'").trim());
 			}
 		}
