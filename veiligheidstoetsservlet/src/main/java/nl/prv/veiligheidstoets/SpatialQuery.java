@@ -154,34 +154,48 @@ public class SpatialQuery {
 	
 	/**
 	 * Returns a Map with the name and json array string of the features found
-	 * @param filteredFeatures
-	 * @param resultNames
-	 * @param elementList
+	 * @param filteredFeatures - The name of features to filter e.g. PR10-6, PR10-7, PAG
+	 * @param elementList - All xml tags in the given filter
 	 * @return
 	 */
 	private Map<String, String> getProperties(List<String> filteredFeatures, NodeList elementList) {
 		Map<String, String> features = new HashMap<>();
 		
 		List<String> propertyList = new ArrayList<>();
+		// Loop through all elements in the document
 		for(int i = 0; i < elementList.getLength(); i++) {
 			Node featureMemberNode = elementList.item(i);
-			Element featureMemberElement = (Element)featureMemberNode;
-			NodeList featureMemberList = featureMemberElement.getElementsByTagName("*");
-			for(int j = 0; j < featureMemberList.getLength(); j++) {
-				Node featureMemberValue = featureMemberList.item(j);
-				
-				for(int k = 0; k < filteredFeatures.size(); k++) {
-					if(filteredFeatures.get(k).equals("the_geom") || filteredFeatures.get(k).equals("geometrie")) {
-						filteredFeatures.remove(k);
+			//Loop through the filters
+			for(int j = 0; j < filteredFeatures.size(); j++) {
+				if(filteredFeatures.get(j).equals("the_geom") || filteredFeatures.get(j).equals("geometrie")) {
+					filteredFeatures.remove(j);
+					continue;
+				}
+				// If filter matched the element, add it
+				if(featureMemberNode.getNodeName().endsWith(":" + filteredFeatures.get(j))) {
+					String textContent = featureMemberNode.getTextContent();
+					if(textContent.equals("") || textContent == null) {
+						filteredFeatures.remove(j);
 						continue;
 					}
-					if(featureMemberValue.getNodeName().endsWith(":" + filteredFeatures.get(k))) {
-						propertyList.add(featureMemberValue.getTextContent());
-					}
+					propertyList.add(textContent);
+					System.out.println(featureMemberNode.getNodeName() + ", " + featureMemberNode.getTextContent());
 				}
 			}
-			
 		}
+		
+		if(propertyList.isEmpty()) {
+			features.put("message", "\"NO_FEATURES_FOUND\"");
+			return features;
+		}
+		
+		// DEBUGGING
+		System.out.println("filteredFeatures: " + filteredFeatures.size() + ", propertyList: " + propertyList.size());
+		System.out.print("propertyList: ");
+		for(int i = 0; i < propertyList.size(); i++) {
+			System.out.print(propertyList.get(i) + ", ");
+		}
+		System.out.println("");
 		String valueString = parseToJsonString(filteredFeatures, propertyList);
 		System.out.println("features to return: " + valueString);
 		features.put("features", valueString);
