@@ -65,13 +65,14 @@ public class SpatialQuery {
 			}
 			if (response.toString().indexOf("ExceptionReport") > 0){
 				System.out.println("fout in request naar " + urlstr + " met filter " + filter + " response: " + response.toString());
+				return "fout in request naar " + urlstr + " met filter " + filter + " response: " + response.toString();
 			}
 			return response.toString();	
 			
 			
 		} catch(Exception e){
 			System.out.println("fout in request naar " + urlstr + " met filter " + filter);
-			throw new IOException(e);	
+			throw new IOException("fout in request naar " + urlstr + " met filter " + filter);	
 		} finally {
 			if(hpcon != null){
 				hpcon.disconnect();	
@@ -84,7 +85,8 @@ public class SpatialQuery {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, String> getPropertyResult() throws Exception {
+	public Map<String, String> getPropertyResult() {
+		Map<String, String> properties = new HashMap<>();
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
@@ -107,11 +109,13 @@ public class SpatialQuery {
 			}
 			
 			NodeList featureList = doc.getElementsByTagName("*");
-			return getProperties(filteredFeatures, featureList);
+			properties = getProperties(filteredFeatures, featureList);
 		} 
 		catch (IOException | ParserConfigurationException | SAXException e) {
-			throw new Exception(e);
+			properties.put("error", "\"" + e.getMessage() + "\"");
+			return properties;
 		}
+		return properties;
 	}
 	
 	/**
@@ -121,7 +125,7 @@ public class SpatialQuery {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, String> getNumFeatures(KwetsbaarObject kwObject, int index) throws Exception {
+	public Map<String, String> getNumFeatures(KwetsbaarObject kwObject, int index) {
 		Map<String, String> numFeatures = new HashMap<>();
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -138,7 +142,8 @@ public class SpatialQuery {
 			}
 		}
 		catch(IOException | ParserConfigurationException | SAXException e) {
-			throw new Exception(e);
+			numFeatures.put("error", "\"" + e.getMessage() + "\"");
+			return numFeatures;
 		}
 		return numFeatures;
 	}

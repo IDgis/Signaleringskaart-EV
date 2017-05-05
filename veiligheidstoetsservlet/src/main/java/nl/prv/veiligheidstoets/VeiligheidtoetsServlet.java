@@ -100,7 +100,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 * 
 	 */
 	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		LogStream logStream = new LogStream(new ByteArrayOutputStream());
 		Map<String, String> returnMessage = new HashMap<>();
 		
@@ -148,7 +148,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			out.println(json);
 			out.flush();
 		}			
-		catch(Exception e) {
+		catch(IOException e) {
 			logStream.write(e.toString());
 			throw new ServletException(e);
 		}
@@ -192,43 +192,50 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 * @param props
 	 * @throws Exception 
 	 */
-	private Map<String, String> getEVFeatures(Map<String, String> props) throws Exception {
+	private Map<String, String> getEVFeatures(Map<String, String> props) {
 		Map<String, String> features = new HashMap<>();
-		// Check servicename
-		String url = getServiceName(props);
-		if(url == null) {
-			features.put("error", "\"Servicename is missing!\"");
+		try {
+			// Check servicename
+			String url = getServiceName(props);
+			if(url == null) {
+				features.put("error", "\"Servicename is missing!\"");
+				return features;
+			}
+			else if(url.equals("INVALID")) {
+				features.put("error", "\"Servicename is invalid: " + props.get("servicename") + "\"");
+				return features;
+			}
+			
+			// Check plangebied-wkt
+			boolean plangebiedPresent = getPlangebiedWkt(props);
+			if(!plangebiedPresent) {
+				features.put("error", "\"Plangebied Wkt is missing!\"");
+				return features;
+			}
+			
+			// Check filter
+			String[] filters = props.get("filter").split("x");
+			if(filters == null) {
+				features.put("error", "\"Filter is missing!\"");
+				return features;
+			}
+			String filter = filterHandler.getFilter(filters[0], props);
+			System.out.println("FILTER: \n" + filter);
+			SpatialQuery sq = new SpatialQuery(url, filter);
+			if(filters.length > 1) {
+				KwetsbaarObject[] kwObjects = sq.getKwetsbareObjecten();
+				return createSecondaryFilter(kwObjects, url, props);
+			}
+			
+			// Check properties
+			System.out.println("Getting features...");
+			features = sq.getPropertyResult();
+		}
+		catch(Exception e) {
+			features.put("error", "\"" + e.getMessage() + "\"");
 			return features;
 		}
-		else if(url.equals("INVALID")) {
-			features.put("error", "\"Servicename is invalid: " + props.get("servicename") + "\"");
-			return features;
-		}
-		
-		// Check plangebied-wkt
-		boolean plangebiedPresent = getPlangebiedWkt(props);
-		if(!plangebiedPresent) {
-			features.put("error", "\"Plangebied Wkt is missing!\"");
-			return features;
-		}
-		
-		// Check filter
-		String[] filters = props.get("filter").split("x");
-		if(filters == null) {
-			features.put("error", "\"Filter is missing!\"");
-			return features;
-		}
-		String filter = filterHandler.getFilter(filters[0], props);
-		System.out.println("FILTER: \n" + filter);
-		SpatialQuery sq = new SpatialQuery(url, filter);
-		if(filters.length > 1) {
-			KwetsbaarObject[] kwObjects = sq.getKwetsbareObjecten();
-			return createSecondaryFilter(kwObjects, url, props);
-		}
-		
-		// Check properties
-		System.out.println("Getting features...");
-		return sq.getPropertyResult();
+		return features;
 	}
 	
 	/**
@@ -275,7 +282,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		return false;
 	}
 	
-	private Map<String, String> createSecondaryFilter(KwetsbaarObject[] kwObjects, String url, Map<String, String> props) throws Exception {
+	private Map<String, String> createSecondaryFilter(KwetsbaarObject[] kwObjects, String url, Map<String, String> props) {
 		Map<String, String> features = new HashMap<>();
 		if(kwObjects.length == 0) {
 			features.put("error", "Geen kwetsbare objecten in het plangebied aanwezig");
@@ -288,7 +295,8 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				gml = WKT2GMLParser.parse(pointGeom);
 			} 
 			catch (ParseException | XMLStreamException | UnknownCRSException | TransformationException e) {
-				throw new Exception(e);
+				features.put("error", "\"" + e.getMessage() + "\"");
+				return features;
 			} 
 			props.put("plangebiedgml", gml);
 			
@@ -296,14 +304,19 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			String filter = filterHandler.getFilter(filters[1], props);
 			System.out.println("FILTER_2: \n" + filter);
 			
-			SpatialQuery sq2 = new SpatialQuery(url, filter);
-			Map<String, String> bufferResult = sq2.getNumFeatures(kwObjects[i], i);
-			for(Iterator<String> iter = bufferResult.keySet().iterator(); iter.hasNext(); ) {
-				String key = iter.next();
-				String value = bufferResult.get(key);
-				features.put(key, value);
+			try {
+				SpatialQuery sq2 = new SpatialQuery(url, filter);
+				Map<String, String> bufferResult = sq2.getNumFeatures(kwObjects[i], i);
+				for(Iterator<String> iter = bufferResult.keySet().iterator(); iter.hasNext(); ) {
+					String key = iter.next();
+					String value = bufferResult.get(key);
+					features.put(key, value);
+				}
 			}
-			
+			catch(Exception e) {
+				features.put("error", "\"" + e.getMessage() + "\"");
+				return features;
+			}
 		}
 		return features;
 	}
