@@ -96,15 +96,14 @@ public class SpatialQuery {
 				return getNumFeatures(doc);
 			}
 			
-			// Getting properties to filter
+			// Getting filter names to apply
 			List<String> filteredFeatures = new ArrayList<>();
-			NodeList elementList = filterDoc.getElementsByTagName("ogc:PropertyName");
-			for(int i = 0; i < elementList.getLength(); i++) {
-				if(elementList.item(i).getTextContent().equals("the_geom") || elementList.item(i).getTextContent().equals("geometrie")) {
-					continue;
-				}
-				System.out.println("FilteredFeatures: " + elementList.item(i).getTextContent());
-				filteredFeatures.add(elementList.item(i).getTextContent());
+			NodeList queryList = filterDoc.getElementsByTagName("wfs:Query");
+			Element queryElement = (Element)queryList.item(0);
+			Node childNode = queryElement.getFirstChild().getNextSibling();
+			while(childNode.getNodeName().equals("ogc:PropertyName")) {
+				filteredFeatures.add(childNode.getTextContent());
+				childNode = childNode.getNextSibling().getNextSibling();
 			}
 			
 			NodeList featureList = doc.getElementsByTagName("*");
@@ -115,6 +114,13 @@ public class SpatialQuery {
 		}
 	}
 	
+	/**
+	 * returns the number of features given by the kwetsbaar object
+	 * @param kwObject
+	 * @param index
+	 * @return
+	 * @throws Exception
+	 */
 	public Map<String, String> getNumFeatures(KwetsbaarObject kwObject, int index) throws Exception {
 		Map<String, String> numFeatures = new HashMap<>();
 		try {
@@ -167,10 +173,6 @@ public class SpatialQuery {
 			Node featureMemberNode = elementList.item(i);
 			//Loop through the filters
 			for(int j = 0; j < filteredFeatures.size(); j++) {
-				if(filteredFeatures.get(j).equals("the_geom") || filteredFeatures.get(j).equals("geometrie")) {
-					filteredFeatures.remove(j);
-					continue;
-				}
 				// If filter matched the element, add it
 				if(featureMemberNode.getNodeName().endsWith(":" + filteredFeatures.get(j))) {
 					String textContent = featureMemberNode.getTextContent();
