@@ -144,6 +144,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				json.add(key, parser.parse(value));
 			}
 			
+			System.out.println(json);
 			out.println(json);
 			out.flush();
 		}			
@@ -226,6 +227,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		}
 		
 		// Check properties
+		System.out.println("Getting features...");
 		return sq.getPropertyResult();
 	}
 	

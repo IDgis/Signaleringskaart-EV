@@ -23,8 +23,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.vividsolutions.jts.geom.Point;
-
 
 public class SpatialQuery {
 	private String urlstr;
@@ -102,19 +100,15 @@ public class SpatialQuery {
 			List<String> filteredFeatures = new ArrayList<>();
 			NodeList elementList = filterDoc.getElementsByTagName("ogc:PropertyName");
 			for(int i = 0; i < elementList.getLength(); i++) {
+				if(elementList.item(i).getTextContent().equals("the_geom") || elementList.item(i).getTextContent().equals("geometrie")) {
+					continue;
+				}
+				System.out.println("FilteredFeatures: " + elementList.item(i).getTextContent());
 				filteredFeatures.add(elementList.item(i).getTextContent());
 			}
 			
-			// Getting names of the results
-			List<String> resultNames = new ArrayList<>();
-			NodeList featureList = doc.getElementsByTagName("gml:featureMember");
-			for(int i = 0; i < featureList.getLength(); i++) {
-				Node node = featureList.item(i);
-				Element element = (Element)node;
-				Element nameElement = (Element)element.getElementsByTagName("*").item(0);
-				resultNames.add(nameElement.getAttribute("fid"));
-			}
-			return getProperties(filteredFeatures, resultNames, doc.getElementsByTagName("gml:featureMember"));
+			NodeList featureList = doc.getElementsByTagName("*");
+			return getProperties(filteredFeatures, featureList);
 		} 
 		catch (IOException | ParserConfigurationException | SAXException e) {
 			throw new Exception(e);
@@ -165,7 +159,7 @@ public class SpatialQuery {
 	 * @param elementList
 	 * @return
 	 */
-	private Map<String, String> getProperties(List<String> filteredFeatures, List<String> resultNames, NodeList elementList) {
+	private Map<String, String> getProperties(List<String> filteredFeatures, NodeList elementList) {
 		Map<String, String> features = new HashMap<>();
 		
 		List<String> propertyList = new ArrayList<>();
@@ -188,38 +182,38 @@ public class SpatialQuery {
 			}
 			
 		}
-		String[] propertyArray = propertyList.toArray(new String[propertyList.size()]);
-		String[] filterArray = filteredFeatures.toArray(new String[filteredFeatures.size()]);
-		String[] valueStringArray = parseToSingleStringArray(filterArray, propertyArray);
-		
-		for(int i = 0; i < valueStringArray.length; i++) {
-			features.put(resultNames.get(i), valueStringArray[i]);
-		}
+		String valueString = parseToJsonString(filteredFeatures, propertyList);
+		System.out.println("features to return: " + valueString);
+		features.put("features", valueString);
 		
 		return features;
 	}
 	
 	/**
-	 * Gets an array of Strings converted to json from 2 other String[] combined
+	 * Gets 2 Lists with properties and turns them into a single json string.
 	 * @param filterArray the smallest array
 	 * @param propertyArray the longest array
 	 * @return
 	 */
-	private String[] parseToSingleStringArray(String[] filterArray, String[] propertyArray) {
-		List<String> list = new ArrayList<>();
+	private String parseToJsonString(List<String> filteredFeatures, List<String> propertyList) {
 		int index = 0;
-		int numIters = propertyArray.length / filterArray.length;
+		int resultId = 1;
+		int numIters = propertyList.size() / filteredFeatures.size();
+		StringBuilder sb = new StringBuilder();
 		
-		for(int i = 0; i < numIters; i++) { // 2x
-			StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		for(int i = 0; i < numIters; i++) {
 			sb.append("{");
-			for(int j = 0; j < filterArray.length - 1; j++) {
-				sb.append("\"" + filterArray[j] + "\":\"" + propertyArray[index++] + "\",");
+			sb.append("\"id\":\"" + resultId++ + "\",");
+			sb.append("\"properties\":" + "[");
+			for(int j = 0; j < filteredFeatures.size() - 1; j++) {
+				sb.append("{\"" + filteredFeatures.get(j) + "\":\"" + propertyList.get(index++) + "\"},");
 			}
-			sb.append("\"" + filterArray[filterArray.length - 1] + "\":\"" + propertyArray[index++] + "\"}");
-			list.add(sb.toString());
+			sb.append("{\"" + filteredFeatures.get(filteredFeatures.size() - 1) + "\":\"" + propertyList.get(index++) + "\"}]},");
 		}
-		return list.toArray(new String[list.size()]);
+		sb.replace(sb.length() - 1, sb.length(), "]");
+		System.out.println("JSON value String: " + sb.toString());
+		return sb.toString();
 	}
 	
 	/**
