@@ -22,6 +22,5 @@ COPY webapps.properties /root/.deegree
 #kopieer war en config veiligheidstoetsserlvlet
 COPY veiligheidstoets/veiligheidstoetsservlet.war /opt/deegree-webservices-${DEEGREE_VERSION}/webapps
 COPY veiligheidstoets/veiligheidstoets.xml /etc/veiligheidstoets/veiligheidstoets.xml
-
 # run tomcat
 CMD /opt/deegree/bin/catalina.sh run
