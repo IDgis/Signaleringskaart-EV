@@ -65,7 +65,7 @@ public class SpatialQuery {
 			}
 			if (response.toString().indexOf("ExceptionReport") > 0){
 				System.out.println("fout in request naar " + urlstr + " met filter " + filter + " response: " + response.toString());
-				return "fout in request naar " + urlstr + " met filter " + filter + " response: " + response.toString();
+				throw new IOException("fout in request naar " + urlstr + " met filter " + filter + " response: " + response.toString());
 			}
 			return response.toString();	
 			
@@ -119,33 +119,61 @@ public class SpatialQuery {
 	}
 	
 	/**
-	 * returns the number of features given by the kwetsbaar object
+	 * Return the json of the kwetsbare objecten found.
+	 * @param kwObjectsInBuffer
+	 * @return
+	 */
+	public Map<String, String> getPropertyResult(List<KwetsbaarObject> kwObjectsInBuffer) {
+		Map<String, String> features = new HashMap<>();
+		if(kwObjectsInBuffer == null || kwObjectsInBuffer.isEmpty()) {
+			features.put("message", "\"NO_FEATURES_FOUND\"");
+			return features;
+		}
+		
+		List<String> propertyList = new ArrayList<>();
+		List<String> filteredFeatures = new ArrayList<>();
+		filteredFeatures.add("name");
+		filteredFeatures.add("gebruiksdoel");
+		filteredFeatures.add("oppervlakte");
+		filteredFeatures.add("position");
+		
+		for(int i = 0; i < kwObjectsInBuffer.size(); i++) {
+			KwetsbaarObject obj = kwObjectsInBuffer.get(i);
+			propertyList.add(obj.getName());
+			propertyList.add(obj.getGebruiksDoel());
+			propertyList.add(obj.getOppervlakte());
+			propertyList.add(obj.getCoordX() + " " + obj.getCoordY());
+		}
+		
+		System.out.println("Building result to display...");
+		String resultString = parseToJsonString(filteredFeatures, propertyList);
+		System.out.println(resultString);
+		features.put("features", resultString);
+		
+		return features;
+	}
+	
+	/**
+	 * returns the KwetsbaarObject if the number of features found is not zero.
 	 * @param kwObject
 	 * @param index
 	 * @return
-	 * @throws Exception
 	 */
-	public Map<String, String> getNumFeatures(KwetsbaarObject kwObject, int index) {
+	public KwetsbaarObject getKwetsbaarObjectInBuffer(KwetsbaarObject kwObject) throws IOException {
 		Map<String, String> numFeatures = new HashMap<>();
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
 			numFeatures = getNumFeatures(doc);
-			if(numFeatures.size() == 1) {
-				StringBuilder sb = new StringBuilder();
-				sb.append("{\"name\":\"" + kwObject.getName() + "\",");
-				sb.append("\"id\":\"" + kwObject.getId() + "\",");
-				sb.append("\"location\":\"" + kwObject.getCoordX() + "," + kwObject.getCoordY() + "\"}");
-				String result = sb.toString();
-				numFeatures.put(Integer.toString(index), result);
+			if(!numFeatures.get("numberOfFeaturesFound").equals("0")) {
+				return kwObject;
 			}
 		}
 		catch(IOException | ParserConfigurationException | SAXException e) {
-			numFeatures.put("error", "\"" + e.getMessage() + "\"");
-			return numFeatures;
+			throw new IOException(e);
 		}
-		return numFeatures;
+		return null;
 	}
 	
 	/**
@@ -212,8 +240,8 @@ public class SpatialQuery {
 	
 	/**
 	 * Gets 2 Lists with properties and turns them into a single json string.
-	 * @param filterArray the smallest array
-	 * @param propertyArray the longest array
+	 * @param filteredFeatures the smallest array
+	 * @param propertyList the longest array
 	 * @return
 	 */
 	private String parseToJsonString(List<String> filteredFeatures, List<String> propertyList) {
@@ -238,23 +266,29 @@ public class SpatialQuery {
 	}
 	
 	/**
-	 * Returns a KwetsbaarObject[] for the given filter.
+	 * Returns a KwetsbaarObject[] for the given filter, an empty list if no KwetsbaarObject is found.
 	 * @throws Exception
 	 */
-	public KwetsbaarObject[] getKwetsbareObjecten() throws Exception {
+	public List<KwetsbaarObject> getKwetsbareObjecten() throws Exception {
+		System.out.println("Getting kwetsbare objecten...");
 		List<KwetsbaarObject> kwetsbaarObjList = new ArrayList<>();
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
-			NodeList elementList = doc.getElementsByTagName("gml:featureMember");
+			System.out.println("Document: \n" + getResult());
+			Element docElement = doc.getDocumentElement();
+			int numResults = Integer.parseInt(docElement.getAttribute("numberOfFeatures"));
+			//NodeList elementList = doc.getElementsByTagName("gml:featureMember");
+			NodeList elementList = doc.getElementsByTagName("wfs:member");
+			System.out.println("Aantal objecten found in numResults: " + numResults);
+			System.out.println("Aantal objecten found in elementList: " + elementList.getLength());
 			if(elementList.getLength() == 0) {
-				return new KwetsbaarObject[0];
+				return new ArrayList<>();
 			}
 			
 			for(int i = 0; i < elementList.getLength(); i++) {
-				Node node = elementList.item(i);
-				Element element = (Element)node;
+				Element element = (Element)elementList.item(i);
 				NodeList childList = element.getElementsByTagName("*");
 				KwetsbaarObject obj = new KwetsbaarObject();
 				obj.setAttributes(childList);
@@ -264,6 +298,7 @@ public class SpatialQuery {
 			throw new Exception(e);
 		}
 		
-		return kwetsbaarObjList.toArray(new KwetsbaarObject[kwetsbaarObjList.size()]);
+		System.out.println("Kwetsbare objecten in list: " + kwetsbaarObjList.size());
+		return kwetsbaarObjList;
 	}
 }

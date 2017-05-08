@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -222,9 +224,14 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			String filter = filterHandler.getFilter(filters[0], props);
 			System.out.println("FILTER: \n" + filter);
 			SpatialQuery sq = new SpatialQuery(url, filter);
+			
+			// Check for second filter
 			if(filters.length > 1) {
-				KwetsbaarObject[] kwObjects = sq.getKwetsbareObjecten();
-				return createSecondaryFilter(kwObjects, url, props);
+				System.out.println("Second filter found...");
+				List<KwetsbaarObject> kwObjects = sq.getKwetsbareObjecten();
+				System.out.println("Number of kwetsbare objecten returned: " + kwObjects.size());
+				List<KwetsbaarObject> kwObjectsInBuffer = createSecondFilter(kwObjects, url, props);
+				return sq.getPropertyResult(kwObjectsInBuffer);
 			}
 			
 			// Check properties
@@ -282,21 +289,26 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		return false;
 	}
 	
-	private Map<String, String> createSecondaryFilter(KwetsbaarObject[] kwObjects, String url, Map<String, String> props) {
-		Map<String, String> features = new HashMap<>();
-		if(kwObjects.length == 0) {
-			features.put("error", "Geen kwetsbare objecten in het plangebied aanwezig");
-			return features;
+	/**
+	 * Returns a List of Kwetsbare Objecten that are inside the buffer.
+	 * @param kwObjects
+	 * @param url
+	 * @param props
+	 */
+	private List<KwetsbaarObject> createSecondFilter(List<KwetsbaarObject> kwObjects, String url, Map<String, String> props) throws IOException {
+		if(kwObjects.isEmpty()) {
+			return new ArrayList<>();
 		}
-		for(int i = 0; i < kwObjects.length; i++) {
-			String pointGeom = kwObjects[i].getPoint().toString();
+		System.out.println("Kwetsbare objecten found for secondary filter: " + kwObjects.size());
+		List<KwetsbaarObject> kwObjectsInBuffer = new ArrayList<>();
+		for(int i = 0; i < kwObjects.size(); i++) {
+			String pointGeom = kwObjects.get(i).getPoint().toString();
 			String gml = null;
 			try {
 				gml = WKT2GMLParser.parse(pointGeom);
 			} 
 			catch (ParseException | XMLStreamException | UnknownCRSException | TransformationException e) {
-				features.put("error", "\"" + e.getMessage() + "\"");
-				return features;
+				throw new IOException(e);
 			} 
 			props.put("plangebiedgml", gml);
 			
@@ -306,19 +318,16 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			
 			try {
 				SpatialQuery sq2 = new SpatialQuery(url, filter);
-				Map<String, String> bufferResult = sq2.getNumFeatures(kwObjects[i], i);
-				for(Iterator<String> iter = bufferResult.keySet().iterator(); iter.hasNext(); ) {
-					String key = iter.next();
-					String value = bufferResult.get(key);
-					features.put(key, value);
+				KwetsbaarObject bufferResult = sq2.getKwetsbaarObjectInBuffer(kwObjects.get(i));
+				if(bufferResult != null) {
+					kwObjectsInBuffer.add(bufferResult);
 				}
 			}
 			catch(Exception e) {
-				features.put("error", "\"" + e.getMessage() + "\"");
-				return features;
+				throw new IOException(e);
 			}
 		}
-		return features;
+		return kwObjectsInBuffer;
 	}
 
 	/**
