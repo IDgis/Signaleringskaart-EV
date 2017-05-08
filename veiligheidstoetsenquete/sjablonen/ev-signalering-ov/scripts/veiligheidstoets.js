@@ -1,17 +1,18 @@
 var baseurl = "${SURVEY.BASE.URL}";
-var wmsurl = "${WMS.BASE.URL}";
-var baseservleturl = "http://evs.local.nl/veiligheidstoetsservlet";
+var wmsurl = "http://evs.local.nl"//"${WMS.BASE.URL}";
+var baseservleturl = "http://evs.local.nl/veiligheidstoetsservlet/toets";
 
 
 var toetsError = false;
-var spatialQuestions = new Array();
+var spatialQuestions = [];
 var vlayer;
 var map;
 var urlInput;
 var curId;
 
+
 $(document).ready(function() {
-	if(document.limesurvey) {
+    if(document.limesurvey) {
 		$('.ev-map').each(function() {
             if (map===undefined) {
      			var mapDiv = $(this);
@@ -36,25 +37,11 @@ $(document).ready(function() {
 		    var inputChoiceAns =  $('#answer' + sgq + 'A3');
 		    inputChoiceAns.click();   
 		});
-		$('.submitshp').each(function() {
-			var submitDiv = $(this);
-			postShape(submitDiv);
-		});	
 	} 
 });	
 
-//Spatialquestion onshow
-jQuery(function($) {
-	 $('.SpatialQuestion')
-	   .show(100, function() {
-		   if(document.limesurvey) {
-			   var spatialDiv = $(this);     
-			   postSpatialQuestion(spatialDiv);
-		   }   
-	    }) 
-	    .show(); 
-});
-jQuery(function($) {
+
+/*jQuery(function($) {
   var _oldShow = $.fn.show;
   $.fn.show = function(speed, oldCallback) {
     return $(this).each(function() {
@@ -67,83 +54,128 @@ jQuery(function($) {
           };
       _oldShow.apply(obj, [speed, newCallback]);
     });
-  }
-});
+  };
+});*/
 
-
-function postSpatialQuestion(spatialDiv) {
-	var sgq = "";
-		//defaults can be overruled
-		var postbody = new Object({servicename:'veiligheidstoetsWFS', requesttype:'GetFeature', geomprop:'the_geom', });
-		for(s in spatialDiv.data()) {
-			switch(s)
-			{  
-			case 'sgq':
-				sgq = spatialDiv.data(s);
-			  break;
-			case 'plangebiedWkt':
-				var wktStr = spatialDiv.data(s);
-                var start = wktStr.indexOf('hidestart') + 9;
-                var end = wktStr.indexOf('hideend');
-				postbody[s] =  wktStr.substring(start, end);
-			  break;
-			default:
-				postbody[s] = spatialDiv.data(s);
-			}
-		}		
-		var sgqArray = sgq.split('X'); 
-		var answerInputY = $('#answer' + sgq + 'Y');
-		var answerInputN = $('#answer' + sgq + 'N');
-		var question =  $('#question' + sgqArray[2]);
-		question.hide();
-		spatialQuestions.push(question);
-		var url = baseservleturl + "/toets";
-		document.body.style.cursor = 'wait';
-		var posting = $.post( url, postbody,
+function postSpatialQuestion(Qcode,wktStr,sgq,serviceName,requestType) {
+	var postbody = {
+				servicename:((serviceName!==undefined && serviceName!==null) ? serviceName: 'veiligheidstoetsWFS'), 
+				requesttype:((requestType!==undefined && requestType!==null) ? requestType: 'getEVFeatures'),
+				filter:Qcode,
+				plangebiedWkt:wktStr};
+	var sgqArray = sgq.split('X');
+	var question =  $('#question' + sgqArray[2]);
+	//question.hide();
+	spatialQuestions.push(question);
+	document.body.style.cursor = 'wait';
+	$.post( baseservleturl, postbody,	
 		function(result){
-			var aantal = $(result).find("wfs\\:FeatureCollection, FeatureCollection").attr("numberMatched");
-	    	if(typeof aantal == "undefined"){
-	    		aantal = $(result).find("wfs\\:FeatureCollection, FeatureCollection").attr("numberOfFeatures");
-	    	}
-	    	if(typeof aantal == "undefined"){
-	    		if(!toetsError){
-		    		toetsError=true;	
-	    			//alert only first error
-	    			alert ("Er is een fout opgetreden, raadpleeg de applicatie beheerder.");
-	    			//toon de bijbehorende vraag
-	    			question.show();
-	    		}	
-    			    			
-	    	} else {
-	    		if (parseInt(aantal) > 0){
-	    			answerInputY.click();
-		    	} else { 
-		    		answerInputN.click();
-		    	}	
-	    		for (var a in spatialQuestions){
-	    			spatialQuestions[a].hide();
-	    		}
-	    	}
+			if (result.error) {
+				alert (result.error);
+			}
+			if (result.numberOfFeaturesFound !== undefined) {
+				if (result.numberOfFeaturesFound > 0) {
+					$('#answer'+ sgq + 'Y').click();  
+                    $('#answer'+ sgq + 'Y').off("click");
+				} else {
+                    $('#answer'+ sgq + 'N').click(); 
+    			    $('#answer'+ sgq + 'N').off("click");   
+				}
+			}
+			if (result.features !== undefined) {
+				showProperties (result.features);
+                $('#answer'+ sgq + 'Y').click();
+			} else {
+    		    $('#answer'+ sgq + 'N').click();  
+			}
+            
+            
+            
 	    	document.body.style.cursor = 'default';
-	    	
 	    });
-};
+
+}
+
+
+function showProperties (features) {
+    var table = $('.properties')[0]; 
+    var thead = table.appendChild(document.createElement("thead"));
+    var hrow = thead.appendChild(document.createElement("tr"));
+    var tbody = table.appendChild(document.createElement("tbody"));
+	
+	for (var feature in features) {
+		var row = tbody.appendChild(document.createElement("tr"));
+        var properties = features[feature].properties;
+        
+		for (var property in properties) {
+            if (feature==="0") {
+                var hcol = hrow.appendChild(document.createElement("th"));
+                hcol.appendChild(document.createTextNode(Object.keys(properties[property])));
+            }  
+            var col = row.appendChild(document.createElement("td"));
+            col.appendChild(document.createTextNode(Object.values(properties[property])));
+		}
+	}
+
+	
+
+	//resultDiv.show();
+}
+
+
+
+function showOnMap(wktStr) {
+	if(vlayer!==undefined && map!==undefined){
+		vlayer.removeAllFeatures();
+		var wkt = new OpenLayers.Format.WKT();
+	  	vlayer.addFeatures([wkt.read(wktStr)]);
+	  	zoomToPlangebied();
+	}    
+}
+
+function zoomToPlangebied() {
+	var bounds = vlayer.features[0].geometry.getBounds();
+  	var zoom = map.getZoomForExtent(bounds);
+  	var centrex = bounds.left + ((bounds.right - bounds.left) / 2);
+  	var centrey = bounds.bottom + ((bounds.top - bounds.bottom) / 2);
+    map.setCenter(new OpenLayers.LonLat(centrex , centrey), zoom);
+    updateImageUrl();
+}
+
+function updateImageUrl(){
+	if(urlInput!==undefined){
+		var kleur = 'EE9900';
+		var bbox = map.getExtent().toBBOX(0,false);
+		var url = wmsurl + '/services/plangebied_wms_ov?service=WMS&REQUEST=GetMap&LAYERS=&STYLES=&TRANSPARENT=TRUE&SRS=EPSG:28992&VERSION=1.1.1&EXCEPTIONS=application/vnd.ogc.se_xml&FORMAT=image/png';
+		url += '&HEIGHT=500&WIDTH=800';
+		url += '&BBOX=' + bbox;
+		var sld_body = '%3CStyledLayerDescriptor%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%3E%3CNamedLayer%3E%3CName%3Epg_ond_ov%3C%2FName%3E%3CUserStyle%3E%3CName%3Eplangebied%3C%2FName%3E%3CFeatureTypeStyle%3E%3CName%3Eplangebied%3C%2FName%3E%3CRule%3E%3Cogc%3AFilter%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3Eid%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3E'+ curId + '%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E%3CPolygonSymbolizer%3E%3CFill%3E%3CSvgParameter%20name%3D%22fill%22%3E%23EE9900%3C%2FSvgParameter%3E%3CSvgParameter%20name%3D%22fill-opacity%22%3E0.2%3C%2FSvgParameter%3E%3C%2FFill%3E%3CStroke%3E%3CSvgParameter%20name%3D%22stroke%22%3E%23EE9900%3C%2FSvgParameter%3E%3CSvgParameter%20name%3D%22stroke-opacity%22%3E1.0%3C%2FSvgParameter%3E%3CSvgParameter%20name%3D%22stroke-width%22%3E1%3C%2FSvgParameter%3E%3C%2FStroke%3E%3C%2FPolygonSymbolizer%3E%3C%2FRule%3E%3C%2FFeatureTypeStyle%3E%3C%2FUserStyle%3E%3C%2FNamedLayer%3E%3C%2FStyledLayerDescriptor%3E';  
+		url += '&SLD_BODY=' + sld_body;
+		urlInput.val( url );
+	}
+}
+
+function checkWktValiditie(wktStr, answer) {
+    var postbody = {wkt:wktStr, requesttype:'polygonIsValid'};
+	$.post( baseservleturl, postbody,
+		function(result){
+        	if(result.isValid===false){
+				alert (result.error);
+				answer.val('');
+			} else {
+				answer.val(wktStr);
+	        	zoomToPlangebied();
+			}
+	    }
+	);
+}
 
 
 function initialiseBaseMap(mapDiv,editable,answerInput) {
 	vlayer = new OpenLayers.Layer.Vector("Editable");
 	var wkt = new OpenLayers.Format.WKT();
 	var answer = answerInput.val();
-	var wktPoly = '';
-	if (answer.indexOf('hidestart') == -1){
-		wktPoly = answer;
-	} else {
-        var start = answer.indexOf('hidestart') + 9;
-        var end = answer.indexOf('hideend');
-		wktPoly = answer.substring(start, end);
-	}
-    
-	var isValid = true;
+	var wktPoly = answer;
 	if (editable){
 		vlayer.events.on({
 	        'beforefeatureadded': function() {
@@ -228,63 +260,7 @@ function initialiseBaseMap(mapDiv,editable,answerInput) {
 	 if(wktPoly!=='' && wktPoly!==undefined){ 
 		showOnMap(wktPoly);
 	 } 
-};
-
-
-function showOnMap(wktStr) {
-	if(vlayer!==undefined && map!==undefined){
-		vlayer.removeAllFeatures();
-		var wkt = new OpenLayers.Format.WKT();
-	  	vlayer.addFeatures([wkt.read(wktStr)]);
-	  	zoomToPlangebied();
-	}    
-};
-
-function zoomToPlangebied() {
-	var bounds = vlayer.features[0].geometry.getBounds();
-  	var zoom = map.getZoomForExtent(bounds);
-  	var centrex = bounds.left + ((bounds.right - bounds.left) / 2);
-  	var centrey = bounds.bottom + ((bounds.top - bounds.bottom) / 2);
-    map.setCenter(new OpenLayers.LonLat(centrex , centrey), zoom);
-    updateImageUrl();
-};
-
-function updateImageUrl(){
-	if(urlInput!==undefined){
-		var kleur = 'EE9900';
-		var bbox = map.getExtent().toBBOX(0,false);
-		var url = wmsurl + '/veiligheidstoets/services/plangebied_wms?service=WMS&REQUEST=GetMap&LAYERS=&STYLES=&TRANSPARENT=TRUE&SRS=EPSG:28992&VERSION=1.1.1&EXCEPTIONS=application/vnd.ogc.se_xml&FORMAT=image/png';
-		url += '&HEIGHT=500&WIDTH=800';
-		url += '&BBOX=' + bbox;
-		var sld_body = '%3CStyledLayerDescriptor%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%3E%3CNamedLayer%3E%3CName%3Epg_ond%3C%2FName%3E%3CUserStyle%3E%3CName%3Eplangebied%3C%2FName%3E%3CFeatureTypeStyle%3E%3CName%3Eplangebied%3C%2FName%3E%3CRule%3E%3Cogc%3AFilter%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3Eid%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3E'+ curId + '%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E%3CPolygonSymbolizer%3E%3CFill%3E%3CSvgParameter%20name%3D%22fill%22%3E%23EE9900%3C%2FSvgParameter%3E%3CSvgParameter%20name%3D%22fill-opacity%22%3E0.2%3C%2FSvgParameter%3E%3C%2FFill%3E%3CStroke%3E%3CSvgParameter%20name%3D%22stroke%22%3E%23EE9900%3C%2FSvgParameter%3E%3CSvgParameter%20name%3D%22stroke-opacity%22%3E1.0%3C%2FSvgParameter%3E%3CSvgParameter%20name%3D%22stroke-width%22%3E1%3C%2FSvgParameter%3E%3C%2FStroke%3E%3C%2FPolygonSymbolizer%3E%3C%2FRule%3E%3C%2FFeatureTypeStyle%3E%3C%2FUserStyle%3E%3C%2FNamedLayer%3E%3C%2FStyledLayerDescriptor%3E';  
-		url += '&SLD_BODY=' + sld_body;
-		urlInput.val( url );
-	}
-};
-
-function checkWktValiditie(wktStr, answer) {
-    var url = baseservleturl + "/wktvalid";
-    var postbody = new Object({wkt:wktStr});
-	var posting = $.post( url, postbody,
-		function(result){
-            var valid = $(result).find("wktIsValid").text();
-        	if(valid=="false"){
-				var msg = $(result).find("wktMessage").text();
-				alert (msg);
-				//vlayer.removeAllFeatures();
-				answer.val('');
-			} else {
-				answer.val("<div style='display: none;'>hidestart" + wktStr + "hideend</div>");
-	        	zoomToPlangebied();
-			}
-			
-	    }
-	);
-   
-};
-
-
-
+}
 
 
 
