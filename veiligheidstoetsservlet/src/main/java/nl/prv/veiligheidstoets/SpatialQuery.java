@@ -208,21 +208,9 @@ public class SpatialQuery {
 		// Loop through all elements in the document
 		for(int i = 0; i < elementList.getLength(); i++) {
 			Node featureMemberNode = elementList.item(i);
-			//Loop through the filters
-			for(int j = 0; j < filteredFeatures.size(); j++) {
-				// If filter matched the element, add it
-				if(featureMemberNode.getNodeName().endsWith(":" + filteredFeatures.get(j))) {
-					String textContent = featureMemberNode.getTextContent();
-					if(textContent == null || "".equals(textContent)) {
-						filteredFeatures.remove(j);
-						continue;
-					}
-					propertyList.add(textContent);
-					LOGGER.log(Level.INFO, "{0}, {1}", new Object[]{ featureMemberNode.getNodeName(), featureMemberNode.getTextContent() });
-				}
-			}
+			//Loop through the filters and add matched elements
+			fillPropertyList(propertyList, filteredFeatures, featureMemberNode);
 		}
-		
 		if(propertyList.isEmpty()) {
 			features.put("message", "\"NO_FEATURES_FOUND\"");
 			return features;
@@ -235,6 +223,25 @@ public class SpatialQuery {
 		features.put("features", valueString);
 		
 		return features;
+	}
+	
+	/**
+	 * Fills the propertyList with matching elements
+	 * @param propertyList - the List to fill with properties
+	 * @param filteredFeatures - the filters to check to match
+	 * @param featureMemberNode - the current element
+	 */
+	private void fillPropertyList(List<String> propertyList, List<String> filteredFeatures, Node featureMemberNode) {
+		for(int i = 0; i < filteredFeatures.size(); i++) {
+			if(featureMemberNode.getNodeName().endsWith(":" + filteredFeatures.get(i))) {
+				String textContent = featureMemberNode.getTextContent();
+				if(textContent == null || "".equals(textContent)) {
+					filteredFeatures.remove(i);
+					continue;
+				}
+				propertyList.add(textContent);
+			}
+		}
 	}
 	
 	/**
