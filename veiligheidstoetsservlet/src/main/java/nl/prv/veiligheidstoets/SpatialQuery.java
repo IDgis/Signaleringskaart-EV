@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -25,6 +27,8 @@ import org.xml.sax.SAXException;
 
 
 public class SpatialQuery {
+	private static final Logger LOGGER = Logger.getLogger(SpatialQuery.class.getName());
+	
 	private String urlstr;
 	private String filter;
 
@@ -43,7 +47,7 @@ public class SpatialQuery {
 	 * @throws IOException
 	 */
 	private String postDataToService() throws IOException {
-		 URL url = new URL(urlstr);
+		URL url = new URL(urlstr);
 		 HttpURLConnection hpcon = null;
 		 try{
 			hpcon = (HttpURLConnection) url.openConnection();   
@@ -64,14 +68,13 @@ public class SpatialQuery {
 				response.append(input + "\r");
 			}
 			if (response.toString().indexOf("ExceptionReport") > -1){
-				System.out.println("fout in request naar " + urlstr + " met filter " + filter + " response: " + response.toString());
+				LOGGER.log(Level.SEVERE, "fout in request naar {0} met filter {1} response: {2}", new Object[]{ urlstr, filter, response.toString() });
 				throw new IOException("fout in request naar " + urlstr + " met filter " + filter + " response: " + response.toString());
 			}
-			return response.toString();	
-			
-			
+			return response.toString();
 		} catch(Exception e){
-			System.out.println("fout in request naar " + urlstr + " met filter " + filter);
+			LOGGER.log(Level.INFO, "fout in request naar {0} met filter {1}", new Object[]{ urlstr, filter });
+			LOGGER.log(Level.SEVERE, e.toString(), e);
 			throw new IOException("fout in request naar " + urlstr + " met filter " + filter);	
 		} finally {
 			if(hpcon != null){
@@ -112,6 +115,7 @@ public class SpatialQuery {
 			properties = getProperties(filteredFeatures, featureList);
 		} 
 		catch (IOException | ParserConfigurationException | SAXException e) {
+			LOGGER.log(Level.SEVERE, e.toString(), e);
 			properties.put("error", "\"" + e.getMessage() + "\"");
 			return properties;
 		}
@@ -145,9 +149,9 @@ public class SpatialQuery {
 			propertyList.add(obj.getCoordX() + " " + obj.getCoordY());
 		}
 		
-		System.out.println("Building result to display...");
+		LOGGER.log(Level.INFO, "Building result to display...");
 		String resultString = parseToJsonString(filteredFeatures, propertyList);
-		System.out.println(resultString);
+		LOGGER.log(Level.INFO, resultString);
 		features.put("features", resultString);
 		
 		return features;
@@ -159,7 +163,7 @@ public class SpatialQuery {
 	 * @param index
 	 * @return
 	 */
-	public KwetsbaarObject getKwetsbaarObjectInBuffer(KwetsbaarObject kwObject) throws IOException {
+	public KwetsbaarObject getKwetsbaarObjectInBuffer(KwetsbaarObject kwObject) {
 		Map<String, String> numFeatures = new HashMap<>();
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -171,7 +175,7 @@ public class SpatialQuery {
 			}
 		}
 		catch(IOException | ParserConfigurationException | SAXException e) {
-			throw new IOException(e);
+			LOGGER.log(Level.SEVERE, e.toString(), e);
 		}
 		return null;
 	}
@@ -214,7 +218,7 @@ public class SpatialQuery {
 						continue;
 					}
 					propertyList.add(textContent);
-					System.out.println(featureMemberNode.getNodeName() + ", " + featureMemberNode.getTextContent());
+					LOGGER.log(Level.INFO, "{0}, {1}", new Object[]{ featureMemberNode.getNodeName(), featureMemberNode.getTextContent() });
 				}
 			}
 		}
@@ -225,14 +229,9 @@ public class SpatialQuery {
 		}
 		
 		// DEBUGGING
-		System.out.println("filteredFeatures: " + filteredFeatures.size() + ", propertyList: " + propertyList.size());
-		System.out.print("propertyList: ");
-		for(int i = 0; i < propertyList.size(); i++) {
-			System.out.print(propertyList.get(i) + ", ");
-		}
-		System.out.println("");
+		LOGGER.log(Level.INFO, "filteredFeatures: {0}, propertyList: {1}", new Object[]{ filteredFeatures.size(), propertyList.size() });
 		String valueString = parseToJsonString(filteredFeatures, propertyList);
-		System.out.println("features to return: " + valueString);
+		LOGGER.log(Level.INFO, "features to return: {0}", valueString);
 		features.put("features", valueString);
 		
 		return features;
@@ -261,7 +260,7 @@ public class SpatialQuery {
 			sb.append("{\"" + filteredFeatures.get(filteredFeatures.size() - 1) + "\":\"" + propertyList.get(index++) + "\"}]},");
 		}
 		sb.replace(sb.length() - 1, sb.length(), "]");
-		System.out.println("JSON value String: " + sb.toString());
+		LOGGER.log(Level.INFO, "JSON value String: {0}", sb.toString());
 		return sb.toString();
 	}
 	
@@ -269,20 +268,19 @@ public class SpatialQuery {
 	 * Returns a KwetsbaarObject[] for the given filter, an empty list if no KwetsbaarObject is found.
 	 * @throws Exception
 	 */
-	public List<KwetsbaarObject> getKwetsbareObjecten() throws IOException {
-		System.out.println("Getting kwetsbare objecten...");
+	public List<KwetsbaarObject> getKwetsbareObjecten() {
+		LOGGER.log(Level.INFO, "Getting kwetsbare objecten...");
 		List<KwetsbaarObject> kwetsbaarObjList = new ArrayList<>();
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
-			System.out.println("Document: \n" + getResult());
+			LOGGER.log(Level.INFO, "Document: \n {0}", getResult());
 			Element docElement = doc.getDocumentElement();
 			int numResults = Integer.parseInt(docElement.getAttribute("numberOfFeatures"));
-			//NodeList elementList = doc.getElementsByTagName("gml:featureMember");
 			NodeList elementList = doc.getElementsByTagName("wfs:member");
-			System.out.println("Aantal objecten found in numResults: " + numResults);
-			System.out.println("Aantal objecten found in elementList: " + elementList.getLength());
+			LOGGER.log(Level.INFO, "Aantal objecten found in numResults: {0}", numResults);
+			LOGGER.log(Level.INFO, "Aantal objecten found in elementList: {0}" + elementList.getLength());
 			if(elementList.getLength() == 0) {
 				return new ArrayList<>();
 			}
@@ -295,10 +293,10 @@ public class SpatialQuery {
 				kwetsbaarObjList.add(obj);
 			}
 		} catch (ParserConfigurationException | SAXException | IOException e) {
-			throw new IOException(e);
+			LOGGER.log(Level.SEVERE, e.toString(), e);
 		}
 		
-		System.out.println("Kwetsbare objecten in list: " + kwetsbaarObjList.size());
+		LOGGER.log(Level.INFO, "Kwetsbare objecten in list: {0}", kwetsbaarObjList.size());
 		return kwetsbaarObjList;
 	}
 }

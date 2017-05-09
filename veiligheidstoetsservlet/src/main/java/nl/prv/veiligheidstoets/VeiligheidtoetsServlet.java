@@ -10,8 +10,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.io.ParseException;
@@ -43,6 +45,13 @@ import nl.prv.veiligheidstoets.util.WKT2GMLParser;
 public class VeiligheidtoetsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	private static final Logger LOGGER = Logger.getLogger(VeiligheidtoetsServlet.class.getName());
+	
+	private static final String ERROR = "error";
+	private static final String ISVALID = "isValid";
+	private static final String REQUESTTYPE = "requesttype";
+	private static final String SERVICENAME = "servicename";
+	
 	private String basisnetWFSUrl;
 	private String risicokaartWFSUrl;
 	private String wktError;
@@ -57,7 +66,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 */
 	@Override
 	public void init() {
-		System.out.println("init servlet...");
+		LOGGER.log(Level.INFO, "init servlet...");
 		loadConfig();
 	}
 
@@ -84,11 +93,11 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				fis.close();
 			} 
 			else {
-				System.out.println("Config file missing " + configdir + File.separator + "veiligheidstoets.xml");
+				LOGGER.log(Level.SEVERE, "Config file missing {0}{1}veiligheidstoets.xml", new Object[]{ configdir, File.separator });
 			}
 		}
-		catch(Exception e) {	
-			System.out.println(e);
+		catch(Exception e) {
+			LOGGER.log(Level.SEVERE, e.toString(), e);
 		}
 	}
 	
@@ -97,7 +106,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 * 
 	 */
 	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, String> returnMessage = new HashMap<>();
 		
 		try(PrintWriter out = response.getWriter()) {
@@ -113,21 +122,21 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			}
 			
 			// Check request type
-			if(props.containsKey("requesttype")) {
-				if("polygonIsValid".equals(props.get("requesttype"))) {
+			if(props.containsKey(REQUESTTYPE)) {
+				if("polygonIsValid".equals(props.get(REQUESTTYPE))) {
 					// Check wktIsValid
 					returnMessage = checkWktValid(props, "\"" + wktError + "\"");
 				}
-				else if("getEVFeatures".equals(props.get("requesttype"))) {
+				else if("getEVFeatures".equals(props.get(REQUESTTYPE))) {
 					// getEVFeatures
 					returnMessage = getEVFeatures(props);
 				}
 				else {
-					returnMessage.put("error", "\"Request type is invalid: " + props.get("requesttype") + "\"");
+					returnMessage.put(ERROR, "\"Request type is invalid: " + props.get(REQUESTTYPE) + "\"");
 				}
 			}
 			else {
-				returnMessage.put("error", "\"Request type is missing!\"");
+				returnMessage.put(ERROR, "\"Request type is missing!\"");
 			}
 			
 			JsonObject json = new JsonObject();
@@ -140,12 +149,12 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				json.add(key, parser.parse(value));
 			}
 			
-			System.out.println(json);
+			LOGGER.log(Level.INFO, "Returning JSON: {0}", new Object[]{ json });
 			out.println(json);
 			out.flush();
 		}			
-		catch(IOException e) {
-			throw new ServletException(e);
+		catch(IOException | JsonParseException e) {
+			LOGGER.log(Level.SEVERE, e.toString(), e);
 		}
 	}
 	
@@ -164,20 +173,22 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			try {
 				Polygon poly = (Polygon) reader.read(wktGeom);
 				if(poly != null && !(poly.isValid())) {
-					checkResult.put("isValid", "false");
-					checkResult.put("error", wktError);
+					checkResult.put(ISVALID, "false");
+					checkResult.put(ERROR, wktError);
 					return checkResult;
 				}
 				else {
-					checkResult.put("isValid", "true");
+					checkResult.put(ISVALID, "true");
 					return checkResult;
 				}
 			} catch (ParseException e) {
-				checkResult.put("isValid", "false");
-				checkResult.put("error", "\"an error occurred: " + e.getMessage() + "\"");
+				LOGGER.log(Level.SEVERE, e.toString(), e);
+				checkResult.put(ISVALID, "false");
+				checkResult.put(ERROR, "\"an error occurred: " + e.getMessage() + "\"");
+				return checkResult;
 			}
 		}
-		checkResult.put("error", "\"Wkt is missing!\"");
+		checkResult.put(ERROR, "\"Wkt is missing!\"");
 		return checkResult;
 	}
 	
@@ -193,47 +204,48 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			// Check servicename
 			String url = getServiceName(props, 0);
 			if(url == null) {
-				features.put("error", "\"Servicename is missing!\"");
+				features.put(ERROR, "\"Servicename is missing!\"");
 				return features;
 			}
 			else if("INVALID".equals(url)) {
-				features.put("error", "\"Servicename is invalid: " + props.get("servicename") + "\"");
+				features.put(ERROR, "\"Servicename is invalid: " + props.get(SERVICENAME) + "\"");
 				return features;
 			}
 			
 			// Check plangebied-wkt
 			boolean plangebiedPresent = getPlangebiedWkt(props);
 			if(!plangebiedPresent) {
-				features.put("error", "\"Plangebied Wkt is missing!\"");
+				features.put(ERROR, "\"Plangebied Wkt is missing!\"");
 				return features;
 			}
 			
 			// Check filter
 			String[] filters = props.get("filter").split("x");
 			if(filters == null) {
-				features.put("error", "\"Filter is missing!\"");
+				features.put(ERROR, "\"Filter is missing!\"");
 				return features;
 			}
 			String filter = filterHandler.getFilter(filters[0], props);
-			System.out.println("FILTER: \n" + filter);
+			LOGGER.log(Level.INFO, "FILTER: \n {0}", filter);
 			SpatialQuery sq = new SpatialQuery(url, filter);
 			
 			// Check for second filter
 			if(filters.length > 1) {
-				System.out.println("Second filter found...");
+				LOGGER.log(Level.INFO, "Second filter found...");
 				List<KwetsbaarObject> kwObjects = sq.getKwetsbareObjecten();
-				System.out.println("Number of kwetsbare objecten returned: " + kwObjects.size());
+				LOGGER.log(Level.INFO, "Number of kwetsbare objecten returned: {0}", kwObjects.size());
 				url = getServiceName(props, 1);
 				List<KwetsbaarObject> kwObjectsInBuffer = createSecondFilter(kwObjects, url, props);
 				return sq.getPropertyResult(kwObjectsInBuffer);
 			}
 			
 			// Check properties
-			System.out.println("Getting features...");
+			LOGGER.log(Level.INFO, "Getting features...");
 			features = sq.getPropertyResult();
 		}
 		catch(Exception e) {
-			features.put("error", "\"" + e.getMessage() + "\"");
+			LOGGER.log(Level.SEVERE, e.toString(), e);
+			features.put(ERROR, "\"" + e.getMessage() + "\"");
 			return features;
 		}
 		return features;
@@ -247,8 +259,8 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 * @return The url for the given servicename, INVALID if the servicename is invalid.
 	 */
 	private String getServiceName(Map<String, String> props, int index) {
-		if(props.containsKey("servicename")){
-			String[] urls = props.get("servicename").split("x");
+		if(props.containsKey(SERVICENAME)){
+			String[] urls = props.get(SERVICENAME).split("x");
 			if("risicokaartWFS".equals(urls[index])) {
 				return risicokaartWFSUrl;
 			} 
@@ -292,11 +304,11 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 * @param url
 	 * @param props
 	 */
-	private List<KwetsbaarObject> createSecondFilter(List<KwetsbaarObject> kwObjects, String url, Map<String, String> props) throws IOException {
+	private List<KwetsbaarObject> createSecondFilter(List<KwetsbaarObject> kwObjects, String url, Map<String, String> props) {
 		if(kwObjects.isEmpty()) {
 			return new ArrayList<>();
 		}
-		System.out.println("Kwetsbare objecten found for secondary filter: " + kwObjects.size());
+		LOGGER.log(Level.INFO, "Kwetsbare objecten found for second filter: {0}", kwObjects.size());
 		List<KwetsbaarObject> kwObjectsInBuffer = new ArrayList<>();
 		for(int i = 0; i < kwObjects.size(); i++) {
 			String pointGeom = kwObjects.get(i).getPoint().toString();
@@ -305,13 +317,13 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				gml = WKT2GMLParser.parse(pointGeom);
 			} 
 			catch (IOException e) {
-				throw new IOException(e);
+				LOGGER.log(Level.SEVERE, e.toString(), e);
 			} 
 			props.put("plangebiedgml", gml);
 			
 			String[] filters = props.get("filter").split("x");
 			String filter = filterHandler.getFilter(filters[1], props);
-			System.out.println("FILTER_2: \n" + filter);
+			LOGGER.log(Level.INFO, "FILTER_2: \n {0}", filter);
 			
 			try {
 				SpatialQuery sq2 = new SpatialQuery(url, filter);
@@ -321,7 +333,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				}
 			}
 			catch(Exception e) {
-				throw new IOException(e);
+				LOGGER.log(Level.SEVERE, e.toString(), e);
 			}
 		}
 		return kwObjectsInBuffer;
