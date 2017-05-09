@@ -37,50 +37,50 @@ public class SpatialQuery {
 		this.filter = filter;
 	}
 
-	private String getResult() throws IOException {
-		return postDataToService();
-	}
-
 	/**
 	 * 
 	 * @return Gets an xml with the data given in the postbody
 	 * @throws IOException
 	 */
-	private String postDataToService() throws IOException {
-		URL url = new URL(urlstr);
-		 HttpURLConnection hpcon = null;
-		 try{
-			hpcon = (HttpURLConnection) url.openConnection();   
+	private String getResult() {
+		URL url = null;
+		HttpURLConnection hpcon = null;
+		StringBuilder response = new StringBuilder(256);
+		try {
+			url = new URL(urlstr);
+			hpcon = (HttpURLConnection)url.openConnection();
 			hpcon.setRequestMethod("POST");
-			hpcon.setRequestProperty("Content-Length", "" + Integer.toString(filter.getBytes().length));      
+			hpcon.setRequestProperty("Content-Length", "" + Integer.toString(filter.getBytes().length));
 			hpcon.setRequestProperty("Content-Type", "xml/text");
-			hpcon.setUseCaches (false);
+			hpcon.setUseCaches(false);
 			hpcon.setDoInput(true);
 			hpcon.setDoOutput(true);
-			DataOutputStream printout = new DataOutputStream (hpcon.getOutputStream ());
-			printout.writeBytes (filter);
-			printout.flush ();
-			printout.close ();		
-			BufferedReader in = new BufferedReader(new InputStreamReader(hpcon.getInputStream()));
-			String input;
-			StringBuilder response = new StringBuilder(256);
-			while((input = in.readLine()) != null) {
-				response.append(input + "\r");
-			}
-			if (response.toString().indexOf("ExceptionReport") > -1){
-				LOGGER.log(Level.SEVERE, "fout in request naar {0} met filter {1} response: {2}", new Object[]{ urlstr, filter, response.toString() });
-				throw new IOException("fout in request naar " + urlstr + " met filter " + filter + " response: " + response.toString());
-			}
-			return response.toString();
-		} catch(Exception e){
-			LOGGER.log(Level.INFO, "fout in request naar {0} met filter {1}", new Object[]{ urlstr, filter });
+		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, e.toString(), e);
-			throw new IOException("fout in request naar " + urlstr + " met filter " + filter);	
-		} finally {
-			if(hpcon != null){
-				hpcon.disconnect();	
+		}
+		if(hpcon != null) {
+			try(DataOutputStream printout = new DataOutputStream(hpcon.getOutputStream())) {
+				printout.writeBytes(filter);
+			} catch (IOException e) {
+				LOGGER.log(Level.SEVERE, e.toString(), e);
 			}
-		} 
+			try(BufferedReader in = new BufferedReader(new InputStreamReader(hpcon.getInputStream()))) {
+				String input;
+				while((input = in.readLine()) != null) {
+					response.append(input + "\r");
+				}
+			} catch(IOException e) {
+				LOGGER.log(Level.INFO, "fout in request naar {0} met filter {1}", new Object[]{ urlstr, filter });
+				LOGGER.log(Level.SEVERE, e.toString(), e);
+			} finally {
+				hpcon.disconnect();
+			}
+		}
+		if(response.toString().indexOf("ExceptionReport") > -1) {
+			LOGGER.log(Level.SEVERE, "fout in request naar {0} met filter {1} response: {2}", new Object[]{ urlstr, filter, response.toString() });
+		}
+		
+		return response.toString();
 	}
 	
 	/**
