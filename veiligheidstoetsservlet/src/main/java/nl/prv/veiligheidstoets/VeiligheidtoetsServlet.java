@@ -1,6 +1,5 @@
 package nl.prv.veiligheidstoets;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,10 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.stream.XMLStreamException;
 
-import org.deegree.cs.exceptions.TransformationException;
-import org.deegree.cs.exceptions.UnknownCRSException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -32,7 +28,6 @@ import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
-import nl.prv.veiligheidstoets.util.LogStream;
 import nl.prv.veiligheidstoets.util.TemplateHandler;
 import nl.prv.veiligheidstoets.util.WKT2GMLParser;
 
@@ -103,7 +98,6 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 */
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
-		LogStream logStream = new LogStream(new ByteArrayOutputStream());
 		Map<String, String> returnMessage = new HashMap<>();
 		
 		try(PrintWriter out = response.getWriter()) {
@@ -120,11 +114,11 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			
 			// Check request type
 			if(props.containsKey("requesttype")) {
-				if(props.get("requesttype").equals("polygonIsValid")) {
+				if("polygonIsValid".equals(props.get("requesttype"))) {
 					// Check wktIsValid
 					returnMessage = checkWktValid(props, "\"" + wktError + "\"");
 				}
-				else if(props.get("requesttype").equals("getEVFeatures")) {
+				else if("getEVFeatures".equals(props.get("requesttype"))) {
 					// getEVFeatures
 					returnMessage = getEVFeatures(props);
 				}
@@ -151,7 +145,6 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			out.flush();
 		}			
 		catch(IOException e) {
-			logStream.write(e.toString());
 			throw new ServletException(e);
 		}
 	}
@@ -203,7 +196,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				features.put("error", "\"Servicename is missing!\"");
 				return features;
 			}
-			else if(url.equals("INVALID")) {
+			else if("INVALID".equals(url)) {
 				features.put("error", "\"Servicename is invalid: " + props.get("servicename") + "\"");
 				return features;
 			}
@@ -256,13 +249,13 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private String getServiceName(Map<String, String> props, int index) {
 		if(props.containsKey("servicename")){
 			String[] urls = props.get("servicename").split("x");
-			if(urls[index].equals("risicokaartWFS")) {
+			if("risicokaartWFS".equals(urls[index])) {
 				return risicokaartWFSUrl;
 			} 
-			else if(urls[index].equals("veiligheidstoetsWFS")) {
+			else if( "veiligheidstoetsWFS".equals(urls[index])) {
 				return veiligheidstoetsWFSUrl;
 			}
-			else if(urls[index].equals("basisnetWFS")) {
+			else if("basisnetWFS".equals(urls[index])) {
 				return basisnetWFSUrl;
 			}
 			return "INVALID";

@@ -63,7 +63,7 @@ public class SpatialQuery {
 			while((input = in.readLine()) != null) {
 				response.append(input + "\r");
 			}
-			if (response.toString().indexOf("ExceptionReport") > 0){
+			if (response.toString().indexOf("ExceptionReport") > -1){
 				System.out.println("fout in request naar " + urlstr + " met filter " + filter + " response: " + response.toString());
 				throw new IOException("fout in request naar " + urlstr + " met filter " + filter + " response: " + response.toString());
 			}
@@ -94,7 +94,7 @@ public class SpatialQuery {
 			
 			Document filterDoc = builder.parse(new InputSource(new ByteArrayInputStream(filter.getBytes())));
 			String resultType = filterDoc.getDocumentElement().getAttribute("resultType");
-			if(resultType.equals("hits")) {
+			if("hits".equals(resultType)) {
 				return getNumFeatures(doc);
 			}
 			
@@ -103,7 +103,7 @@ public class SpatialQuery {
 			NodeList queryList = filterDoc.getElementsByTagName("wfs:Query");
 			Element queryElement = (Element)queryList.item(0);
 			Node childNode = queryElement.getFirstChild().getNextSibling();
-			while(childNode.getNodeName().equals("ogc:PropertyName")) {
+			while("ogc:PropertyName".equals(childNode.getNodeName())) {
 				filteredFeatures.add(childNode.getTextContent());
 				childNode = childNode.getNextSibling().getNextSibling();
 			}
@@ -132,14 +132,14 @@ public class SpatialQuery {
 		
 		List<String> propertyList = new ArrayList<>();
 		List<String> filteredFeatures = new ArrayList<>();
-		filteredFeatures.add("name");
+		filteredFeatures.add("id");
 		filteredFeatures.add("gebruiksdoel");
 		filteredFeatures.add("oppervlakte");
 		filteredFeatures.add("position");
 		
 		for(int i = 0; i < kwObjectsInBuffer.size(); i++) {
 			KwetsbaarObject obj = kwObjectsInBuffer.get(i);
-			propertyList.add(obj.getName());
+			propertyList.add(obj.getId());
 			propertyList.add(obj.getGebruiksDoel());
 			propertyList.add(obj.getOppervlakte());
 			propertyList.add(obj.getCoordX() + " " + obj.getCoordY());
@@ -166,7 +166,7 @@ public class SpatialQuery {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
 			numFeatures = getNumFeatures(doc);
-			if(!numFeatures.get("numberOfFeaturesFound").equals("0")) {
+			if(!"0".equals(numFeatures.get("numberOfFeaturesFound"))) {
 				return kwObject;
 			}
 		}
@@ -209,7 +209,7 @@ public class SpatialQuery {
 				// If filter matched the element, add it
 				if(featureMemberNode.getNodeName().endsWith(":" + filteredFeatures.get(j))) {
 					String textContent = featureMemberNode.getTextContent();
-					if(textContent.equals("") || textContent == null) {
+					if(textContent == null || "".equals(textContent)) {
 						filteredFeatures.remove(j);
 						continue;
 					}
@@ -269,7 +269,7 @@ public class SpatialQuery {
 	 * Returns a KwetsbaarObject[] for the given filter, an empty list if no KwetsbaarObject is found.
 	 * @throws Exception
 	 */
-	public List<KwetsbaarObject> getKwetsbareObjecten() throws Exception {
+	public List<KwetsbaarObject> getKwetsbareObjecten() throws IOException {
 		System.out.println("Getting kwetsbare objecten...");
 		List<KwetsbaarObject> kwetsbaarObjList = new ArrayList<>();
 		try {
@@ -295,7 +295,7 @@ public class SpatialQuery {
 				kwetsbaarObjList.add(obj);
 			}
 		} catch (ParserConfigurationException | SAXException | IOException e) {
-			throw new Exception(e);
+			throw new IOException(e);
 		}
 		
 		System.out.println("Kwetsbare objecten in list: " + kwetsbaarObjList.size());
