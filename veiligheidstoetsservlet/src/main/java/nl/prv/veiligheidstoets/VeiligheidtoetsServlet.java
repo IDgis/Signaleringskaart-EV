@@ -276,7 +276,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 * @return false if an error occurred. True otherwise.
 	 * @throws Exception 
 	 */
-	private boolean getPlangebiedWkt(Map<String, String> props) throws Exception {
+	private boolean getPlangebiedWkt(Map<String, String> props) throws IOException {
 		if(props.containsKey("plangebiedWkt")){
 			String wktGeom = props.get("plangebiedWkt");
 			
@@ -284,8 +284,8 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			try {
 				gml = WKT2GMLParser.parse(wktGeom);
 			} 
-			catch (ParseException | XMLStreamException | UnknownCRSException | TransformationException e) {
-				throw new Exception(e);
+			catch (IOException e) {
+				throw new IOException(e);
 			} 
 			props.put("plangebiedgml", gml);
 			return true;
@@ -311,7 +311,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			try {
 				gml = WKT2GMLParser.parse(pointGeom);
 			} 
-			catch (ParseException | XMLStreamException | UnknownCRSException | TransformationException e) {
+			catch (IOException e) {
 				throw new IOException(e);
 			} 
 			props.put("plangebiedgml", gml);
