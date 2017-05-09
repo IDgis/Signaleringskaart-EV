@@ -1,5 +1,6 @@
 package nl.prv.veiligheidstoets.util;
 
+import java.io.IOException;
 import java.io.StringWriter;
 
 import javax.xml.stream.XMLOutputFactory;
@@ -23,18 +24,22 @@ public class WKT2GMLParser {
 	
 	private WKT2GMLParser() {}
 	
-	public static String parse(String wktGeometry) throws ParseException, XMLStreamException, UnknownCRSException, TransformationException {
-		CRSRef crs = CRSManager.getCRSRef("EPSG:28992");	
-		WKTReader reader = new WKTReader(crs);
-		Geometry geom = reader.read(wktGeometry);
-		XMLOutputFactory xof = XMLOutputFactory.newInstance();
-		StringWriter sw = new StringWriter();
-        XMLStreamWriter xtw = xof.createXMLStreamWriter(sw);
-		GMLStreamWriter gtw = GMLOutputFactory.createGMLStreamWriter(GMLVersion.GML_30, xtw);
-		GML3GeometryWriter ggw = new GML3GeometryWriter(gtw);
-		ggw.export(geom);
-		gtw.close();
-		xtw.close();
-		return sw.toString(); 	
+	public static String parse(String wktGeometry) throws IOException {
+		try {
+			CRSRef crs = CRSManager.getCRSRef("EPSG:28992");	
+			WKTReader reader = new WKTReader(crs);
+			Geometry geom = reader.read(wktGeometry);
+			XMLOutputFactory xof = XMLOutputFactory.newInstance();
+			StringWriter sw = new StringWriter();
+	        XMLStreamWriter xtw = xof.createXMLStreamWriter(sw);
+			GMLStreamWriter gtw = GMLOutputFactory.createGMLStreamWriter(GMLVersion.GML_30, xtw);
+			GML3GeometryWriter ggw = new GML3GeometryWriter(gtw);
+			ggw.export(geom);
+			gtw.close();
+			xtw.close();
+			return sw.toString();
+		} catch(ParseException | XMLStreamException | UnknownCRSException | TransformationException e) {
+			throw new IOException(e);
+		}
 	}
 }
