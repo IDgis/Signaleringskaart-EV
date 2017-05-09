@@ -11,7 +11,6 @@ import com.vividsolutions.jts.geom.Point;
 public class KwetsbaarObject {
 
 	private Point point;
-	private String name;
 	private String gebruiksdoel;
 	private String oppervlakte;
 	private String id;
@@ -46,14 +45,6 @@ public class KwetsbaarObject {
 		return id;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	
 	public void setGebruiksDoel(String gebruiksdoel) {
 		this.gebruiksdoel = gebruiksdoel;
 	}
@@ -76,11 +67,8 @@ public class KwetsbaarObject {
 			if(node.getNodeName().endsWith(":pos")) {
 				setPoint(node.getTextContent().trim());
 			}
-			else if(node.getNodeName().endsWith(":AOBJECTID")) {
-				setId(node.getTextContent());
-			}
-			else if(node.getNodeName().endsWith(":NAAM")) {
-				setName(node.getTextContent().replaceAll("\"", "\'").trim());
+			else if(node.getNodeName().endsWith(":verblijfsobject")) {
+				setId(node.getAttribute("gml:id"));
 			}
 			else if(node.getNodeName().endsWith(":gebruiksdoel")) {
 				setGebruiksDoel(node.getTextContent());
