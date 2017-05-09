@@ -198,7 +198,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		Map<String, String> features = new HashMap<>();
 		try {
 			// Check servicename
-			String url = getServiceName(props);
+			String url = getServiceName(props, 0);
 			if(url == null) {
 				features.put("error", "\"Servicename is missing!\"");
 				return features;
@@ -230,6 +230,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				System.out.println("Second filter found...");
 				List<KwetsbaarObject> kwObjects = sq.getKwetsbareObjecten();
 				System.out.println("Number of kwetsbare objecten returned: " + kwObjects.size());
+				url = getServiceName(props, 1);
 				List<KwetsbaarObject> kwObjectsInBuffer = createSecondFilter(kwObjects, url, props);
 				return sq.getPropertyResult(kwObjectsInBuffer);
 			}
@@ -248,17 +249,20 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	/**
 	 * 
 	 * @param props
+	 * @param index the index of the servicename if more are given. 0 for the default servicename,
+	 * 1 for the second filter if present.
 	 * @return The url for the given servicename, INVALID if the servicename is invalid.
 	 */
-	private String getServiceName(Map<String, String> props) {
+	private String getServiceName(Map<String, String> props, int index) {
 		if(props.containsKey("servicename")){
-			if(props.get("servicename").equals("risicokaartWFS")) {
+			String[] urls = props.get("servicename").split("x");
+			if(urls[index].equals("risicokaartWFS")) {
 				return risicokaartWFSUrl;
 			} 
-			else if(props.get("servicename").equals("veiligheidstoetsWFS")) {
+			else if(urls[index].equals("veiligheidstoetsWFS")) {
 				return veiligheidstoetsWFSUrl;
 			}
-			else if(props.get("servicename").equals("basisnetWFS")) {
+			else if(urls[index].equals("basisnetWFS")) {
 				return basisnetWFSUrl;
 			}
 			return "INVALID";
