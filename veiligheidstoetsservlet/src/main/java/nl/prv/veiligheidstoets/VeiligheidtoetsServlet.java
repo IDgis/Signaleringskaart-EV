@@ -57,7 +57,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private String wktError;
 	
 	private String veiligheidstoetsWFSUrl;
-	private TemplateHandler filterHandler;
+	private TemplateHandler templateHandler;
 	
 	/**
 	 * initializes the servlet
@@ -89,7 +89,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				risicokaartWFSUrl = getConfigProperty(configDoc,"risicokaartWFSUrl");
 				veiligheidstoetsWFSUrl  = getConfigProperty(configDoc,"veiligheidstoetsWFSUrl");
 				wktError = getConfigProperty(configDoc, "wktError");
-				filterHandler = new TemplateHandler();
+				templateHandler = new TemplateHandler();
 				fis.close();
 			} 
 			else {
@@ -125,7 +125,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			if(props.containsKey(REQUESTTYPE)) {
 				if("polygonIsValid".equals(props.get(REQUESTTYPE))) {
 					// Check wktIsValid
-					returnMessage = checkWktValid(props, "\"" + wktError + "\"");
+					returnMessage = getWktValidMessage(props, "\"" + wktError + "\"");
 				}
 				else if("getEVFeatures".equals(props.get(REQUESTTYPE))) {
 					// getEVFeatures
@@ -161,11 +161,11 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	/**
 	 * Checks if the client entered a valid shape. Returns a Map with the key isValid with
 	 * the value true/false.
-	 * @param props
-	 * @param wktError
-	 * @return
+	 * @param props - All properties given by the client
+	 * @param wktError - The error message if the wkt is invalid
+	 * @return isValid with a value true/false. If false it also returns an error message
 	 */
-	private Map<String, String> checkWktValid(Map<String, String> props, String wktError) {
+	private Map<String, String> getWktValidMessage(Map<String, String> props, String wktError) {
 		Map<String, String> checkResult = new HashMap<>();
 		if(props.containsKey("wkt")) {
 			String wktGeom = props.get("wkt");
@@ -195,8 +195,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	/**
 	 * Gets the number of features or the values for the given properties in
 	 * named in the postbody.
-	 * @param props
-	 * @throws Exception 
+	 * @param props - All properties given by the client
 	 */
 	private Map<String, String> getEVFeatures(Map<String, String> props) {
 		Map<String, String> features = new HashMap<>();
@@ -213,35 +212,35 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			}
 			
 			// Check plangebied-wkt
-			boolean plangebiedPresent = getPlangebiedWkt(props);
+			boolean plangebiedPresent = isPlangebiedWktPresent(props);
 			if(!plangebiedPresent) {
 				features.put(ERROR, "\"Plangebied Wkt is missing!\"");
 				return features;
 			}
 			
-			// Check filter
-			String[] filters = props.get("filter").split("x");
-			if(filters == null) {
-				features.put(ERROR, "\"Filter is missing!\"");
+			// Check templates
+			String[] templates = props.get("filter").split("x");
+			if(templates == null) {
+				features.put(ERROR, "\"Template is missing!\"");
 				return features;
 			}
-			String filter = filterHandler.getFilter(filters[0], props);
-			LOGGER.log(Level.INFO, "FILTER: \n {0}", filter);
-			SpatialQuery sq = new SpatialQuery(url, filter);
+			String template = templateHandler.getFilter(templates[0], props);
+			LOGGER.log(Level.INFO, "TEMPLATE: \n {0}", template);
+			SpatialQuery sq = new SpatialQuery(url, template);
 			
-			// Check for second filter
-			if(filters.length > 1) {
-				LOGGER.log(Level.INFO, "Second filter found...");
+			// Check for second template
+			if(templates.length > 1) {
+				LOGGER.log(Level.INFO, "Second template found...");
 				List<KwetsbaarObject> kwObjects = sq.getKwetsbareObjecten();
 				LOGGER.log(Level.INFO, "Number of kwetsbare objecten returned: {0}", kwObjects.size());
 				url = getServiceName(props, 1);
-				List<KwetsbaarObject> kwObjectsInBuffer = createSecondFilter(kwObjects, url, props);
-				return sq.getPropertyResult(kwObjectsInBuffer);
+				List<KwetsbaarObject> kwObjectsInBuffer = processSecondTemplate(kwObjects, url, props);
+				return sq.getFeatureResult(kwObjectsInBuffer);
 			}
 			
 			// Check properties
 			LOGGER.log(Level.INFO, "Getting features...");
-			features = sq.getPropertyResult();
+			features = sq.getFeatureResult();
 		}
 		catch(Exception e) {
 			LOGGER.log(Level.SEVERE, e.toString(), e);
@@ -253,7 +252,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	
 	/**
 	 * 
-	 * @param props
+	 * @param props - All properties given by the client
 	 * @param index the index of the servicename if more are given. 0 for the default servicename,
 	 * 1 for the second filter if present.
 	 * @return The url for the given servicename, INVALID if the servicename is invalid.
@@ -277,11 +276,11 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	
 	/**
 	 * Adds the gml to the props if plangebiedWkt is present
-	 * @param props
+	 * @param props - All properties given by the client
 	 * @return false if an error occurred. True otherwise.
-	 * @throws Exception 
+	 * @throws IOException 
 	 */
-	private boolean getPlangebiedWkt(Map<String, String> props) throws IOException {
+	private boolean isPlangebiedWktPresent(Map<String, String> props) throws IOException {
 		if(props.containsKey("plangebiedWkt")){
 			String wktGeom = props.get("plangebiedWkt");
 			
@@ -300,18 +299,18 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	
 	/**
 	 * Returns a List of Kwetsbare Objecten that are inside the buffer.
-	 * @param kwObjects
-	 * @param url
-	 * @param props
+	 * @param kwObjects - A List of all KwetsbareObjecten found by the first template
+	 * @param url - The URL for the service
+	 * @param props - All properties given by the client
 	 */
-	private List<KwetsbaarObject> createSecondFilter(List<KwetsbaarObject> kwObjects, String url, Map<String, String> props) {
+	private List<KwetsbaarObject> processSecondTemplate(List<KwetsbaarObject> kwObjects, String url, Map<String, String> props) {
 		if(kwObjects.isEmpty()) {
 			return new ArrayList<>();
 		}
-		LOGGER.log(Level.INFO, "Kwetsbare objecten found for second filter: {0}", kwObjects.size());
+		LOGGER.log(Level.INFO, "Kwetsbare objecten found for second template: {0}", kwObjects.size());
 		List<KwetsbaarObject> kwObjectsInBuffer = new ArrayList<>();
 		for(int i = 0; i < kwObjects.size(); i++) {
-			String pointGeom = kwObjects.get(i).getPoint().toString();
+			String pointGeom = kwObjects.get(i).getPointWKT();
 			String gml = null;
 			try {
 				gml = WKT2GMLParser.parse(pointGeom);
@@ -321,12 +320,12 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			} 
 			props.put("plangebiedgml", gml);
 			
-			String[] filters = props.get("filter").split("x");
-			String filter = filterHandler.getFilter(filters[1], props);
-			LOGGER.log(Level.INFO, "FILTER_2: \n {0}", filter);
+			String[] templates = props.get("filter").split("x");
+			String template = templateHandler.getFilter(templates[1], props);
+			LOGGER.log(Level.INFO, "TEMPLATE_2: \n {0}", template);
 			
 			try {
-				SpatialQuery sq2 = new SpatialQuery(url, filter);
+				SpatialQuery sq2 = new SpatialQuery(url, template);
 				KwetsbaarObject bufferResult = sq2.getKwetsbaarObjectInBuffer(kwObjects.get(i));
 				if(bufferResult != null) {
 					kwObjectsInBuffer.add(bufferResult);

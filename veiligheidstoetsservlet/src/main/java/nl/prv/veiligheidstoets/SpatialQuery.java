@@ -30,17 +30,16 @@ public class SpatialQuery {
 	private static final Logger LOGGER = Logger.getLogger(SpatialQuery.class.getName());
 	
 	private String urlstr;
-	private String filter;
+	private String template;
 
-	public SpatialQuery(String urlstr, String filter) {
+	public SpatialQuery(String urlstr, String template) {
 		this.urlstr = urlstr;
-		this.filter = filter;
+		this.template = template;
 	}
 
 	/**
 	 * 
 	 * @return Gets an xml with the data given in the postbody
-	 * @throws IOException
 	 */
 	private String getResult() {
 		URL url = null;
@@ -50,7 +49,7 @@ public class SpatialQuery {
 			url = new URL(urlstr);
 			hpcon = (HttpURLConnection)url.openConnection();
 			hpcon.setRequestMethod("POST");
-			hpcon.setRequestProperty("Content-Length", "" + Integer.toString(filter.getBytes().length));
+			hpcon.setRequestProperty("Content-Length", "" + Integer.toString(template.getBytes().length));
 			hpcon.setRequestProperty("Content-Type", "xml/text");
 			hpcon.setUseCaches(false);
 			hpcon.setDoInput(true);
@@ -60,7 +59,7 @@ public class SpatialQuery {
 		}
 		if(hpcon != null) {
 			try(DataOutputStream printout = new DataOutputStream(hpcon.getOutputStream())) {
-				printout.writeBytes(filter);
+				printout.writeBytes(template);
 			} catch (IOException e) {
 				LOGGER.log(Level.SEVERE, e.toString(), e);
 			}
@@ -70,14 +69,14 @@ public class SpatialQuery {
 					response.append(input + "\r");
 				}
 			} catch(IOException e) {
-				LOGGER.log(Level.INFO, "fout in request naar {0} met filter {1}", new Object[]{ urlstr, filter });
+				LOGGER.log(Level.INFO, "fout in request naar {0} met filter {1}", new Object[]{ urlstr, template });
 				LOGGER.log(Level.SEVERE, e.toString(), e);
 			} finally {
 				hpcon.disconnect();
 			}
 		}
 		if(response.toString().indexOf("ExceptionReport") > -1) {
-			LOGGER.log(Level.SEVERE, "fout in request naar {0} met filter {1} response: {2}", new Object[]{ urlstr, filter, response.toString() });
+			LOGGER.log(Level.SEVERE, "fout in request naar {0} met filter {1} response: {2}", new Object[]{ urlstr, template, response.toString() });
 		}
 		
 		return response.toString();
@@ -85,72 +84,71 @@ public class SpatialQuery {
 	
 	/**
 	 * Returns the number of properties found or a json of the features with the properties specified in the filter.
-	 * @return
-	 * @throws Exception
+	 * @return A Map with the result of the found features
 	 */
-	public Map<String, String> getPropertyResult() {
-		Map<String, String> properties = new HashMap<>();
+	public Map<String, String> getFeatureResult() {
+		Map<String, String> features = new HashMap<>();
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
 			
-			Document filterDoc = builder.parse(new InputSource(new ByteArrayInputStream(filter.getBytes())));
-			String resultType = filterDoc.getDocumentElement().getAttribute("resultType");
+			Document templateDoc = builder.parse(new InputSource(new ByteArrayInputStream(template.getBytes())));
+			String resultType = templateDoc.getDocumentElement().getAttribute("resultType");
 			if("hits".equals(resultType)) {
 				return getNumFeatures(doc);
 			}
 			
-			// Getting filter names to apply
-			List<String> filteredFeatures = new ArrayList<>();
-			NodeList queryList = filterDoc.getElementsByTagName("wfs:Query");
+			// Getting properties to filter
+			List<String> properties = new ArrayList<>();
+			NodeList queryList = templateDoc.getElementsByTagName("wfs:Query");
 			Element queryElement = (Element)queryList.item(0);
 			Node childNode = queryElement.getFirstChild().getNextSibling();
 			while("ogc:PropertyName".equals(childNode.getNodeName())) {
-				filteredFeatures.add(childNode.getTextContent());
+				properties.add(childNode.getTextContent());
 				childNode = childNode.getNextSibling().getNextSibling();
 			}
 			
 			NodeList featureList = doc.getElementsByTagName("*");
-			properties = getProperties(filteredFeatures, featureList);
+			features = getFeatures(properties, featureList);
 		} 
 		catch (IOException | ParserConfigurationException | SAXException e) {
 			LOGGER.log(Level.SEVERE, e.toString(), e);
-			properties.put("error", "\"" + e.getMessage() + "\"");
-			return properties;
+			features.put("error", "\"" + e.getMessage() + "\"");
+			return features;
 		}
-		return properties;
+		return features;
 	}
 	
 	/**
 	 * Return the json of the kwetsbare objecten found.
-	 * @param kwObjectsInBuffer
-	 * @return
+	 * @param kwObjectsInBuffer - The KwetsbareObjecten found by the second template
+	 * @return A json with the key name features with all kwetsbare objecten within buffer
 	 */
-	public Map<String, String> getPropertyResult(List<KwetsbaarObject> kwObjectsInBuffer) {
+	public Map<String, String> getFeatureResult(List<KwetsbaarObject> kwObjectsInBuffer) {
 		Map<String, String> features = new HashMap<>();
 		if(kwObjectsInBuffer == null || kwObjectsInBuffer.isEmpty()) {
 			features.put("message", "\"NO_FEATURES_FOUND\"");
 			return features;
 		}
 		
+		List<String> featureList = new ArrayList<>();
 		List<String> propertyList = new ArrayList<>();
-		List<String> filteredFeatures = new ArrayList<>();
-		filteredFeatures.add("id");
-		filteredFeatures.add("gebruiksdoel");
-		filteredFeatures.add("oppervlakte");
-		filteredFeatures.add("position");
+		propertyList.add("id");
+		propertyList.add("gebruiksdoel");
+		propertyList.add("oppervlakte");
+		propertyList.add("position");
 		
 		for(int i = 0; i < kwObjectsInBuffer.size(); i++) {
 			KwetsbaarObject obj = kwObjectsInBuffer.get(i);
-			propertyList.add(obj.getId());
-			propertyList.add(obj.getGebruiksDoel());
-			propertyList.add(obj.getOppervlakte());
-			propertyList.add(obj.getCoordX() + " " + obj.getCoordY());
+			featureList.add(obj.getId());
+			featureList.add(obj.getGebruiksDoel());
+			featureList.add(obj.getOppervlakte());
+			featureList.add(obj.getCoordX() + " " + obj.getCoordY());
 		}
 		
 		LOGGER.log(Level.INFO, "Building result to display...");
-		String resultString = parseToJsonString(filteredFeatures, propertyList);
+		String resultString = mergeAsJsonString(propertyList, featureList);
 		LOGGER.log(Level.INFO, resultString);
 		features.put("features", resultString);
 		
@@ -160,8 +158,7 @@ public class SpatialQuery {
 	/**
 	 * returns the KwetsbaarObject if the number of features found is not zero.
 	 * @param kwObject
-	 * @param index
-	 * @return
+	 * @return A kwetsbaar Object if one is found
 	 */
 	public KwetsbaarObject getKwetsbaarObjectInBuffer(KwetsbaarObject kwObject) {
 		Map<String, String> numFeatures = new HashMap<>();
@@ -182,8 +179,8 @@ public class SpatialQuery {
 	
 	/**
 	 * Returns the number of features found in the given document
-	 * @param doc
-	 * @return
+	 * @param doc - the xml document created by the template
+	 * @return The number of features found
 	 */
 	private Map<String, String> getNumFeatures(Document doc) {
 		Map<String, String> numFeatures = new HashMap<>();
@@ -197,28 +194,28 @@ public class SpatialQuery {
 	
 	/**
 	 * Returns a Map with the name and json array string of the features found
-	 * @param filteredFeatures - The name of features to filter e.g. PR10-6, PR10-7, PAG
+	 * @param properties - The name of properties to filter e.g. PR10-6, PR10-7, PAG
 	 * @param elementList - All xml tags in the given filter
-	 * @return
+	 * @return A Map with all features found as a json string
 	 */
-	private Map<String, String> getProperties(List<String> filteredFeatures, NodeList elementList) {
+	private Map<String, String> getFeatures(List<String> properties, NodeList elementList) {
 		Map<String, String> features = new HashMap<>();
+		List<String> featureList = new ArrayList<>();
 		
-		List<String> propertyList = new ArrayList<>();
 		// Loop through all elements in the document
 		for(int i = 0; i < elementList.getLength(); i++) {
 			Node featureMemberNode = elementList.item(i);
 			//Loop through the filters and add matched elements
-			fillPropertyList(propertyList, filteredFeatures, featureMemberNode);
+			fillPropertyList(featureList, properties, featureMemberNode);
 		}
-		if(propertyList.isEmpty()) {
+		if(featureList.isEmpty()) {
 			features.put("message", "\"NO_FEATURES_FOUND\"");
 			return features;
 		}
 		
 		// DEBUGGING
-		LOGGER.log(Level.INFO, "filteredFeatures: {0}, propertyList: {1}", new Object[]{ filteredFeatures.size(), propertyList.size() });
-		String valueString = parseToJsonString(filteredFeatures, propertyList);
+		LOGGER.log(Level.INFO, "properties: {0}, featureList: {1}", new Object[]{ properties.size(), featureList.size() });
+		String valueString = mergeAsJsonString(properties, featureList);
 		LOGGER.log(Level.INFO, "features to return: {0}", valueString);
 		features.put("features", valueString);
 		
@@ -228,15 +225,15 @@ public class SpatialQuery {
 	/**
 	 * Fills the propertyList with matching elements
 	 * @param propertyList - the List to fill with properties
-	 * @param filteredFeatures - the filters to check to match
+	 * @param properties - the property names to check to match
 	 * @param featureMemberNode - the current element
 	 */
-	private void fillPropertyList(List<String> propertyList, List<String> filteredFeatures, Node featureMemberNode) {
-		for(int i = 0; i < filteredFeatures.size(); i++) {
-			if(featureMemberNode.getNodeName().endsWith(":" + filteredFeatures.get(i))) {
+	private void fillPropertyList(List<String> propertyList, List<String> properties, Node featureMemberNode) {
+		for(int i = 0; i < properties.size(); i++) {
+			if(featureMemberNode.getNodeName().endsWith(":" + properties.get(i))) {
 				String textContent = featureMemberNode.getTextContent();
 				if(textContent == null || "".equals(textContent)) {
-					filteredFeatures.remove(i);
+					properties.remove(i);
 					continue;
 				}
 				propertyList.add(textContent);
@@ -245,15 +242,15 @@ public class SpatialQuery {
 	}
 	
 	/**
-	 * Gets 2 Lists with properties and turns them into a single json string.
-	 * @param filteredFeatures the smallest array
-	 * @param propertyList the longest array
-	 * @return
+	 * Gets 2 Lists with properties and combines them into a single json string.
+	 * @param propertyList the property names found in the template
+	 * @param featureList all features found for the names by the given propertyList
+	 * @return A json string from the combined lists
 	 */
-	private String parseToJsonString(List<String> filteredFeatures, List<String> propertyList) {
+	private String mergeAsJsonString(List<String> propertyList, List<String> featureList) {
 		int index = 0;
 		int resultId = 1;
-		int numIters = propertyList.size() / filteredFeatures.size();
+		int numIters = featureList.size() / propertyList.size();
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("[");
@@ -261,10 +258,10 @@ public class SpatialQuery {
 			sb.append("{");
 			sb.append("\"id\":\"" + resultId++ + "\",");
 			sb.append("\"properties\":" + "[");
-			for(int j = 0; j < filteredFeatures.size() - 1; j++) {
-				sb.append("{\"" + filteredFeatures.get(j) + "\":\"" + propertyList.get(index++) + "\"},");
+			for(int j = 0; j < propertyList.size() - 1; j++) {
+				sb.append("{\"" + propertyList.get(j) + "\":\"" + featureList.get(index++) + "\"},");
 			}
-			sb.append("{\"" + filteredFeatures.get(filteredFeatures.size() - 1) + "\":\"" + propertyList.get(index++) + "\"}]},");
+			sb.append("{\"" + propertyList.get(propertyList.size() - 1) + "\":\"" + featureList.get(index++) + "\"}]},");
 		}
 		sb.replace(sb.length() - 1, sb.length(), "]");
 		LOGGER.log(Level.INFO, "JSON value String: {0}", sb.toString());
@@ -272,8 +269,8 @@ public class SpatialQuery {
 	}
 	
 	/**
-	 * Returns a KwetsbaarObject[] for the given filter, an empty list if no KwetsbaarObject is found.
-	 * @throws Exception
+	 * Returns a KwetsbaarObject[] for the given template, an empty list if no KwetsbaarObject is found.
+	 * @return All kwetsbare objecten for the specified template
 	 */
 	public List<KwetsbaarObject> getKwetsbareObjecten() {
 		LOGGER.log(Level.INFO, "Getting kwetsbare objecten...");
