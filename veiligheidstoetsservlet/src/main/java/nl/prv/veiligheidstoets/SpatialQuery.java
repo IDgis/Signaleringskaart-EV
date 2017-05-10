@@ -40,7 +40,6 @@ public class SpatialQuery {
 	/**
 	 * 
 	 * @return Gets an xml with the data given in the postbody
-	 * @throws IOException
 	 */
 	private String getResult() {
 		URL url = null;
@@ -85,8 +84,7 @@ public class SpatialQuery {
 	
 	/**
 	 * Returns the number of properties found or a json of the features with the properties specified in the filter.
-	 * @return
-	 * @throws Exception
+	 * @return A Map with the result of the found features
 	 */
 	public Map<String, String> getFeatureResult() {
 		Map<String, String> features = new HashMap<>();
@@ -124,8 +122,8 @@ public class SpatialQuery {
 	
 	/**
 	 * Return the json of the kwetsbare objecten found.
-	 * @param kwObjectsInBuffer
-	 * @return
+	 * @param kwObjectsInBuffer - The KwetsbareObjecten found by the second template
+	 * @return A json with the key name features with all kwetsbare objecten within buffer
 	 */
 	public Map<String, String> getFeatureResult(List<KwetsbaarObject> kwObjectsInBuffer) {
 		Map<String, String> features = new HashMap<>();
@@ -160,8 +158,7 @@ public class SpatialQuery {
 	/**
 	 * returns the KwetsbaarObject if the number of features found is not zero.
 	 * @param kwObject
-	 * @param index
-	 * @return
+	 * @return A kwetsbaar Object if one is found
 	 */
 	public KwetsbaarObject getKwetsbaarObjectInBuffer(KwetsbaarObject kwObject) {
 		Map<String, String> numFeatures = new HashMap<>();
@@ -182,8 +179,8 @@ public class SpatialQuery {
 	
 	/**
 	 * Returns the number of features found in the given document
-	 * @param doc
-	 * @return
+	 * @param doc - the xml document created by the template
+	 * @return The number of features found
 	 */
 	private Map<String, String> getNumFeatures(Document doc) {
 		Map<String, String> numFeatures = new HashMap<>();
@@ -197,9 +194,9 @@ public class SpatialQuery {
 	
 	/**
 	 * Returns a Map with the name and json array string of the features found
-	 * @param filteredFeatures - The name of features to filter e.g. PR10-6, PR10-7, PAG
+	 * @param properties - The name of properties to filter e.g. PR10-6, PR10-7, PAG
 	 * @param elementList - All xml tags in the given filter
-	 * @return
+	 * @return A Map with all features found as a json string
 	 */
 	private Map<String, String> getFeatures(List<String> properties, NodeList elementList) {
 		Map<String, String> features = new HashMap<>();
@@ -228,7 +225,7 @@ public class SpatialQuery {
 	/**
 	 * Fills the propertyList with matching elements
 	 * @param propertyList - the List to fill with properties
-	 * @param filteredFeatures - the filters to check to match
+	 * @param properties - the property names to check to match
 	 * @param featureMemberNode - the current element
 	 */
 	private void fillPropertyList(List<String> propertyList, List<String> properties, Node featureMemberNode) {
@@ -245,10 +242,10 @@ public class SpatialQuery {
 	}
 	
 	/**
-	 * Gets 2 Lists with properties and turns them into a single json string.
-	 * @param filteredFeatures the smallest array
-	 * @param propertyList the longest array
-	 * @return
+	 * Gets 2 Lists with properties and combines them into a single json string.
+	 * @param propertyList the property names found in the template
+	 * @param featureList all features found for the names by the given propertyList
+	 * @return A json string from the combined lists
 	 */
 	private String mergeAsJsonString(List<String> propertyList, List<String> featureList) {
 		int index = 0;
@@ -272,8 +269,8 @@ public class SpatialQuery {
 	}
 	
 	/**
-	 * Returns a KwetsbaarObject[] for the given filter, an empty list if no KwetsbaarObject is found.
-	 * @throws Exception
+	 * Returns a KwetsbaarObject[] for the given template, an empty list if no KwetsbaarObject is found.
+	 * @return All kwetsbare objecten for the specified template
 	 */
 	public List<KwetsbaarObject> getKwetsbareObjecten() {
 		LOGGER.log(Level.INFO, "Getting kwetsbare objecten...");
