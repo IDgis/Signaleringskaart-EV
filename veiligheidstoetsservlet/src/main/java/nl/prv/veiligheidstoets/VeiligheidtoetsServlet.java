@@ -310,7 +310,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		LOGGER.log(Level.INFO, "Kwetsbare objecten found for second template: {0}", kwObjects.size());
 		List<KwetsbaarObject> kwObjectsInBuffer = new ArrayList<>();
 		for(int i = 0; i < kwObjects.size(); i++) {
-			String pointGeom = kwObjects.get(i).getPoint().toString();
+			String pointGeom = kwObjects.get(i).getPointWKT();
 			String gml = null;
 			try {
 				gml = WKT2GMLParser.parse(pointGeom);

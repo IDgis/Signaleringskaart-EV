@@ -29,6 +29,10 @@ public class KwetsbaarObject {
 		return point;
 	}
 	
+	public String getPointWKT() {
+		return ("POINT(" + getCoordX() + " " + getCoordY() + ")");
+	}
+	
 	public double getCoordX() {
 		return point.getCoordinate().x;
 	}
