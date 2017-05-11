@@ -1,8 +1,6 @@
 package nl.prv.veiligheidstoets.util;
 
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
