@@ -10,8 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -46,8 +46,12 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private static final Logger LOGGER = Logger.getLogger(VeiligheidtoetsServlet.class.getName());
+	static {
+		LOGGER.setLevel(Level.ALL);
+	}
 	
 	private static final String ERROR = "error";
+	private static final String FILTER = "filter";
 	private static final String ISVALID = "isValid";
 	private static final String REQUESTTYPE = "requesttype";
 	private static final String SERVICENAME = "servicename";
@@ -93,11 +97,11 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				fis.close();
 			} 
 			else {
-				LOGGER.log(Level.SEVERE, "Config file missing {0}{1}veiligheidstoets.xml", new Object[]{ configdir, File.separator });
+				LOGGER.log(Level.FATAL, String.format("Config file missing %s%sveiligheidstoets.xml", configdir, File.separator));
 			}
 		}
 		catch(Exception e) {
-			LOGGER.log(Level.SEVERE, e.toString(), e);
+			LOGGER.log(Level.FATAL, e.toString(), e);
 		}
 	}
 	
@@ -149,12 +153,12 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				json.add(key, parser.parse(value));
 			}
 			
-			LOGGER.log(Level.INFO, "Returning JSON: {0}", new Object[]{ json });
+			LOGGER.log(Level.DEBUG, "Returning JSON: " + json);
 			out.println(json);
 			out.flush();
 		}			
 		catch(IOException | JsonParseException e) {
-			LOGGER.log(Level.SEVERE, e.toString(), e);
+			LOGGER.log(Level.FATAL, e.toString(), e);
 		}
 	}
 	
@@ -182,7 +186,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 					return checkResult;
 				}
 			} catch (ParseException e) {
-				LOGGER.log(Level.SEVERE, e.toString(), e);
+				LOGGER.log(Level.FATAL, e.toString(), e);
 				checkResult.put(ISVALID, "false");
 				checkResult.put(ERROR, "\"an error occurred: " + e.getMessage() + "\"");
 				return checkResult;
@@ -219,20 +223,20 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			}
 			
 			// Check templates
-			String[] templates = props.get("filter").split("x");
-			if(templates == null) {
+			if(!props.containsKey(FILTER)) {
 				features.put(ERROR, "\"Template is missing!\"");
 				return features;
 			}
+			String[] templates = props.get(FILTER).split("x");
 			String template = templateHandler.getFilter(templates[0], props);
-			LOGGER.log(Level.INFO, "TEMPLATE: \n {0}", template);
+			LOGGER.log(Level.DEBUG, "TEMPLATE:\n" + template);
 			SpatialQuery sq = new SpatialQuery(url, template);
 			
 			// Check for second template
 			if(templates.length > 1) {
 				LOGGER.log(Level.INFO, "Second template found...");
 				List<KwetsbaarObject> kwObjects = sq.getKwetsbareObjecten();
-				LOGGER.log(Level.INFO, "Number of kwetsbare objecten returned: {0}", kwObjects.size());
+				LOGGER.log(Level.DEBUG, "Number of kwetsbare objecten returned: " + kwObjects.size());
 				url = getServiceName(props, 1);
 				List<KwetsbaarObject> kwObjectsInBuffer = processSecondTemplate(kwObjects, url, props);
 				return sq.getFeatureResult(kwObjectsInBuffer);
@@ -243,7 +247,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			features = sq.getFeatureResult();
 		}
 		catch(Exception e) {
-			LOGGER.log(Level.SEVERE, e.toString(), e);
+			LOGGER.log(Level.FATAL, e.toString(), e);
 			features.put(ERROR, "\"" + e.getMessage() + "\"");
 			return features;
 		}
@@ -260,6 +264,9 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private String getServiceName(Map<String, String> props, int index) {
 		if(props.containsKey(SERVICENAME)){
 			String[] urls = props.get(SERVICENAME).split("x");
+			if(index == 1 && urls.length != 2) {
+				return null;
+			}
 			if("risicokaartWFS".equals(urls[index])) {
 				return risicokaartWFSUrl;
 			} 
@@ -307,7 +314,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		if(kwObjects.isEmpty()) {
 			return new ArrayList<>();
 		}
-		LOGGER.log(Level.INFO, "Kwetsbare objecten found for second template: {0}", kwObjects.size());
+		LOGGER.log(Level.DEBUG, "Kwetsbare objecten found for second template: " + kwObjects.size());
 		List<KwetsbaarObject> kwObjectsInBuffer = new ArrayList<>();
 		for(int i = 0; i < kwObjects.size(); i++) {
 			String pointGeom = kwObjects.get(i).getPointWKT();
@@ -316,13 +323,13 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				gml = WKT2GMLParser.parse(pointGeom);
 			} 
 			catch (IOException e) {
-				LOGGER.log(Level.SEVERE, e.toString(), e);
+				LOGGER.log(Level.FATAL, e.toString(), e);
 			} 
 			props.put("plangebiedgml", gml);
 			
-			String[] templates = props.get("filter").split("x");
+			String[] templates = props.get(FILTER).split("x");
 			String template = templateHandler.getFilter(templates[1], props);
-			LOGGER.log(Level.INFO, "TEMPLATE_2: \n {0}", template);
+			LOGGER.log(Level.DEBUG, "TEMPLATE_2:\n " + template);
 			
 			try {
 				SpatialQuery sq2 = new SpatialQuery(url, template);
@@ -332,7 +339,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				}
 			}
 			catch(Exception e) {
-				LOGGER.log(Level.SEVERE, e.toString(), e);
+				LOGGER.log(Level.FATAL, e.toString(), e);
 			}
 		}
 		return kwObjectsInBuffer;

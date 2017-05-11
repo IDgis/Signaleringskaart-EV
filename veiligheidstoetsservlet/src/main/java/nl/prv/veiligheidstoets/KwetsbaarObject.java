@@ -30,7 +30,7 @@ public class KwetsbaarObject {
 	}
 	
 	public String getPointWKT() {
-		return ("POINT(" + getCoordX() + " " + getCoordY() + ")");
+		return "POINT(" + getCoordX() + " " + getCoordY() + ")";
 	}
 	
 	public double getCoordX() {
