@@ -10,15 +10,14 @@ import org.antlr.stringtemplate.StringTemplateGroup;
 public class TemplateHandler {
 	
 	private StringTemplateGroup templateGroup;
-	private String locationURL = "/etc/veiligheidstoets/templates/";
-	//private String locationURL = "nl/prv/veiligheidstoets/templates/";
+	private String locationURL = "/etc/veiligheidstoets/templates";
 
 	public TemplateHandler() {
-		templateGroup = new StringTemplateGroup("template group");
+		templateGroup = new StringTemplateGroup("template group", locationURL);
 	}
 	
 	public String getFilter(String templateName, Map<String,String> props){
-		StringTemplate template = templateGroup.getInstanceOf(locationURL + templateName);
+		StringTemplate template = templateGroup.getInstanceOf(templateName);
 		Iterator<Entry<String, String>> it = props.entrySet().iterator();
 		while (it.hasNext()) {  				 
 		    Map.Entry<String,String> pairs = it.next();
