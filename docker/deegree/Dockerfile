@@ -19,8 +19,12 @@ RUN unzip /tmp/deegree.zip -d /opt/ && \
 COPY workspace/ev /root/.deegree/ev
 COPY webapps.properties /root/.deegree
 
-#kopieer war en config veiligheidstoetsserlvlet
+#kopieer war de config en de templates voor de veiligheidstoetsserlvlet
 COPY veiligheidstoets/veiligheidstoetsservlet.war /opt/deegree-webservices-${DEEGREE_VERSION}/webapps
 COPY veiligheidstoets/veiligheidstoets.xml /etc/veiligheidstoets/veiligheidstoets.xml
+COPY veiligheidstoets/templates /etc/veiligheidstoets/templates
+
 # run tomcat
 CMD /opt/deegree/bin/catalina.sh run
+
+
