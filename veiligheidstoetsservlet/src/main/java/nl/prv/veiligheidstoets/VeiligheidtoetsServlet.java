@@ -261,6 +261,9 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private String getServiceName(Map<String, String> props, int index) {
 		if(props.containsKey(SERVICENAME)){
 			String[] urls = props.get(SERVICENAME).split("x");
+			if(index == 1 && urls.length != 2) {
+				return null;
+			}
 			if("risicokaartWFS".equals(urls[index])) {
 				return risicokaartWFSUrl;
 			} 
