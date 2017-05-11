@@ -1,5 +1,8 @@
 version: '2'
 
+volumes:
+ db_ov_data:
+
 services:
 
   db:
@@ -11,6 +14,8 @@ services:
      - "5432"
     environment:
       DEBUG: "false"
+    volumes:
+      - db_ov_data:/var/lib/postgresql/data      
 networks:
   default:
     external:
