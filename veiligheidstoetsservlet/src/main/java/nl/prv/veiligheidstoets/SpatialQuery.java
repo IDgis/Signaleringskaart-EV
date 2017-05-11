@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,6 +28,9 @@ import org.xml.sax.SAXException;
 
 public class SpatialQuery {
 	private static final Logger LOGGER = Logger.getLogger(SpatialQuery.class.getName());
+	static {
+		LOGGER.setLevel(Level.ALL);
+	}
 	
 	private String urlstr;
 	private String template;
@@ -55,13 +58,13 @@ public class SpatialQuery {
 			hpcon.setDoInput(true);
 			hpcon.setDoOutput(true);
 		} catch (IOException e) {
-			LOGGER.log(Level.SEVERE, e.toString(), e);
+			LOGGER.log(Level.FATAL, e.toString(), e);
 		}
 		if(hpcon != null) {
 			try(DataOutputStream printout = new DataOutputStream(hpcon.getOutputStream())) {
 				printout.writeBytes(template);
 			} catch (IOException e) {
-				LOGGER.log(Level.SEVERE, e.toString(), e);
+				LOGGER.log(Level.FATAL, e.toString(), e);
 			}
 			try(BufferedReader in = new BufferedReader(new InputStreamReader(hpcon.getInputStream()))) {
 				String input;
@@ -69,14 +72,14 @@ public class SpatialQuery {
 					response.append(input + "\r");
 				}
 			} catch(IOException e) {
-				LOGGER.log(Level.INFO, "fout in request naar {0} met filter {1}", new Object[]{ urlstr, template });
-				LOGGER.log(Level.SEVERE, e.toString(), e);
+				LOGGER.log(Level.WARN, String.format("fout in request naar %s met filter %s", urlstr, template));
+				LOGGER.log(Level.FATAL, e.toString(), e);
 			} finally {
 				hpcon.disconnect();
 			}
 		}
 		if(response.toString().indexOf("ExceptionReport") > -1) {
-			LOGGER.log(Level.SEVERE, "fout in request naar {0} met filter {1} response: {2}", new Object[]{ urlstr, template, response.toString() });
+			LOGGER.log(Level.FATAL, String.format("fout in request naar %s met filter %s response: %s", urlstr, template, response.toString()));
 		}
 		
 		return response.toString();
@@ -113,7 +116,7 @@ public class SpatialQuery {
 			features = getFeatures(properties, featureList);
 		} 
 		catch (IOException | ParserConfigurationException | SAXException e) {
-			LOGGER.log(Level.SEVERE, e.toString(), e);
+			LOGGER.log(Level.FATAL, e.toString(), e);
 			features.put("error", "\"" + e.getMessage() + "\"");
 			return features;
 		}
@@ -149,7 +152,7 @@ public class SpatialQuery {
 		
 		LOGGER.log(Level.INFO, "Building result to display...");
 		String resultString = mergeAsJsonString(propertyList, featureList);
-		LOGGER.log(Level.INFO, resultString);
+		LOGGER.log(Level.DEBUG, resultString);
 		features.put("features", resultString);
 		
 		return features;
@@ -172,7 +175,7 @@ public class SpatialQuery {
 			}
 		}
 		catch(IOException | ParserConfigurationException | SAXException e) {
-			LOGGER.log(Level.SEVERE, e.toString(), e);
+			LOGGER.log(Level.FATAL, e.toString(), e);
 		}
 		return null;
 	}
@@ -214,9 +217,9 @@ public class SpatialQuery {
 		}
 		
 		// DEBUGGING
-		LOGGER.log(Level.INFO, "properties: {0}, featureList: {1}", new Object[]{ properties.size(), featureList.size() });
+		LOGGER.log(Level.DEBUG, String.format("properties: %d, featureList: %d", properties.size(), featureList.size()));
 		String valueString = mergeAsJsonString(properties, featureList);
-		LOGGER.log(Level.INFO, "features to return: {0}", valueString);
+		LOGGER.log(Level.DEBUG, "features to return: " + valueString);
 		features.put("features", valueString);
 		
 		return features;
@@ -264,7 +267,7 @@ public class SpatialQuery {
 			sb.append("{\"" + propertyList.get(propertyList.size() - 1) + "\":\"" + featureList.get(index++) + "\"}]},");
 		}
 		sb.replace(sb.length() - 1, sb.length(), "]");
-		LOGGER.log(Level.INFO, "JSON value String: {0}", sb.toString());
+		LOGGER.log(Level.DEBUG, "JSON value String: " + sb.toString());
 		return sb.toString();
 	}
 	
@@ -279,12 +282,12 @@ public class SpatialQuery {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
-			LOGGER.log(Level.INFO, "Document: \n {0}", getResult());
+			LOGGER.log(Level.DEBUG, "Document:\n" + getResult());
 			Element docElement = doc.getDocumentElement();
 			int numResults = Integer.parseInt(docElement.getAttribute("numberOfFeatures"));
 			NodeList elementList = doc.getElementsByTagName("wfs:member");
-			LOGGER.log(Level.INFO, "Aantal objecten found in numResults: {0}", numResults);
-			LOGGER.log(Level.INFO, "Aantal objecten found in elementList: {0}" + elementList.getLength());
+			LOGGER.log(Level.DEBUG, "Aantal objecten found in numResults: " + numResults);
+			LOGGER.log(Level.DEBUG, "Aantal objecten found in elementList: " + elementList.getLength());
 			if(elementList.getLength() == 0) {
 				return new ArrayList<>();
 			}
@@ -297,10 +300,10 @@ public class SpatialQuery {
 				kwetsbaarObjList.add(obj);
 			}
 		} catch (ParserConfigurationException | SAXException | IOException e) {
-			LOGGER.log(Level.SEVERE, e.toString(), e);
+			LOGGER.log(Level.FATAL, e.toString(), e);
 		}
 		
-		LOGGER.log(Level.INFO, "Kwetsbare objecten in list: {0}", kwetsbaarObjList.size());
+		LOGGER.log(Level.DEBUG, "Kwetsbare objecten in list: " + kwetsbaarObjList.size());
 		return kwetsbaarObjList;
 	}
 }
