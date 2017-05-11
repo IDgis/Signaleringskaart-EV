@@ -5,9 +5,6 @@
 	</SupportedVersions>
 	<FeatureStoreId>plangebied_ov</FeatureStoreId>
 	<FeatureStoreId>verblijfsobject_ov</FeatureStoreId>
-	<FeatureStoreId>basisnet_spoor_ov_pr10_6</FeatureStoreId>
-	<FeatureStoreId>basisnet_spoor_ov_pr10_7</FeatureStoreId>
-	<FeatureStoreId>basisnet_spoor_ov_pr10_8</FeatureStoreId>
 
   	<QueryCRS>EPSG:28992</QueryCRS>
  

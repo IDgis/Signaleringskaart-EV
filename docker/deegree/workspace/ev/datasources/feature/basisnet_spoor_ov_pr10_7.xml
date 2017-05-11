@@ -2,7 +2,7 @@
 
 	<JDBCConnId>jdbc_ev_services_ov</JDBCConnId>
 
-	<FeatureTypeMapping xmlns:myapp="http://www.deegree.org/myapp" table="basisnet_spoor_ov_pr10_8" name="myapp:basisnet_spoor_ov_pr10_6">
+	<FeatureTypeMapping xmlns:myapp="http://www.deegree.org/myapp" table="basisnet_spoor_ov_pr10_7" name="myapp:basisnet_spoor_ov_pr10_7">
 	    <FIDMapping>
 	        <Column name="id"/>
 	        <AutoIdGenerator/>
