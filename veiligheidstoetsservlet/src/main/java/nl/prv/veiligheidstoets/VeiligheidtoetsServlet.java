@@ -48,6 +48,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private static final Logger LOGGER = Logger.getLogger(VeiligheidtoetsServlet.class.getName());
 	
 	private static final String ERROR = "error";
+	private static final String FILTER = "filter";
 	private static final String ISVALID = "isValid";
 	private static final String REQUESTTYPE = "requesttype";
 	private static final String SERVICENAME = "servicename";
@@ -219,11 +220,11 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			}
 			
 			// Check templates
-			String[] templates = props.get("filter").split("x");
-			if(templates == null) {
+			if(!props.containsKey(FILTER)) {
 				features.put(ERROR, "\"Template is missing!\"");
 				return features;
 			}
+			String[] templates = props.get(FILTER).split("x");
 			String template = templateHandler.getFilter(templates[0], props);
 			LOGGER.log(Level.INFO, "TEMPLATE: \n {0}", template);
 			SpatialQuery sq = new SpatialQuery(url, template);
@@ -320,7 +321,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			} 
 			props.put("plangebiedgml", gml);
 			
-			String[] templates = props.get("filter").split("x");
+			String[] templates = props.get(FILTER).split("x");
 			String template = templateHandler.getFilter(templates[1], props);
 			LOGGER.log(Level.INFO, "TEMPLATE_2: \n {0}", template);
 			
