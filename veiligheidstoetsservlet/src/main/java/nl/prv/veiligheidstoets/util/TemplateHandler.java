@@ -16,13 +16,14 @@ public class TemplateHandler {
 	}
 	
 	public String getFilter(String templateName, Map<String,String> props){
-		 StringTemplate template = templateGroup.getInstanceOf("nl/prv/veiligheidstoets/templates/" + templateName);
-		 Iterator<Entry<String, String>> it = props.entrySet().iterator();
-		 while (it.hasNext()) {  				 
-		     Map.Entry<String,String> pairs = it.next();
-		     template.setAttribute(pairs.getKey(), pairs.getValue());  
-		     //it.remove(); // avoids a ConcurrentModificationException
-		 }
-		 return template.toString();
+		StringTemplate template = templateGroup.getInstanceOf("/etc/veiligheidstoets/templates/" + templateName);
+		//StringTemplate template = templateGroup.getInstanceOf("nl/prv/veiligheidstoets/templates/" + templateName);
+		Iterator<Entry<String, String>> it = props.entrySet().iterator();
+		while (it.hasNext()) {  				 
+		    Map.Entry<String,String> pairs = it.next();
+		    template.setAttribute(pairs.getKey(), pairs.getValue());  
+		    //it.remove(); // avoids a ConcurrentModificationException
+		}
+		return template.toString();
 	}
 }
