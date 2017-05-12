@@ -233,7 +233,8 @@ public class SpatialQuery {
 	 */
 	private void fillPropertyList(List<String> propertyList, List<String> properties, Node featureMemberNode) {
 		for(int i = 0; i < properties.size(); i++) {
-			if(featureMemberNode.getNodeName().endsWith(":" + properties.get(i))) {
+			String propertyName = properties.get(i);
+			if(featureMemberNode.getNodeName().endsWith(":" + propertyName.toLowerCase()) || featureMemberNode.getNodeName().endsWith(":" + propertyName.toUpperCase())) {
 				String textContent = featureMemberNode.getTextContent();
 				if(textContent == null || "".equals(textContent)) {
 					properties.remove(i);
