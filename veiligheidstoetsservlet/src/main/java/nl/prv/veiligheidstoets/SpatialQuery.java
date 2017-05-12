@@ -236,7 +236,10 @@ public class SpatialQuery {
 	private void fillPropertyList(List<String> propertyList, List<String> properties, Node featureMemberNode) {
 		for(int i = 0; i < properties.size(); i++) {
 			String propertyName = properties.get(i);
-			if(featureMemberNode.getNodeName().endsWith(":" + propertyName.toLowerCase()) || featureMemberNode.getNodeName().endsWith(":" + propertyName.toUpperCase())) {
+			String nodeName = featureMemberNode.getNodeName();
+			int nameStart = nodeName.indexOf(':');
+			nodeName = nodeName.substring(nameStart, nodeName.length());
+			if(nodeName.equalsIgnoreCase(":" + propertyName)) {
 				String textContent = featureMemberNode.getTextContent();
 				if(textContent == null || "".equals(textContent)) {
 					properties.remove(i);
