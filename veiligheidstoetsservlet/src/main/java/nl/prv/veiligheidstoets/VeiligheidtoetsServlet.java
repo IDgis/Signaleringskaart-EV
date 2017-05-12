@@ -58,9 +58,10 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	
 	private String basisnetWFSUrl;
 	private String risicokaartWFSUrl;
+	private String veiligheidstoetsWFSUrl;
+	private String ruimtelijkeplannenWFSUrl;
 	private String wktError;
 	
-	private String veiligheidstoetsWFSUrl;
 	private TemplateHandler templateHandler;
 	
 	/**
@@ -92,6 +93,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				basisnetWFSUrl = getConfigProperty(configDoc, "basisnetWFSUrl");
 				risicokaartWFSUrl = getConfigProperty(configDoc,"risicokaartWFSUrl");
 				veiligheidstoetsWFSUrl  = getConfigProperty(configDoc,"veiligheidstoetsWFSUrl");
+				ruimtelijkeplannenWFSUrl = getConfigProperty(configDoc, "ruimtelijkeplannenWFSUrl");
 				wktError = getConfigProperty(configDoc, "wktError");
 				templateHandler = new TemplateHandler();
 				fis.close();
@@ -275,6 +277,9 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			}
 			else if("basisnetWFS".equals(urls[index])) {
 				return basisnetWFSUrl;
+			}
+			else if("ruimtelijkeplannenWFS".equals(urls[index])) {
+				return ruimtelijkeplannenWFSUrl;
 			}
 			return "INVALID";
 		}
