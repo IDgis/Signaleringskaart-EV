@@ -308,7 +308,6 @@ public class SpatialQuery {
 				NodeList childList = element.getElementsByTagName("*");
 				KwetsbaarObject obj = new KwetsbaarObject();
 				obj.setProperties(childList, properties);
-				//obj.setAttributes(childList);
 				obj.setPosition(childList);
 				kwetsbaarObjList.add(obj);
 			}
