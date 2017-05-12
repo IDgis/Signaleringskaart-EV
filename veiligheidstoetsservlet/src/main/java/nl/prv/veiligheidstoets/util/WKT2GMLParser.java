@@ -32,7 +32,7 @@ public class WKT2GMLParser {
 			XMLOutputFactory xof = XMLOutputFactory.newInstance();
 			StringWriter sw = new StringWriter();
 	        XMLStreamWriter xtw = xof.createXMLStreamWriter(sw);
-			GMLStreamWriter gtw = GMLOutputFactory.createGMLStreamWriter(GMLVersion.GML_32, xtw);
+			GMLStreamWriter gtw = GMLOutputFactory.createGMLStreamWriter(GMLVersion.GML_30, xtw);
 			GML3GeometryWriter ggw = new GML3GeometryWriter(gtw);
 			ggw.export(geom);
 			gtw.close();
