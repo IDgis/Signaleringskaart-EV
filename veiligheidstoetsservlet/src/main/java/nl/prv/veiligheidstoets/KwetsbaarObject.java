@@ -13,7 +13,6 @@ public class KwetsbaarObject {
 	private Point point;
 	private String gebruiksdoel;
 	private String oppervlakte;
-	private String id;
 	
 	public void setPoint(double x, double y) {
 		GeometryFactory fac = new GeometryFactory();
@@ -41,14 +40,6 @@ public class KwetsbaarObject {
 		return point.getCoordinate().y;
 	}
 	
-	public void setId(String id) {
-		this.id = id;
-	}
-	
-	public String getId() {
-		return id;
-	}
-	
 	public void setGebruiksDoel(String gebruiksdoel) {
 		this.gebruiksdoel = gebruiksdoel;
 	}
@@ -65,16 +56,19 @@ public class KwetsbaarObject {
 		return oppervlakte;
 	}
 	
-	public void setAttributes(NodeList list) {
+	public void setPosition(NodeList list) {
 		for(int i = 0; i < list.getLength(); i++) {
 			Element node = (Element)list.item(i);
 			if(node.getNodeName().endsWith(":pos")) {
 				setPoint(node.getTextContent().trim());
 			}
-			else if(node.getNodeName().endsWith(":verblijfsobject")) {
-				setId(node.getAttribute("gml:id"));
-			}
-			else if(node.getNodeName().endsWith(":gebruiksdoel")) {
+		}
+	}
+	
+	public void setAttributes(NodeList list) {
+		for(int i = 0; i < list.getLength(); i++) {
+			Element node = (Element)list.item(i);
+			if(node.getNodeName().endsWith(":gebruiksdoel")) {
 				setGebruiksDoel(node.getTextContent());
 			}
 			else if(node.getNodeName().endsWith(":oppervlakte")) {

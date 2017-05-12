@@ -329,10 +329,10 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			
 			String[] templates = props.get(FILTER).split("x");
 			String template = templateHandler.getFilter(templates[1], props);
-			LOGGER.log(Level.DEBUG, "TEMPLATE_2:\n " + template);
 			
 			try {
 				SpatialQuery sq2 = new SpatialQuery(url, template);
+				LOGGER.log(Level.DEBUG, "Processing: " + i + " of " + kwObjects.size());
 				KwetsbaarObject bufferResult = sq2.getKwetsbaarObjectInBuffer(kwObjects.get(i));
 				if(bufferResult != null) {
 					kwObjectsInBuffer.add(bufferResult);
@@ -342,6 +342,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				LOGGER.log(Level.FATAL, e.toString(), e);
 			}
 		}
+		LOGGER.log(Level.DEBUG, "Number of kwObjectsInBuffer: " + kwObjectsInBuffer.size());
 		return kwObjectsInBuffer;
 	}
 

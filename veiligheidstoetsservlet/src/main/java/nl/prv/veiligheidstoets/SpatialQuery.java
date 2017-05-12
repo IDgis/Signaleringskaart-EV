@@ -137,17 +137,13 @@ public class SpatialQuery {
 		
 		List<String> featureList = new ArrayList<>();
 		List<String> propertyList = new ArrayList<>();
-		propertyList.add("id");
 		propertyList.add("gebruiksdoel");
 		propertyList.add("oppervlakte");
-		propertyList.add("position");
 		
 		for(int i = 0; i < kwObjectsInBuffer.size(); i++) {
 			KwetsbaarObject obj = kwObjectsInBuffer.get(i);
-			featureList.add(obj.getId());
 			featureList.add(obj.getGebruiksDoel());
 			featureList.add(obj.getOppervlakte());
-			featureList.add(obj.getCoordX() + " " + obj.getCoordY());
 		}
 		
 		LOGGER.log(Level.INFO, "Building result to display...");
@@ -164,13 +160,13 @@ public class SpatialQuery {
 	 * @return A kwetsbaar Object if one is found
 	 */
 	public KwetsbaarObject getKwetsbaarObjectInBuffer(KwetsbaarObject kwObject) {
-		Map<String, String> numFeatures = new HashMap<>();
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
-			numFeatures = getNumFeatures(doc);
-			if(!"0".equals(numFeatures.get("numberOfFeaturesFound"))) {
+			Element element = doc.getDocumentElement();
+			int result = Integer.parseInt(element.getAttribute("numberOfFeatures"));
+			if(result == 1) {
 				return kwObject;
 			}
 		}
@@ -283,21 +279,30 @@ public class SpatialQuery {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
-			LOGGER.log(Level.DEBUG, "Document:\n" + getResult());
-			Element docElement = doc.getDocumentElement();
-			int numResults = Integer.parseInt(docElement.getAttribute("numberOfFeatures"));
+			
+			// Get property names to filter from the template
+			Document templateDoc = builder.parse(new InputSource(new ByteArrayInputStream(template.getBytes())));
+			List<String> properties = new ArrayList<>();
+			NodeList queryList = templateDoc.getElementsByTagName("wfs:Query");
+			Element queryElement = (Element)queryList.item(0);
+			Node childNode = queryElement.getFirstChild().getNextSibling();
+			while("ogc:PropertyName".equals(childNode.getNodeName())) {
+				properties.add(childNode.getTextContent());
+				childNode = childNode.getNextSibling().getNextSibling();
+			}
+			
+			// Get all kwetsbare objecten in the template
 			NodeList elementList = doc.getElementsByTagName("wfs:member");
-			LOGGER.log(Level.DEBUG, "Aantal objecten found in numResults: " + numResults);
 			LOGGER.log(Level.DEBUG, "Aantal objecten found in elementList: " + elementList.getLength());
 			if(elementList.getLength() == 0) {
 				return new ArrayList<>();
 			}
-			
 			for(int i = 0; i < elementList.getLength(); i++) {
 				Element element = (Element)elementList.item(i);
 				NodeList childList = element.getElementsByTagName("*");
 				KwetsbaarObject obj = new KwetsbaarObject();
 				obj.setAttributes(childList);
+				obj.setPosition(childList);
 				kwetsbaarObjList.add(obj);
 			}
 		} catch (ParserConfigurationException | SAXException | IOException e) {
