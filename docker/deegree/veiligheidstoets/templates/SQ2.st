@@ -20,7 +20,7 @@
         <ogc:PropertyName>Breedte</ogc:PropertyName>
         <ogc:Filter>
 	        <ogc:Intersects>
-	            <ogc:PropertyName>the_geom</ogc:PropertyName>
+	            <ogc:PropertyName>geom</ogc:PropertyName>
 	            $plangebiedgml$                         
 	        </ogc:Intersects>
         </ogc:Filter>
