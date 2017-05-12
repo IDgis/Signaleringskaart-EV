@@ -1,0 +1,28 @@
+<SQLFeatureStore xmlns="http://www.deegree.org/datasource/feature/sql" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" configVersion="3.2.0" xsi:schemaLocation="http://www.deegree.org/datasource/feature/sql http://schemas.deegree.org/datasource/feature/sql/3.2.0/sql.xsd">
+
+	<JDBCConnId>jdbc_ev_services_ov</JDBCConnId>
+
+	<FeatureTypeMapping xmlns:myapp="http://www.deegree.org/myapp" table="basisnet_spoor_ov_pr10_8" name="myapp:basisnet_spoor_ov_pr10_8">
+	    <FIDMapping>
+	        <Column name="id"/>
+	        <AutoIdGenerator/>
+	    </FIDMapping>
+	    <Primitive path="pr10_6" mapping="PR10_6"/>
+	    <Primitive path="pr10_7" mapping="PR10_7"/>
+	   	<Primitive path="pr10_8" mapping="PR10_8"/>
+	    <Primitive path="pag" mapping="PAG"/>
+	    <Primitive path="a" mapping="A"/>
+	    <Primitive path="b2" mapping="B2"/>
+	   	<Primitive path="b3" mapping="B3"/>
+	    <Primitive path="c3" mapping="C3"/>
+	   	<Primitive path="d3" mapping="D3"/>
+	    <Primitive path="d4" mapping="D4"/>
+	   	<Primitive path="awk" mapping="AWK"/>
+	    <Primitive path="b2wk" mapping="B2WK"/>
+   	    <Primitive path="breedte" mapping="Breedte"/>
+	    <Geometry path="geom" mapping="geom">
+	        <StorageCRS srid="-1">EPSG:28992</StorageCRS>
+	    </Geometry>
+	</FeatureTypeMapping>
+	
+</SQLFeatureStore>	
