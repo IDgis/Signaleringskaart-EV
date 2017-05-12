@@ -6,6 +6,10 @@
 	</SupportedVersions>
 	
 	<FeatureStoreId>verblijfsobject_ov</FeatureStoreId>
+    <FeatureStoreId>basisnet_spoor_ov_pr10_6</FeatureStoreId>
+	<FeatureStoreId>basisnet_spoor_ov_pr10_7</FeatureStoreId>
+	<FeatureStoreId>basisnet_spoor_ov_pr10_8</FeatureStoreId>
+	
 	<QueryCRS>EPSG:28992</QueryCRS>
 	<GMLFormat gmlVersion="GML_32">
 		<MimeType>text/xml; subtype=gml/3.2.1</MimeType>

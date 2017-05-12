@@ -58,9 +58,10 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	
 	private String basisnetWFSUrl;
 	private String risicokaartWFSUrl;
+	private String veiligheidstoetsWFSUrl;
+	private String ruimtelijkeplannenWFSUrl;
 	private String wktError;
 	
-	private String veiligheidstoetsWFSUrl;
 	private TemplateHandler templateHandler;
 	
 	/**
@@ -92,6 +93,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				basisnetWFSUrl = getConfigProperty(configDoc, "basisnetWFSUrl");
 				risicokaartWFSUrl = getConfigProperty(configDoc,"risicokaartWFSUrl");
 				veiligheidstoetsWFSUrl  = getConfigProperty(configDoc,"veiligheidstoetsWFSUrl");
+				ruimtelijkeplannenWFSUrl = getConfigProperty(configDoc, "ruimtelijkeplannenWFSUrl");
 				wktError = getConfigProperty(configDoc, "wktError");
 				templateHandler = new TemplateHandler();
 				fis.close();
@@ -276,6 +278,9 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			else if("basisnetWFS".equals(urls[index])) {
 				return basisnetWFSUrl;
 			}
+			else if("ruimtelijkeplannenWFS".equals(urls[index])) {
+				return ruimtelijkeplannenWFSUrl;
+			}
 			return "INVALID";
 		}
 		return null;
@@ -329,10 +334,10 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			
 			String[] templates = props.get(FILTER).split("x");
 			String template = templateHandler.getFilter(templates[1], props);
-			LOGGER.log(Level.DEBUG, "TEMPLATE_2:\n " + template);
 			
 			try {
 				SpatialQuery sq2 = new SpatialQuery(url, template);
+				LOGGER.log(Level.DEBUG, "Processing: " + (i + 1) + " of " + kwObjects.size());
 				KwetsbaarObject bufferResult = sq2.getKwetsbaarObjectInBuffer(kwObjects.get(i));
 				if(bufferResult != null) {
 					kwObjectsInBuffer.add(bufferResult);
@@ -342,6 +347,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				LOGGER.log(Level.FATAL, e.toString(), e);
 			}
 		}
+		LOGGER.log(Level.DEBUG, "Number of kwObjectsInBuffer: " + kwObjectsInBuffer.size());
 		return kwObjectsInBuffer;
 	}
 

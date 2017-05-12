@@ -6,9 +6,10 @@
  xmlns:wfs="http://www.opengis.net/wfs"
  service="WFS"
  version="1.1.0"
- outputFormat="text/xml; subtype=gml/3.1.1"
- resultType="hits">
+ outputFormat="text/xml; subtype=gml/3.2.1">
     <wfs:Query typeName="verblijfsobject_ov">
+        <ogc:PropertyName>gebruiksdoel</ogc:PropertyName>
+        <ogc:PropertyName>oppervlakte</ogc:PropertyName>
         <ogc:Filter>
 	        <ogc:Within>
 	            <ogc:PropertyName>geom</ogc:PropertyName>

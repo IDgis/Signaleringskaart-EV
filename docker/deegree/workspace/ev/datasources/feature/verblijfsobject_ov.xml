@@ -2,7 +2,7 @@
 
 	<JDBCConnId>jdbc_ev_services_ov</JDBCConnId>
 
-	<FeatureTypeMapping xmlns:myapp="http://www.deegree.org/myapp" table="verblijfsobject" name="myapp:verblijfsobject">
+	<FeatureTypeMapping xmlns:myapp="http://www.deegree.org/myapp" table="verblijfsobject" name="myapp:verblijfsobject_ov">
 	    <FIDMapping>
 	        <Column name="ogc_fid"/>
 	        <AutoIdGenerator/>
@@ -10,7 +10,7 @@
 	    <Primitive path="gebruiksdoel" mapping="gebruiksdoel"/>
 	    <Primitive path="oppervlakte" mapping="oppervlakte"/>
 	    <Geometry path="geom" mapping="geom">
-	        <StorageCRS srid="-1">EPSG:28992</StorageCRS>
+	        <StorageCRS srid="28992">EPSG:28992</StorageCRS>
 	    </Geometry>
 	</FeatureTypeMapping>
 	
