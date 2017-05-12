@@ -1,18 +1,20 @@
 package nl.prv.veiligheidstoets;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Point;
 
 public class KwetsbaarObject {
 
 	private Point point;
-	private String gebruiksdoel;
-	private String oppervlakte;
+	private Map<String, String> properties;
 	
 	public void setPoint(double x, double y) {
 		GeometryFactory fac = new GeometryFactory();
@@ -40,22 +42,6 @@ public class KwetsbaarObject {
 		return point.getCoordinate().y;
 	}
 	
-	public void setGebruiksDoel(String gebruiksdoel) {
-		this.gebruiksdoel = gebruiksdoel;
-	}
-	
-	public String getGebruiksDoel() {
-		return gebruiksdoel;
-	}
-	
-	public void setOppervlakte(String oppervlakte) {
-		this.oppervlakte = oppervlakte;
-	}
-	
-	public String getOppervlakte() {
-		return oppervlakte;
-	}
-	
 	public void setPosition(NodeList list) {
 		for(int i = 0; i < list.getLength(); i++) {
 			Element node = (Element)list.item(i);
@@ -65,19 +51,22 @@ public class KwetsbaarObject {
 		}
 	}
 	
-	public void setAttributes(NodeList list) {
-		for(int i = 0; i < list.getLength(); i++) {
-			Element node = (Element)list.item(i);
-			if(node.getNodeName().endsWith(":gebruiksdoel")) {
-				setGebruiksDoel(node.getTextContent());
-			}
-			else if(node.getNodeName().endsWith(":oppervlakte")) {
-				setOppervlakte(node.getTextContent());
+	public void setProperties(NodeList nodeList, List<String> propertyNames) {
+		properties = new HashMap<>();
+		// Go through all tags in the nodeList
+		for(int i = 0; i < nodeList.getLength(); i++) {
+			Element node = (Element)nodeList.item(i);
+			// Go through the propertyNames if they exist and add them to the map
+			for(int j = 0; j < propertyNames.size(); j++) {
+				if(node.getNodeName().toLowerCase().endsWith(":" + propertyNames.get(j)) ||
+					node.getNodeName().toUpperCase().endsWith(":" + propertyNames.get(j))) {
+						properties.put(propertyNames.get(j), node.getTextContent());
+				}
 			}
 		}
 	}
 	
-	public boolean isWithin(Geometry geom) {
-		return point.coveredBy(geom);
+	public Map<String, String> getProperties() {
+		return properties;
 	}
 }
