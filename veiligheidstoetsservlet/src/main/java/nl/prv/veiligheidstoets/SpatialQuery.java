@@ -16,6 +16,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -25,133 +27,163 @@ import org.xml.sax.SAXException;
 
 
 public class SpatialQuery {
-	private String urlstr;
-	private String filter;
-
-	public SpatialQuery(String urlstr, String filter) {
-		this.urlstr = urlstr;
-		this.filter = filter;
+	private static final Logger LOGGER = Logger.getLogger(SpatialQuery.class.getName());
+	static {
+		LOGGER.setLevel(Level.ALL);
 	}
+	
+	private String urlstr;
+	private String template;
 
-	private String getResult() throws IOException {
-		return postDataToService();
+	public SpatialQuery(String urlstr, String template) {
+		this.urlstr = urlstr;
+		this.template = template;
 	}
 
 	/**
 	 * 
 	 * @return Gets an xml with the data given in the postbody
-	 * @throws IOException
 	 */
-	private String postDataToService() throws IOException {
-		 URL url = new URL(urlstr);
-		 HttpURLConnection hpcon = null;
-		 try{
-			hpcon = (HttpURLConnection) url.openConnection();   
+	private String getResult() {
+		URL url = null;
+		HttpURLConnection hpcon = null;
+		StringBuilder response = new StringBuilder(256);
+		try {
+			url = new URL(urlstr);
+			hpcon = (HttpURLConnection)url.openConnection();
 			hpcon.setRequestMethod("POST");
-			hpcon.setRequestProperty("Content-Length", "" + Integer.toString(filter.getBytes().length));      
+			hpcon.setRequestProperty("Content-Length", "" + Integer.toString(template.getBytes().length));
 			hpcon.setRequestProperty("Content-Type", "xml/text");
-			hpcon.setUseCaches (false);
+			hpcon.setUseCaches(false);
 			hpcon.setDoInput(true);
 			hpcon.setDoOutput(true);
-			DataOutputStream printout = new DataOutputStream (hpcon.getOutputStream ());
-			printout.writeBytes (filter);
-			printout.flush ();
-			printout.close ();		
-			BufferedReader in = new BufferedReader(new InputStreamReader(hpcon.getInputStream()));
-			String input;
-			StringBuilder response = new StringBuilder(256);
-			while((input = in.readLine()) != null) {
-				response.append(input + "\r");
+		} catch (IOException e) {
+			LOGGER.log(Level.FATAL, e.toString(), e);
+		}
+		if(hpcon != null) {
+			try(DataOutputStream printout = new DataOutputStream(hpcon.getOutputStream())) {
+				printout.writeBytes(template);
+			} catch (IOException e) {
+				LOGGER.log(Level.FATAL, e.toString(), e);
 			}
-			if (response.toString().indexOf("ExceptionReport") > 0){
-				System.out.println("fout in request naar " + urlstr + " met filter " + filter + " response: " + response.toString());
-				return "fout in request naar " + urlstr + " met filter " + filter + " response: " + response.toString();
+			try(BufferedReader in = new BufferedReader(new InputStreamReader(hpcon.getInputStream()))) {
+				String input;
+				while((input = in.readLine()) != null) {
+					response.append(input + "\r");
+				}
+			} catch(IOException e) {
+				LOGGER.log(Level.WARN, String.format("fout in request naar %s met filter %s", urlstr, template));
+				LOGGER.log(Level.FATAL, e.toString(), e);
+			} finally {
+				hpcon.disconnect();
 			}
-			return response.toString();	
-			
-			
-		} catch(Exception e){
-			System.out.println("fout in request naar " + urlstr + " met filter " + filter);
-			throw new IOException("fout in request naar " + urlstr + " met filter " + filter);	
-		} finally {
-			if(hpcon != null){
-				hpcon.disconnect();	
-			}
-		} 
+		}
+		if(response.toString().indexOf("ExceptionReport") > -1) {
+			LOGGER.log(Level.FATAL, String.format("fout in request naar %s met filter %s response: %s", urlstr, template, response.toString()));
+		}
+		
+		return response.toString();
 	}
 	
 	/**
 	 * Returns the number of properties found or a json of the features with the properties specified in the filter.
-	 * @return
-	 * @throws Exception
+	 * @return A Map with the result of the found features
 	 */
-	public Map<String, String> getPropertyResult() {
-		Map<String, String> properties = new HashMap<>();
+	public Map<String, String> getFeatureResult() {
+		Map<String, String> features = new HashMap<>();
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
 			
-			Document filterDoc = builder.parse(new InputSource(new ByteArrayInputStream(filter.getBytes())));
-			String resultType = filterDoc.getDocumentElement().getAttribute("resultType");
-			if(resultType.equals("hits")) {
+			Document templateDoc = builder.parse(new InputSource(new ByteArrayInputStream(template.getBytes())));
+			String resultType = templateDoc.getDocumentElement().getAttribute("resultType");
+			if("hits".equals(resultType)) {
 				return getNumFeatures(doc);
 			}
 			
-			// Getting filter names to apply
-			List<String> filteredFeatures = new ArrayList<>();
-			NodeList queryList = filterDoc.getElementsByTagName("wfs:Query");
+			// Getting properties to filter
+			List<String> properties = new ArrayList<>();
+			NodeList queryList = templateDoc.getElementsByTagName("wfs:Query");
 			Element queryElement = (Element)queryList.item(0);
 			Node childNode = queryElement.getFirstChild().getNextSibling();
-			while(childNode.getNodeName().equals("ogc:PropertyName")) {
-				filteredFeatures.add(childNode.getTextContent());
+			while("ogc:PropertyName".equals(childNode.getNodeName())) {
+				properties.add(childNode.getTextContent());
 				childNode = childNode.getNextSibling().getNextSibling();
 			}
 			
 			NodeList featureList = doc.getElementsByTagName("*");
-			properties = getProperties(filteredFeatures, featureList);
+			features = getFeatures(properties, featureList);
 		} 
 		catch (IOException | ParserConfigurationException | SAXException e) {
-			properties.put("error", "\"" + e.getMessage() + "\"");
-			return properties;
+			LOGGER.log(Level.FATAL, e.toString(), e);
+			features.put("error", "\"" + e.getMessage() + "\"");
+			return features;
 		}
-		return properties;
+		return features;
 	}
 	
 	/**
-	 * returns the number of features given by the kwetsbaar object
-	 * @param kwObject
-	 * @param index
-	 * @return
-	 * @throws Exception
+	 * Return the json of the kwetsbare objecten found.
+	 * @param kwObjectsInBuffer - The KwetsbareObjecten found by the second template
+	 * @return A json with the key name features with all kwetsbare objecten within buffer
 	 */
-	public Map<String, String> getNumFeatures(KwetsbaarObject kwObject, int index) {
+	public Map<String, String> getFeatureResult(List<KwetsbaarObject> kwObjectsInBuffer) {
+		Map<String, String> features = new HashMap<>();
+		if(kwObjectsInBuffer == null || kwObjectsInBuffer.isEmpty()) {
+			features.put("message", "\"NO_FEATURES_FOUND\"");
+			return features;
+		}
+		
+		List<String> featureList = new ArrayList<>();
+		List<String> propertyList = new ArrayList<>();
+		propertyList.add("id");
+		propertyList.add("gebruiksdoel");
+		propertyList.add("oppervlakte");
+		propertyList.add("position");
+		
+		for(int i = 0; i < kwObjectsInBuffer.size(); i++) {
+			KwetsbaarObject obj = kwObjectsInBuffer.get(i);
+			featureList.add(obj.getId());
+			featureList.add(obj.getGebruiksDoel());
+			featureList.add(obj.getOppervlakte());
+			featureList.add(obj.getCoordX() + " " + obj.getCoordY());
+		}
+		
+		LOGGER.log(Level.INFO, "Building result to display...");
+		String resultString = mergeAsJsonString(propertyList, featureList);
+		LOGGER.log(Level.DEBUG, resultString);
+		features.put("features", resultString);
+		
+		return features;
+	}
+	
+	/**
+	 * returns the KwetsbaarObject if the number of features found is not zero.
+	 * @param kwObject
+	 * @return A kwetsbaar Object if one is found
+	 */
+	public KwetsbaarObject getKwetsbaarObjectInBuffer(KwetsbaarObject kwObject) {
 		Map<String, String> numFeatures = new HashMap<>();
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
 			numFeatures = getNumFeatures(doc);
-			if(numFeatures.size() == 1) {
-				StringBuilder sb = new StringBuilder();
-				sb.append("{\"name\":\"" + kwObject.getName() + "\",");
-				sb.append("\"id\":\"" + kwObject.getId() + "\",");
-				sb.append("\"location\":\"" + kwObject.getCoordX() + "," + kwObject.getCoordY() + "\"}");
-				String result = sb.toString();
-				numFeatures.put(Integer.toString(index), result);
+			if(!"0".equals(numFeatures.get("numberOfFeaturesFound"))) {
+				return kwObject;
 			}
 		}
 		catch(IOException | ParserConfigurationException | SAXException e) {
-			numFeatures.put("error", "\"" + e.getMessage() + "\"");
-			return numFeatures;
+			LOGGER.log(Level.FATAL, e.toString(), e);
 		}
-		return numFeatures;
+		return null;
 	}
 	
 	/**
 	 * Returns the number of features found in the given document
-	 * @param doc
-	 * @return
+	 * @param doc - the xml document created by the template
+	 * @return The number of features found
 	 */
 	private Map<String, String> getNumFeatures(Document doc) {
 		Map<String, String> numFeatures = new HashMap<>();
@@ -165,61 +197,63 @@ public class SpatialQuery {
 	
 	/**
 	 * Returns a Map with the name and json array string of the features found
-	 * @param filteredFeatures - The name of features to filter e.g. PR10-6, PR10-7, PAG
+	 * @param properties - The name of properties to filter e.g. PR10-6, PR10-7, PAG
 	 * @param elementList - All xml tags in the given filter
-	 * @return
+	 * @return A Map with all features found as a json string
 	 */
-	private Map<String, String> getProperties(List<String> filteredFeatures, NodeList elementList) {
+	private Map<String, String> getFeatures(List<String> properties, NodeList elementList) {
 		Map<String, String> features = new HashMap<>();
+		List<String> featureList = new ArrayList<>();
 		
-		List<String> propertyList = new ArrayList<>();
 		// Loop through all elements in the document
 		for(int i = 0; i < elementList.getLength(); i++) {
 			Node featureMemberNode = elementList.item(i);
-			//Loop through the filters
-			for(int j = 0; j < filteredFeatures.size(); j++) {
-				// If filter matched the element, add it
-				if(featureMemberNode.getNodeName().endsWith(":" + filteredFeatures.get(j))) {
-					String textContent = featureMemberNode.getTextContent();
-					if(textContent.equals("") || textContent == null) {
-						filteredFeatures.remove(j);
-						continue;
-					}
-					propertyList.add(textContent);
-					System.out.println(featureMemberNode.getNodeName() + ", " + featureMemberNode.getTextContent());
-				}
-			}
+			//Loop through the filters and add matched elements
+			fillPropertyList(featureList, properties, featureMemberNode);
 		}
-		
-		if(propertyList.isEmpty()) {
+		if(featureList.isEmpty()) {
 			features.put("message", "\"NO_FEATURES_FOUND\"");
 			return features;
 		}
 		
 		// DEBUGGING
-		System.out.println("filteredFeatures: " + filteredFeatures.size() + ", propertyList: " + propertyList.size());
-		System.out.print("propertyList: ");
-		for(int i = 0; i < propertyList.size(); i++) {
-			System.out.print(propertyList.get(i) + ", ");
-		}
-		System.out.println("");
-		String valueString = parseToJsonString(filteredFeatures, propertyList);
-		System.out.println("features to return: " + valueString);
+		LOGGER.log(Level.DEBUG, String.format("properties: %d, featureList: %d", properties.size(), featureList.size()));
+		String valueString = mergeAsJsonString(properties, featureList);
+		LOGGER.log(Level.DEBUG, "features to return: " + valueString);
 		features.put("features", valueString);
 		
 		return features;
 	}
 	
 	/**
-	 * Gets 2 Lists with properties and turns them into a single json string.
-	 * @param filterArray the smallest array
-	 * @param propertyArray the longest array
-	 * @return
+	 * Fills the propertyList with matching elements
+	 * @param propertyList - the List to fill with properties
+	 * @param properties - the property names to check to match
+	 * @param featureMemberNode - the current element
 	 */
-	private String parseToJsonString(List<String> filteredFeatures, List<String> propertyList) {
+	private void fillPropertyList(List<String> propertyList, List<String> properties, Node featureMemberNode) {
+		for(int i = 0; i < properties.size(); i++) {
+			if(featureMemberNode.getNodeName().endsWith(":" + properties.get(i))) {
+				String textContent = featureMemberNode.getTextContent();
+				if(textContent == null || "".equals(textContent)) {
+					properties.remove(i);
+					continue;
+				}
+				propertyList.add(textContent);
+			}
+		}
+	}
+	
+	/**
+	 * Gets 2 Lists with properties and combines them into a single json string.
+	 * @param propertyList the property names found in the template
+	 * @param featureList all features found for the names by the given propertyList
+	 * @return A json string from the combined lists
+	 */
+	private String mergeAsJsonString(List<String> propertyList, List<String> featureList) {
 		int index = 0;
 		int resultId = 1;
-		int numIters = propertyList.size() / filteredFeatures.size();
+		int numIters = featureList.size() / propertyList.size();
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("[");
@@ -227,43 +261,49 @@ public class SpatialQuery {
 			sb.append("{");
 			sb.append("\"id\":\"" + resultId++ + "\",");
 			sb.append("\"properties\":" + "[");
-			for(int j = 0; j < filteredFeatures.size() - 1; j++) {
-				sb.append("{\"" + filteredFeatures.get(j) + "\":\"" + propertyList.get(index++) + "\"},");
+			for(int j = 0; j < propertyList.size() - 1; j++) {
+				sb.append("{\"" + propertyList.get(j) + "\":\"" + featureList.get(index++) + "\"},");
 			}
-			sb.append("{\"" + filteredFeatures.get(filteredFeatures.size() - 1) + "\":\"" + propertyList.get(index++) + "\"}]},");
+			sb.append("{\"" + propertyList.get(propertyList.size() - 1) + "\":\"" + featureList.get(index++) + "\"}]},");
 		}
 		sb.replace(sb.length() - 1, sb.length(), "]");
-		System.out.println("JSON value String: " + sb.toString());
+		LOGGER.log(Level.DEBUG, "JSON value String: " + sb.toString());
 		return sb.toString();
 	}
 	
 	/**
-	 * Returns a KwetsbaarObject[] for the given filter.
-	 * @throws Exception
+	 * Returns a KwetsbaarObject[] for the given template, an empty list if no KwetsbaarObject is found.
+	 * @return All kwetsbare objecten for the specified template
 	 */
-	public KwetsbaarObject[] getKwetsbareObjecten() throws Exception {
+	public List<KwetsbaarObject> getKwetsbareObjecten() {
+		LOGGER.log(Level.INFO, "Getting kwetsbare objecten...");
 		List<KwetsbaarObject> kwetsbaarObjList = new ArrayList<>();
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
-			NodeList elementList = doc.getElementsByTagName("gml:featureMember");
+			LOGGER.log(Level.DEBUG, "Document:\n" + getResult());
+			Element docElement = doc.getDocumentElement();
+			int numResults = Integer.parseInt(docElement.getAttribute("numberOfFeatures"));
+			NodeList elementList = doc.getElementsByTagName("wfs:member");
+			LOGGER.log(Level.DEBUG, "Aantal objecten found in numResults: " + numResults);
+			LOGGER.log(Level.DEBUG, "Aantal objecten found in elementList: " + elementList.getLength());
 			if(elementList.getLength() == 0) {
-				return new KwetsbaarObject[0];
+				return new ArrayList<>();
 			}
 			
 			for(int i = 0; i < elementList.getLength(); i++) {
-				Node node = elementList.item(i);
-				Element element = (Element)node;
+				Element element = (Element)elementList.item(i);
 				NodeList childList = element.getElementsByTagName("*");
 				KwetsbaarObject obj = new KwetsbaarObject();
 				obj.setAttributes(childList);
 				kwetsbaarObjList.add(obj);
 			}
 		} catch (ParserConfigurationException | SAXException | IOException e) {
-			throw new Exception(e);
+			LOGGER.log(Level.FATAL, e.toString(), e);
 		}
 		
-		return kwetsbaarObjList.toArray(new KwetsbaarObject[kwetsbaarObjList.size()]);
+		LOGGER.log(Level.DEBUG, "Kwetsbare objecten in list: " + kwetsbaarObjList.size());
+		return kwetsbaarObjList;
 	}
 }
