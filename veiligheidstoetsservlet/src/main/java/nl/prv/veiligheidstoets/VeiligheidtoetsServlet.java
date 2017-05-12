@@ -332,7 +332,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			
 			try {
 				SpatialQuery sq2 = new SpatialQuery(url, template);
-				LOGGER.log(Level.DEBUG, "Processing: " + i + " of " + kwObjects.size());
+				LOGGER.log(Level.DEBUG, "Processing: " + (i + 1) + " of " + kwObjects.size());
 				KwetsbaarObject bufferResult = sq2.getKwetsbaarObjectInBuffer(kwObjects.get(i));
 				if(bufferResult != null) {
 					kwObjectsInBuffer.add(bufferResult);
