@@ -21,7 +21,7 @@
 	    <Primitive path="b2wk" mapping="B2WK"/>
    	    <Primitive path="breedte" mapping="Breedte"/>
 	    <Geometry path="geom" mapping="geom">
-	        <StorageCRS srid="-1">EPSG:28992</StorageCRS>
+	        <StorageCRS srid="28992">EPSG:28992</StorageCRS>
 	    </Geometry>
 	</FeatureTypeMapping>
 	
