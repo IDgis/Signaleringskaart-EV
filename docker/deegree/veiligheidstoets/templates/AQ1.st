@@ -6,7 +6,7 @@
  xmlns:wfs="http://www.opengis.net/wfs"
  service="WFS"
  version="1.1.0"
- outputFormat="text/xml; subtype=gml/3.1.1"
+ outputFormat="text/xml; subtype=gml/3.2.1"
  resultType="hits">
     <wfs:Query typeName="verblijfsobject_ov">
         <ogc:Filter>
