@@ -330,9 +330,9 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				return features;
 			}
 			
-			// Get new MultiPoint Geometry from first template
-			if(!(props.containsKey("filterEV") || props.containsKey("filterKO"))) {
-				features.put(ERROR, "\"Template is missing!\"");
+			// Get new MultiPolygon Geometry from first template
+			if(!(props.containsKey("filterEV") && props.containsKey("filterKO"))) {
+				features.put(ERROR, "\"Template is missing! Please give up 2 templates!\"");
 				return features;
 			}
 			String templateEV = templateHandler.getFilter(props.get("filterEV"), props);
