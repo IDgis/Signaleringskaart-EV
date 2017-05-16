@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -26,9 +24,11 @@ import org.w3c.dom.Element;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
+import com.vividsolutions.jts.io.WKTWriter;
 
 import nl.prv.veiligheidstoets.util.TemplateHandler;
 import nl.prv.veiligheidstoets.util.WKT2GMLParser;
@@ -53,8 +53,12 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private static final String ERROR = "error";
 	private static final String FILTER = "filter";
 	private static final String ISVALID = "isValid";
+	private static final String PLANGEBIEDGML = "plangebiedgml";
+	private static final String PLANGEBIEDWKT = "plangebiedWkt";
 	private static final String REQUESTTYPE = "requesttype";
 	private static final String SERVICENAME = "servicename";
+	private static final String SERVICENAMEEV = "servicenameEV";
+	private static final String SERVICENAMEKO = "servicenameKO";
 	
 	private String basisnetWFSUrl;
 	private String risicokaartWFSUrl;
@@ -137,6 +141,10 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 					// getEVFeatures
 					returnMessage = getEVFeatures(props);
 				}
+				else if("getKOFeatures".equals(props.get(REQUESTTYPE))) {
+					// get KwetsbareObjecten
+					returnMessage = getKOFeatures(props);
+				}
 				else {
 					returnMessage.put(ERROR, "\"Request type is invalid: " + props.get(REQUESTTYPE) + "\"");
 				}
@@ -207,12 +215,12 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		Map<String, String> features = new HashMap<>();
 		try {
 			// Check servicename
-			String url = getServiceName(props, 0);
-			if(url == null) {
+			if(!props.containsKey(SERVICENAME)) {
 				features.put(ERROR, "\"Servicename is missing!\"");
 				return features;
 			}
-			else if("INVALID".equals(url)) {
+			String url = getServiceName(props.get(SERVICENAME));
+			if(url == null) {
 				features.put(ERROR, "\"Servicename is invalid: " + props.get(SERVICENAME) + "\"");
 				return features;
 			}
@@ -229,20 +237,10 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				features.put(ERROR, "\"Template is missing!\"");
 				return features;
 			}
-			String[] templates = props.get(FILTER).split("x");
-			String template = templateHandler.getFilter(templates[0], props);
+			String filter = props.get(FILTER);
+			String template = templateHandler.getFilter(filter, props);
 			LOGGER.log(Level.DEBUG, "TEMPLATE:\n" + template);
 			SpatialQuery sq = new SpatialQuery(url, template);
-			
-			// Check for second template
-			if(templates.length > 1) {
-				LOGGER.log(Level.INFO, "Second template found...");
-				List<KwetsbaarObject> kwObjects = sq.getKwetsbareObjecten();
-				LOGGER.log(Level.DEBUG, "Number of kwetsbare objecten returned: " + kwObjects.size());
-				url = getServiceName(props, 1);
-				List<KwetsbaarObject> kwObjectsInBuffer = processSecondTemplate(kwObjects, url, props);
-				return sq.getFeatureResult(kwObjectsInBuffer);
-			}
 			
 			// Check properties
 			LOGGER.log(Level.INFO, "Getting features...");
@@ -263,27 +261,19 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 * 1 for the second filter if present.
 	 * @return The url for the given servicename, INVALID if the servicename is invalid.
 	 */
-	private String getServiceName(Map<String, String> props, int index) {
-		if(props.containsKey(SERVICENAME)){
-			String[] urls = props.get(SERVICENAME).split("x");
-			if(index == 1 && urls.length != 2) {
-				return null;
-			}
-			if("risicokaartWFS".equals(urls[index])) {
-				return risicokaartWFSUrl;
-			} 
-			else if( "veiligheidstoetsWFS".equals(urls[index])) {
-				return veiligheidstoetsWFSUrl;
-			}
-			else if("basisnetWFS".equals(urls[index])) {
-				return basisnetWFSUrl;
-			}
-			else if("ruimtelijkeplannenWFS".equals(urls[index])) {
-				return ruimtelijkeplannenWFSUrl;
-			}
-			return "INVALID";
+	private String getServiceName(String serviceName) {
+		switch(serviceName) {
+		case "risicokaartWFS":
+			return risicokaartWFSUrl;
+		case "veiligheidstoetsWFS":
+			return veiligheidstoetsWFSUrl;
+		case "basisnetWFS":
+			return basisnetWFSUrl;
+		case "ruimtelijkeplannenWFS":
+			return ruimtelijkeplannenWFSUrl;
+		default:
+			return null;	
 		}
-		return null;
 	}
 	
 	/**
@@ -293,8 +283,8 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 * @throws IOException 
 	 */
 	private boolean isPlangebiedWktPresent(Map<String, String> props) throws IOException {
-		if(props.containsKey("plangebiedWkt")){
-			String wktGeom = props.get("plangebiedWkt");
+		if(props.containsKey(PLANGEBIEDWKT)){
+			String wktGeom = props.get(PLANGEBIEDWKT);
 			
 			String gml = null;
 			try {
@@ -303,52 +293,74 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			catch (IOException e) {
 				throw new IOException(e);
 			} 
-			props.put("plangebiedgml", gml);
+			props.put(PLANGEBIEDGML, gml);
 			return true;
 		}
 		return false;
 	}
 	
 	/**
-	 * Returns a List of Kwetsbare Objecten that are inside the buffer.
-	 * @param kwObjects - A List of all KwetsbareObjecten found by the first template
-	 * @param url - The URL for the service
-	 * @param props - All properties given by the client
+	 * Gets the Kwetsbare Objecten within plangebiedWkt entered in the request
+	 * @param props - The postbody entered by the client
+	 * @return A HashMap with the Kwetsbare Objecten or a message with no features found
 	 */
-	private List<KwetsbaarObject> processSecondTemplate(List<KwetsbaarObject> kwObjects, String url, Map<String, String> props) {
-		if(kwObjects.isEmpty()) {
-			return new ArrayList<>();
-		}
-		LOGGER.log(Level.DEBUG, "Kwetsbare objecten found for second template: " + kwObjects.size());
-		List<KwetsbaarObject> kwObjectsInBuffer = new ArrayList<>();
-		for(int i = 0; i < kwObjects.size(); i++) {
-			String pointGeom = kwObjects.get(i).getPointWKT();
-			String gml = null;
-			try {
-				gml = WKT2GMLParser.parse(pointGeom);
-			} 
-			catch (IOException e) {
-				LOGGER.log(Level.FATAL, e.toString(), e);
-			} 
-			props.put("plangebiedgml", gml);
-			
-			String[] templates = props.get(FILTER).split("x");
-			String template = templateHandler.getFilter(templates[1], props);
-			
-			try {
-				SpatialQuery sq2 = new SpatialQuery(url, template);
-				LOGGER.log(Level.DEBUG, "Processing: " + (i + 1) + " of " + kwObjects.size());
-				KwetsbaarObject bufferResult = sq2.getKwetsbaarObjectInBuffer(kwObjects.get(i));
-				if(bufferResult != null) {
-					kwObjectsInBuffer.add(bufferResult);
-				}
+	private Map<String, String> getKOFeatures(Map<String, String> props) {
+		Map<String, String> features = new HashMap<>();
+		try {
+			// Check servicename
+			String urlEV = null;
+			String urlKO = null;
+			if(props.containsKey(SERVICENAMEEV) && props.containsKey(SERVICENAMEKO)) {
+				urlEV = getServiceName(props.get(SERVICENAMEEV));
+				urlKO = getServiceName(props.get(SERVICENAMEKO));
 			}
-			catch(Exception e) {
-				LOGGER.log(Level.FATAL, e.toString(), e);
+			if(urlEV == null || urlKO == null) {
+				features.put(ERROR, "\"Servicename is missing!\"");
+				return features;
 			}
+			else if("INVALID".equals(urlEV) || "INVALID".equals(urlKO)) {
+				features.put(ERROR, "\"Servicename is invalid! " + props.get(SERVICENAME) + "\"");
+				return features;
+			}
+			
+			// Check plangebied-wkt
+			boolean plangebiedPresent = isPlangebiedWktPresent(props);
+			if(!plangebiedPresent) {
+				features.put(ERROR, "\"Plangebied Wkt is missing!\"");
+				return features;
+			}
+			
+			// Get new MultiPoint Geometry from first template
+			if(!(props.containsKey("filterEV") || props.containsKey("filterKO"))) {
+				features.put(ERROR, "\"Template is missing!\"");
+				return features;
+			}
+			String templateEV = templateHandler.getFilter(props.get("filterEV"), props);
+			LOGGER.log(Level.DEBUG, "TEMPLATE_EV:\n" + templateEV);
+			SpatialQuery sq = new SpatialQuery(urlEV, templateEV);
+			Geometry geometry = sq.getRisicogebiedGeom(props.get(PLANGEBIEDWKT));
+			if(geometry == null) {
+				features.put("message", "NO_FEATURES_FOUND");
+				return features;
+			}
+			
+			WKTWriter writer = new WKTWriter();
+			String geomWkt = writer.write(geometry);
+			String gml = WKT2GMLParser.parse(geomWkt);
+			props.put(PLANGEBIEDGML, gml);
+			
+			// Get Kwetsbare Objecten within the MultiPoint object
+			String templateKO = templateHandler.getFilter(props.get("filterKO"), props);
+			LOGGER.log(Level.DEBUG, "TEMPLATE_KO:\n" + templateKO);
+			sq = new SpatialQuery(urlKO, templateKO);
+			features = sq.getKOFeatures();
 		}
-		LOGGER.log(Level.DEBUG, "Number of kwObjectsInBuffer: " + kwObjectsInBuffer.size());
-		return kwObjectsInBuffer;
+		catch(Exception e) {
+			LOGGER.log(Level.FATAL, e.toString(), e);
+			features.put(ERROR, "\"" + e.getMessage() + "\"");
+			return features;
+		}
+		return features;
 	}
 
 	/**
