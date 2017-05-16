@@ -310,16 +310,14 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			// Check servicename
 			String urlEV = null;
 			String urlKO = null;
-			if(props.containsKey(SERVICENAMEEV) && props.containsKey(SERVICENAMEKO)) {
-				urlEV = getServiceName(props.get(SERVICENAMEEV));
-				urlKO = getServiceName(props.get(SERVICENAMEKO));
-			}
-			if(urlEV == null || urlKO == null) {
+			if(!(props.containsKey(SERVICENAMEEV) && props.containsKey(SERVICENAMEKO))) {
 				features.put(ERROR, "\"Servicename is missing!\"");
 				return features;
 			}
-			else if("INVALID".equals(urlEV) || "INVALID".equals(urlKO)) {
-				features.put(ERROR, "\"Servicename is invalid! " + props.get(SERVICENAME) + "\"");
+			urlEV = getServiceName(props.get(SERVICENAMEEV));
+			urlKO = getServiceName(props.get(SERVICENAMEKO));
+			if(urlEV == null || urlKO == null) {
+				features.put(ERROR, "\"Servicename is invalid!\"");
 				return features;
 			}
 			
