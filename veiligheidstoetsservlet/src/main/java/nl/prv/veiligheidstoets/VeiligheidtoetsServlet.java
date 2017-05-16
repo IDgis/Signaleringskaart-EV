@@ -330,7 +330,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				return features;
 			}
 			
-			features = getSpatialQuery(props, urlEV, urlKO);
+			features = getKOFeatureResult(props, urlEV, urlKO);
 		}
 		catch(IOException e) {
 			LOGGER.log(Level.FATAL, e.toString(), e);
@@ -340,7 +340,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		return features;
 	}
 	
-	private Map<String, String> getSpatialQuery(Map<String, String> props, String urlEV, String urlKO) throws IOException {
+	private Map<String, String> getKOFeatureResult(Map<String, String> props, String urlEV, String urlKO) throws IOException {
 		Map<String, String> features = new HashMap<>();
 		// Get new MultiPolygon Geometry from first template
 		if(!(props.containsKey("filterEV") && props.containsKey("filterKO"))) {
