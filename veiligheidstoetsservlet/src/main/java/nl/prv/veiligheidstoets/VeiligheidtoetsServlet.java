@@ -330,30 +330,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 				return features;
 			}
 			
-			// Get new MultiPolygon Geometry from first template
-			if(!(props.containsKey("filterEV") && props.containsKey("filterKO"))) {
-				features.put(ERROR, "\"Template is missing! Please give up 2 templates!\"");
-				return features;
-			}
-			String templateEV = templateHandler.getFilter(props.get("filterEV"), props);
-			LOGGER.log(Level.DEBUG, "TEMPLATE_EV:\n" + templateEV);
-			SpatialQuery sq = new SpatialQuery(urlEV, templateEV);
-			Geometry geometry = sq.getRisicogebiedGeom(props.get(PLANGEBIEDWKT));
-			if(geometry == null) {
-				features.put("message", "NO_FEATURES_FOUND");
-				return features;
-			}
-			
-			WKTWriter writer = new WKTWriter();
-			String geomWkt = writer.write(geometry);
-			String gml = WKT2GMLParser.parse(geomWkt);
-			props.put(PLANGEBIEDGML, gml);
-			
-			// Get Kwetsbare Objecten within the MultiPoint object
-			String templateKO = templateHandler.getFilter(props.get("filterKO"), props);
-			LOGGER.log(Level.DEBUG, "TEMPLATE_KO:\n" + templateKO);
-			sq = new SpatialQuery(urlKO, templateKO);
-			features = sq.getKOFeatures();
+			features = getSpatialQuery(props, urlEV, urlKO);
 		}
 		catch(Exception e) {
 			LOGGER.log(Level.FATAL, e.toString(), e);
@@ -361,6 +338,34 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			return features;
 		}
 		return features;
+	}
+	
+	private Map<String, String> getSpatialQuery(Map<String, String> props, String urlEV, String urlKO) throws IOException {
+		Map<String, String> features = new HashMap<>();
+		// Get new MultiPolygon Geometry from first template
+		if(!(props.containsKey("filterEV") && props.containsKey("filterKO"))) {
+			features.put(ERROR, "\"Template is missing! Please give up 2 templates!\"");
+			return features;
+		}
+		String templateEV = templateHandler.getFilter(props.get("filterEV"), props);
+		LOGGER.log(Level.DEBUG, "TEMPLATE_EV:\n" + templateEV);
+		SpatialQuery sq = new SpatialQuery(urlEV, templateEV);
+		Geometry geometry = sq.getRisicogebiedGeom(props.get(PLANGEBIEDWKT));
+		if(geometry == null) {
+			features.put("message", "NO_FEATURES_FOUND");
+			return features;
+		}
+		
+		WKTWriter writer = new WKTWriter();
+		String geomWkt = writer.write(geometry);
+		String gml = WKT2GMLParser.parse(geomWkt);
+		props.put(PLANGEBIEDGML, gml);
+		
+		// Get Kwetsbare Objecten within the MultiPoint object
+		String templateKO = templateHandler.getFilter(props.get("filterKO"), props);
+		LOGGER.log(Level.DEBUG, "TEMPLATE_KO:\n" + templateKO);
+		sq = new SpatialQuery(urlKO, templateKO);
+		return sq.getKOFeatures();
 	}
 
 	/**

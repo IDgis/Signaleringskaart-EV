@@ -229,45 +229,52 @@ public class SpatialQuery {
 	 * @return
 	 * @throws ParseException 
 	 */
-	public Geometry getRisicogebiedGeom(String plangebiedWkt) throws Exception {
-		LOGGER.log(Level.INFO, "Creating MultiPolygon Geometry for Kwetsbare Objecten...");
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
-		
-		// Get the Geometry for the plangebiedWkt	
-		WKTReader wktReader = new WKTReader();
-		Geometry plangebiedWktGeom = wktReader.read(plangebiedWkt);
-		WKTWriter writer = new WKTWriter();
-		LOGGER.log(Level.DEBUG, "plangebiedWKT: " + writer.write(plangebiedWktGeom));
-		// Get all risicogebieden found and parse the geometry in it
-		NodeList memberList = doc.getElementsByTagName("wfs:member");
-		LOGGER.log(Level.DEBUG, "Members found: " + memberList.getLength());
-		if(memberList.getLength() == 0) {
-			return null;
-		}
-		Geometry risicogebiedGeometry = null;
-		for(int i = 0; i < memberList.getLength(); i++) {
-			Element memberElement = (Element)memberList.item(i);
-			NodeList posList = memberElement.getElementsByTagName("gml:posList");
-			// Create MultiPolygon from all Polygons found in the document
-			Geometry combinedGeom = getCombinedGeometry(posList);
-			if(risicogebiedGeometry == null) {
-				risicogebiedGeometry = combinedGeom;
-			}
-			else {
-				risicogebiedGeometry = risicogebiedGeometry.union(combinedGeom);
-			}
-		}
-		
-		LOGGER.log(Level.DEBUG, "risicogebiedWKT: " + writer.write(risicogebiedGeometry));
-		// Check if part of the risicogebied intersects with the wktGeom and add the overlapping part to geometry as MultiPolygon
+	public Geometry getRisicogebiedGeom(String plangebiedWkt) {
 		Geometry finalGeometry = null;
-		if(plangebiedWktGeom != null && risicogebiedGeometry != null && risicogebiedGeometry.intersects(plangebiedWktGeom)) {
-			finalGeometry = risicogebiedGeometry.intersection(plangebiedWktGeom);
-		}
+		try {
+			LOGGER.log(Level.INFO, "Creating MultiPolygon Geometry for Kwetsbare Objecten...");
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
 		
-		LOGGER.log(Level.DEBUG, "finalWKT: " + writer.write(finalGeometry));
+		
+			// Get the Geometry for the plangebiedWkt	
+			WKTReader wktReader = new WKTReader();
+			Geometry plangebiedWktGeom = wktReader.read(plangebiedWkt);
+			WKTWriter writer = new WKTWriter();
+			LOGGER.log(Level.DEBUG, "plangebiedWKT: " + writer.write(plangebiedWktGeom));
+			// Get all risicogebieden found and parse the geometry in it
+			NodeList memberList = doc.getElementsByTagName("wfs:member");
+			LOGGER.log(Level.DEBUG, "Members found: " + memberList.getLength());
+			if(memberList.getLength() == 0) {
+				return null;
+			}
+			Geometry risicogebiedGeometry = null;
+			for(int i = 0; i < memberList.getLength(); i++) {
+				Element memberElement = (Element)memberList.item(i);
+				NodeList posList = memberElement.getElementsByTagName("gml:posList");
+				// Create MultiPolygon from all Polygons found in the document
+				Geometry combinedGeom = getCombinedGeometry(posList);
+				if(risicogebiedGeometry == null) {
+					risicogebiedGeometry = combinedGeom;
+				}
+				else {
+					risicogebiedGeometry = risicogebiedGeometry.union(combinedGeom);
+				}
+			}
+			
+			LOGGER.log(Level.DEBUG, "risicogebiedWKT: " + writer.write(risicogebiedGeometry));
+			// Check if part of the risicogebied intersects with the wktGeom and add the overlapping part to geometry as MultiPolygon
+			
+			if(plangebiedWktGeom != null && risicogebiedGeometry != null && risicogebiedGeometry.intersects(plangebiedWktGeom)) {
+				finalGeometry = risicogebiedGeometry.intersection(plangebiedWktGeom);
+			}
+			
+			LOGGER.log(Level.DEBUG, "finalWKT: " + writer.write(finalGeometry));
+		}
+		catch(ParseException | SAXException | IOException | ParserConfigurationException e) {
+			LOGGER.log(Level.FATAL, e.getMessage(), e);
+		}
 		return finalGeometry;
 	}
 	
@@ -277,7 +284,6 @@ public class SpatialQuery {
 	 * @return
 	 */
 	private Geometry getCombinedGeometry(NodeList posList) {
-		Geometry combinedGeom = null;
 		String[] firstCoords = posList.item(0).getTextContent().split(" ");
 		StringBuilder builder = new StringBuilder("POLYGON((" + firstCoords[0] + " " + firstCoords[1]);
 		for(int i = 0; i < posList.getLength(); i++) {
@@ -289,11 +295,11 @@ public class SpatialQuery {
 		builder.append("))");
 		WKTReader reader = new WKTReader();
 		try {
-			combinedGeom = reader.read(builder.toString());
+			return reader.read(builder.toString());
 		} catch (ParseException e) {
 			LOGGER.log(Level.FATAL, e.getMessage(), e);
 		}
-		return combinedGeom;
+		return null;
 	}
 	
 	/**
