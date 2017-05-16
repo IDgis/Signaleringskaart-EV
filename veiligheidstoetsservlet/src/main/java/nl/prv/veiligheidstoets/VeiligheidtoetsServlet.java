@@ -332,7 +332,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			
 			features = getSpatialQuery(props, urlEV, urlKO);
 		}
-		catch(Exception e) {
+		catch(IOException e) {
 			LOGGER.log(Level.FATAL, e.toString(), e);
 			features.put(ERROR, "\"" + e.getMessage() + "\"");
 			return features;
