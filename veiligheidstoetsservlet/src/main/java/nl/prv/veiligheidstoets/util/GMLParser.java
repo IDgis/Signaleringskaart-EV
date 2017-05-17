@@ -66,16 +66,8 @@ public class GMLParser {
 			CRSRef crs = CRSManager.getCRSRef("EPSG:28992");	
 			WKTReader reader = new WKTReader(crs);
 			Geometry geom = reader.read(wktGeometry);
-			XMLOutputFactory xof = XMLOutputFactory.newInstance();
-			StringWriter sw = new StringWriter();
-	        XMLStreamWriter xtw = xof.createXMLStreamWriter(sw);
-			GMLStreamWriter gtw = GMLOutputFactory.createGMLStreamWriter(GMLVersion.GML_30, xtw);
-			GML3GeometryWriter ggw = new GML3GeometryWriter(gtw);
-			ggw.export(geom);
-			gtw.close();
-			xtw.close();
-			return sw.toString();
-		} catch(ParseException | XMLStreamException | UnknownCRSException | TransformationException e) {
+			return GMLParser.parseFromGeometry(geom);
+		} catch(ParseException e) {
 			throw new IOException(e);
 		}
 	}
