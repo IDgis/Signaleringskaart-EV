@@ -29,9 +29,8 @@ import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
 
-import nl.prv.veiligheidstoets.util.GeometryParser;
+import nl.prv.veiligheidstoets.util.GMLParser;
 import nl.prv.veiligheidstoets.util.TemplateHandler;
-import nl.prv.veiligheidstoets.util.WKT2GMLParser;
 
 
 /**
@@ -288,7 +287,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			
 			String gml = null;
 			try {
-				gml = WKT2GMLParser.parse(wktGeom);
+				gml = GMLParser.parseFromWKT(wktGeom);
 			} 
 			catch (IOException e) {
 				throw new IOException(e);
@@ -352,7 +351,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			return features;
 		}
 		
-		String gml = GeometryParser.parseToGML(geometry);
+		String gml = GMLParser.parseFromGeometry(geometry);
 		props.put(PLANGEBIEDGML, gml);
 		
 		// Get Kwetsbare Objecten within the MultiPoint object
