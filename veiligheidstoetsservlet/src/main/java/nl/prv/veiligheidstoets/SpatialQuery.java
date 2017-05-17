@@ -39,7 +39,7 @@ import org.xml.sax.SAXException;
 
 import com.vividsolutions.jts.io.ParseException;
 
-import nl.prv.veiligheidstoets.util.GeometryParser;
+import nl.prv.veiligheidstoets.util.GMLParser;
 
 
 public class SpatialQuery {
@@ -302,7 +302,7 @@ public class SpatialQuery {
 			StringWriter sw = new StringWriter();
 			transformer.transform(new DOMSource(polygonNode), new StreamResult(sw));
 			
-			return GeometryParser.parseFromGML(sw.toString());
+			return GMLParser.parseToGeometry(sw.toString());
 		}
 		catch(TransformerException | XMLParsingException | IOException e) {
 			LOGGER.log(Level.FATAL, e.getMessage(), e);
