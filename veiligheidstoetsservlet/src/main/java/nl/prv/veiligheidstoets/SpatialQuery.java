@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,15 +16,30 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.deegree.commons.xml.XMLParsingException;
+import org.deegree.cs.persistence.CRSManager;
+import org.deegree.cs.refs.coordinatesystem.CRSRef;
+import org.deegree.geometry.Geometry;
+import org.deegree.geometry.io.WKTReader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import com.vividsolutions.jts.io.ParseException;
+
+import nl.prv.veiligheidstoets.util.GeometryParser;
 
 
 public class SpatialQuery {
@@ -124,63 +140,6 @@ public class SpatialQuery {
 	}
 	
 	/**
-	 * Return the json of the kwetsbare objecten found.
-	 * @param kwObjectsInBuffer - The KwetsbareObjecten found by the second template
-	 * @return A json with the key name features with all kwetsbare objecten within buffer
-	 */
-	public Map<String, String> getFeatureResult(List<KwetsbaarObject> kwObjectsInBuffer) {
-		Map<String, String> features = new HashMap<>();
-		if(kwObjectsInBuffer == null || kwObjectsInBuffer.isEmpty()) {
-			features.put("message", "\"NO_FEATURES_FOUND\"");
-			return features;
-		}
-		
-		List<String> featureList = new ArrayList<>();
-		List<String> propertyList = new ArrayList<>();
-		propertyList.add("id");
-		propertyList.add("gebruiksdoel");
-		propertyList.add("oppervlakte");
-		propertyList.add("position");
-		
-		for(int i = 0; i < kwObjectsInBuffer.size(); i++) {
-			KwetsbaarObject obj = kwObjectsInBuffer.get(i);
-			featureList.add(obj.getId());
-			featureList.add(obj.getGebruiksDoel());
-			featureList.add(obj.getOppervlakte());
-			featureList.add(obj.getCoordX() + " " + obj.getCoordY());
-		}
-		
-		LOGGER.log(Level.INFO, "Building result to display...");
-		String resultString = mergeAsJsonString(propertyList, featureList);
-		LOGGER.log(Level.DEBUG, resultString);
-		features.put("features", resultString);
-		
-		return features;
-	}
-	
-	/**
-	 * returns the KwetsbaarObject if the number of features found is not zero.
-	 * @param kwObject
-	 * @return A kwetsbaar Object if one is found
-	 */
-	public KwetsbaarObject getKwetsbaarObjectInBuffer(KwetsbaarObject kwObject) {
-		Map<String, String> numFeatures = new HashMap<>();
-		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
-			numFeatures = getNumFeatures(doc);
-			if(!"0".equals(numFeatures.get("numberOfFeaturesFound"))) {
-				return kwObject;
-			}
-		}
-		catch(IOException | ParserConfigurationException | SAXException e) {
-			LOGGER.log(Level.FATAL, e.toString(), e);
-		}
-		return null;
-	}
-	
-	/**
 	 * Returns the number of features found in the given document
 	 * @param doc - the xml document created by the template
 	 * @return The number of features found
@@ -233,7 +192,11 @@ public class SpatialQuery {
 	 */
 	private void fillPropertyList(List<String> propertyList, List<String> properties, Node featureMemberNode) {
 		for(int i = 0; i < properties.size(); i++) {
-			if(featureMemberNode.getNodeName().endsWith(":" + properties.get(i))) {
+			String propertyName = properties.get(i);
+			String nodeName = featureMemberNode.getNodeName();
+			int nameStart = nodeName.indexOf(':');
+			nodeName = nodeName.substring(nameStart, nodeName.length());
+			if(nodeName.equalsIgnoreCase(":" + propertyName)) {
 				String textContent = featureMemberNode.getTextContent();
 				if(textContent == null || "".equals(textContent)) {
 					properties.remove(i);
@@ -272,38 +235,148 @@ public class SpatialQuery {
 	}
 	
 	/**
-	 * Returns a KwetsbaarObject[] for the given template, an empty list if no KwetsbaarObject is found.
-	 * @return All kwetsbare objecten for the specified template
+	 * Creates a MultiPoint Geometry of the area where the plangebiedWkt and the risicovolle gebieden are overlapping
+	 * @param plangebiedWkt - The plangebiedWkt entered by the client
+	 * @return
+	 * @throws ParseException 
 	 */
-	public List<KwetsbaarObject> getKwetsbareObjecten() {
-		LOGGER.log(Level.INFO, "Getting kwetsbare objecten...");
-		List<KwetsbaarObject> kwetsbaarObjList = new ArrayList<>();
+	public Geometry getRisicogebiedGeom(String plangebiedWkt) {
+		Geometry finalGeometry = null;
+		try {
+			LOGGER.log(Level.INFO, "Creating MultiPolygon Geometry for Kwetsbare Objecten...");
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
+		
+		
+			// Get the Geometry for the plangebiedWkt
+			CRSRef crs = CRSManager.getCRSRef("EPSG:28992");
+			WKTReader wktReader = new WKTReader(crs);
+			Geometry plangebiedWktGeom = wktReader.read(plangebiedWkt);
+			// Get all risicogebieden found and parse the geometry in it
+			NodeList memberList = doc.getElementsByTagName("wfs:member");
+			LOGGER.log(Level.DEBUG, "Members found: " + memberList.getLength());
+			if(memberList.getLength() == 0) {
+				return null;
+			}
+			Geometry risicogebiedGeometry = null;
+			for(int i = 0; i < memberList.getLength(); i++) {
+				Element memberElement = (Element)memberList.item(i);
+				NodeList polygonList = memberElement.getElementsByTagName("gml:Polygon");
+				// Create MultiPolygon from all Polygons found in the document
+				Geometry combinedGeom = getGeometry(polygonList);
+				if(risicogebiedGeometry == null) {
+					risicogebiedGeometry = combinedGeom;
+				}
+				else {
+					risicogebiedGeometry = risicogebiedGeometry.getUnion(combinedGeom);
+				}
+			}
+			
+			// Check if part of the risicogebied intersects with the wktGeom and add the overlapping part to geometry as MultiPolygon
+			
+			if(plangebiedWktGeom != null && risicogebiedGeometry != null && risicogebiedGeometry.intersects(plangebiedWktGeom)) {
+				finalGeometry = risicogebiedGeometry.getIntersection(plangebiedWktGeom);
+			}
+		}
+		catch(SAXException | IOException | ParserConfigurationException | ParseException e) {
+			LOGGER.log(Level.FATAL, e.getMessage(), e);
+		}
+		return finalGeometry;
+	}
+	
+	/**
+	 * Creates a MultiPolygon Geometry of all coordinates within the member node of the NodeList
+	 * @param polygonList
+	 * @return
+	 */
+	private Geometry getGeometry(NodeList polygonList) {
+		try {
+			Node polygonNode = polygonList.item(0);
+			((Element)polygonNode).setAttribute("xmlns:gml", "http://www.opengis.net/gml");
+			
+			TransformerFactory tFactory = TransformerFactory.newInstance();
+			Transformer transformer = tFactory.newTransformer();
+			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+			
+			StringWriter sw = new StringWriter();
+			transformer.transform(new DOMSource(polygonNode), new StreamResult(sw));
+			
+			return GeometryParser.parseFromGML(sw.toString());
+		}
+		catch(TransformerException | XMLParsingException | IOException e) {
+			LOGGER.log(Level.FATAL, e.getMessage(), e);
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Returns the features for the Kwetsbare Objecten found or a message with no features
+	 * @return
+	 */
+	public Map<String, String> getKOFeatures() {
+		Map<String, String> features = new HashMap<>();
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
-			LOGGER.log(Level.DEBUG, "Document:\n" + getResult());
-			Element docElement = doc.getDocumentElement();
-			int numResults = Integer.parseInt(docElement.getAttribute("numberOfFeatures"));
-			NodeList elementList = doc.getElementsByTagName("wfs:member");
-			LOGGER.log(Level.DEBUG, "Aantal objecten found in numResults: " + numResults);
-			LOGGER.log(Level.DEBUG, "Aantal objecten found in elementList: " + elementList.getLength());
-			if(elementList.getLength() == 0) {
-				return new ArrayList<>();
+			
+			// Get property names to filter from the template
+			Document templateDoc = builder.parse(new InputSource(new ByteArrayInputStream(template.getBytes())));
+			List<String> propertyNames = new ArrayList<>();
+			NodeList queryList = templateDoc.getElementsByTagName("wfs:Query");
+			Element queryElement = (Element)queryList.item(0);
+			Node childNode = queryElement.getFirstChild().getNextSibling();
+			while("ogc:PropertyName".equals(childNode.getNodeName())) {
+				propertyNames.add(childNode.getTextContent());
+				childNode = childNode.getNextSibling().getNextSibling();
 			}
 			
-			for(int i = 0; i < elementList.getLength(); i++) {
-				Element element = (Element)elementList.item(i);
-				NodeList childList = element.getElementsByTagName("*");
-				KwetsbaarObject obj = new KwetsbaarObject();
-				obj.setAttributes(childList);
-				kwetsbaarObjList.add(obj);
+			// Get all Kwetsbare Objecten found by the second template
+			NodeList memberList = doc.getElementsByTagName("wfs:member");
+			if(memberList.getLength() == 0) {
+				features.put("message", "\"NO_FEATURES_FOUND\"");
+				return features;
 			}
+			
+			// Get the features for the given properties
+			List<String> featureList = new ArrayList<>();
+			for(int i = 0; i < memberList.getLength(); i++) {
+				Element tagElement = (Element)memberList.item(i);
+				NodeList tagList = tagElement.getElementsByTagName("*");
+				setKOProperties(tagList, propertyNames, featureList);
+			}
+			
+			String resultString = mergeAsJsonString(propertyNames, featureList);
+			features.put("features", resultString);
 		} catch (ParserConfigurationException | SAXException | IOException e) {
-			LOGGER.log(Level.FATAL, e.toString(), e);
+			LOGGER.log(Level.FATAL, e.getMessage(), e);
 		}
 		
-		LOGGER.log(Level.DEBUG, "Kwetsbare objecten in list: " + kwetsbaarObjList.size());
-		return kwetsbaarObjList;
+		return features;
+	}
+	
+	/**
+	 * Puts all found features in the featureList
+	 * @param nodeList - the MemberList with all features found
+	 * @param propertyNames - The propertyNames to filter
+	 * @param featureList - the List with all filtered features
+	 */
+	private void setKOProperties(NodeList nodeList, List<String> propertyNames, List<String> featureList) {
+		// Go through all tags in the nodeList
+		for(int i = 0; i < nodeList.getLength(); i++) {
+			Element node = (Element)nodeList.item(i);
+			// Go through the propertyNames if they exist and add them to the map
+			for(int j = 0; j < propertyNames.size(); j++) {
+				String propertyName = propertyNames.get(j);
+				String nodeName = node.getNodeName();
+				int nameStart = nodeName.indexOf(':');
+				nodeName = nodeName.substring(nameStart, nodeName.length());
+				if(nodeName.equalsIgnoreCase(":" + propertyName)) {
+					featureList.add(node.getTextContent());
+				}
+			}
+		}
 	}
 }
