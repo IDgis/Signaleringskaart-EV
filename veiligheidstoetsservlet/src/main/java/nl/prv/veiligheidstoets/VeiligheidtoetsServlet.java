@@ -57,8 +57,8 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private static final String PLANGEBIEDWKT = "plangebiedWkt";
 	private static final String REQUESTTYPE = "requesttype";
 	private static final String SERVICENAME = "servicename";
-	private static final String SERVICENAMEEV = "servicenameEV";
-	private static final String SERVICENAMEKO = "servicenameKO";
+	private static final String SERVICENAMEEV = "servicenameEv";
+	private static final String SERVICENAMEKO = "servicenameKo";
 	
 	private String basisnetWFSUrl;
 	private String risicokaartWFSUrl;
@@ -309,13 +309,13 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		try {
 			// Check servicename
 			if(!(props.containsKey(SERVICENAMEEV) && props.containsKey(SERVICENAMEKO))) {
-				features.put(ERROR, "\"Servicename is missing!\"");
+				features.put(ERROR, String.format("\"Servicename is missing! servicenameEv: %s, servicenameKo: %s\"", props.get(SERVICENAMEEV), props.get(SERVICENAMEKO)));
 				return features;
 			}
 			String urlEV = getServiceName(props.get(SERVICENAMEEV));
 			String urlKO = getServiceName(props.get(SERVICENAMEKO));
 			if(urlEV == null || urlKO == null) {
-				features.put(ERROR, "\"Servicename is invalid!\"");
+				features.put(ERROR, String.format("\"Servicename is invalid! servicenameEv: %s, servicenameKo: %s\"", props.get(SERVICENAMEEV), props.get(SERVICENAMEKO)));
 				return features;
 			}
 			
@@ -339,11 +339,11 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private Map<String, String> getKOFeatureResult(Map<String, String> props, String urlEV, String urlKO) throws IOException {
 		Map<String, String> features = new HashMap<>();
 		// Get new MultiPolygon Geometry from first template
-		if(!(props.containsKey("filterEV") && props.containsKey("filterKO"))) {
+		if(!(props.containsKey("filterEv") && props.containsKey("filterKo"))) {
 			features.put(ERROR, "\"Template is missing! Please give up 2 templates!\"");
 			return features;
 		}
-		String templateEV = templateHandler.getFilter(props.get("filterEV"), props);
+		String templateEV = templateHandler.getFilter(props.get("filterEv"), props);
 		LOGGER.log(Level.DEBUG, "TEMPLATE_EV:\n" + templateEV);
 		SpatialQuery sq = new SpatialQuery(urlEV, templateEV);
 		Geometry geometry = sq.getRisicogebiedGeom(props.get(PLANGEBIEDWKT));
@@ -356,7 +356,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		props.put(PLANGEBIEDGML, gml);
 		
 		// Get Kwetsbare Objecten within the MultiPoint object
-		String templateKO = templateHandler.getFilter(props.get("filterKO"), props);
+		String templateKO = templateHandler.getFilter(props.get("filterKo"), props);
 		LOGGER.log(Level.DEBUG, "TEMPLATE_KO:\n" + templateKO);
 		sq = new SpatialQuery(urlKO, templateKO);
 		return sq.getKOFeatures();
