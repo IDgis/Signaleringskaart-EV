@@ -18,18 +18,18 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.deegree.geometry.Geometry;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
-import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.io.ParseException;
 import com.vividsolutions.jts.io.WKTReader;
-import com.vividsolutions.jts.io.WKTWriter;
 
+import nl.prv.veiligheidstoets.util.GeometryParser;
 import nl.prv.veiligheidstoets.util.TemplateHandler;
 import nl.prv.veiligheidstoets.util.WKT2GMLParser;
 
@@ -352,9 +352,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			return features;
 		}
 		
-		WKTWriter writer = new WKTWriter();
-		String geomWkt = writer.write(geometry);
-		String gml = WKT2GMLParser.parse(geomWkt);
+		String gml = GeometryParser.parseToGML(geometry);
 		props.put(PLANGEBIEDGML, gml);
 		
 		// Get Kwetsbare Objecten within the MultiPoint object
