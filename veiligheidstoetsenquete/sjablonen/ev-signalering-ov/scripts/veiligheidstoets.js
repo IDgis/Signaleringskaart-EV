@@ -5,10 +5,12 @@ var baseservleturl = "http://evs.local.nl/veiligheidstoetsservlet/toets";
 
 var toetsError = false;
 var spatialQuestions = [];
+var nextSpatialQuestion = 0
 var vlayer;
 var map;
 var urlInput;
 var curId;
+
 
 
 $(document).ready(function() {
@@ -37,11 +39,20 @@ $(document).ready(function() {
 		    var inputChoiceAns =  $('#answer' + sgq + 'A3');
 		    inputChoiceAns.click();   
 		});
+        $('.spatialquestion').each(function() {
+            var sq = $(this);
+            var spatialquestion = {};
+        	for(var s in sq.data()) {
+        		spatialquestion[s] = sq.data(s);
+        	}
+            spatialQuestions.push(spatialquestion);
+        }); 
+        
 	} 
 });	
 
 
-/*jQuery(function($) {
+jQuery(function($) {
   var _oldShow = $.fn.show;
   $.fn.show = function(speed, oldCallback) {
     return $(this).each(function() {
@@ -55,73 +66,85 @@ $(document).ready(function() {
       _oldShow.apply(obj, [speed, newCallback]);
     });
   };
-});*/
+});
 
-function postSpatialQuestion(Qcode,wktStr,sgq,serviceName,requestType) {
-	var postbody = {
-				servicename:((serviceName!==undefined && serviceName!==null) ? serviceName: 'veiligheidstoetsWFS'), 
-				requesttype:((requestType!==undefined && requestType!==null) ? requestType: 'getEVFeatures'),
-				filter:Qcode,
-				plangebiedWkt:wktStr};
+
+jQuery(function($) {
+  $('.spatialquestion')
+    .bind('beforeShow', function() {
+        if($(this)[0]=== $('.spatialquestion')[0]) {
+            postSpatialQuestion(spatialQuestions[0]);
+        }
+    }) 
+    .show(1000, function() {
+      //in show callback;
+    })
+    .show();
+});
+    
+
+
+function postSpatialQuestion(spatialQuestion) {
+	var sgq = spatialQuestion['sgq'];              
 	var sgqArray = sgq.split('X');
 	var question =  $('#question' + sgqArray[2]);
 	//question.hide();
-	spatialQuestions.push(question);
 	document.body.style.cursor = 'wait';
-	$.post( baseservleturl, postbody,	
-		function(result){
-			if (result.error) {
-				alert (result.error);
+	$.post( baseservleturl, spatialQuestion, function(result){
+
+		if (result.error) {
+			alert (result.error);
+		}
+		if (result.numberOfFeaturesFound !== undefined) {
+			if (result.numberOfFeaturesFound > 0) {
+				$('#answer'+ sgq + 'Y').click();
+			} else {
+                $('#answer'+ sgq + 'N').click(); 
 			}
-			if (result.numberOfFeaturesFound !== undefined) {
-				if (result.numberOfFeaturesFound > 0) {
-					$('#answer'+ sgq + 'Y').click();  
-                    $('#answer'+ sgq + 'Y').off("click");
-				} else {
-                    $('#answer'+ sgq + 'N').click(); 
-    			    $('#answer'+ sgq + 'N').off("click");   
-				}
-			}
+		} else {
 			if (result.features !== undefined) {
 				showProperties (result.features);
                 $('#answer'+ sgq + 'Y').click();
+                
 			} else {
     		    $('#answer'+ sgq + 'N').click();  
 			}
-            
-            
-            
-	    	document.body.style.cursor = 'default';
-	    });
+		}	
+		nextSpatialQuestion++;
+		if (nextSpatialQuestion < spatialQuestions.length){
+		postSpatialQuestion(spatialQuestions[nextSpatialQuestion]);
+		}
+		if (nextSpatialQuestion === spatialQuestions.length){
+			document.body.style.cursor = 'default';
+		}	 
+    });
 
 }
 
 
 function showProperties (features) {
-    var table = $('.properties')[0]; 
+    $('.properties').empty();
+    var table = $('.properties')[0];
+    
     var thead = table.appendChild(document.createElement("thead"));
     var hrow = thead.appendChild(document.createElement("tr"));
     var tbody = table.appendChild(document.createElement("tbody"));
-	
-	for (var feature in features) {
+
+    for (var feature of features) {
 		var row = tbody.appendChild(document.createElement("tr"));
-        var properties = features[feature].properties;
+        var properties = feature.properties;
         
-		for (var property in properties) {
+		for (var property of properties) {
             if (feature==="0") {
                 var hcol = hrow.appendChild(document.createElement("th"));
-                hcol.appendChild(document.createTextNode(Object.keys(properties[property])));
+                hcol.appendChild(document.createTextNode(Object.keys(property)));
             }  
             var col = row.appendChild(document.createElement("td"));
-            col.appendChild(document.createTextNode(Object.values(properties[property])));
+            col.appendChild(document.createTextNode(Object.values(property)));
 		}
 	}
-
-	
-
 	//resultDiv.show();
 }
-
 
 
 function showOnMap(wktStr) {
@@ -261,6 +284,9 @@ function initialiseBaseMap(mapDiv,editable,answerInput) {
 		showOnMap(wktPoly);
 	 } 
 }
+
+
+
 
 
 
