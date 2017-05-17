@@ -308,14 +308,12 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 		Map<String, String> features = new HashMap<>();
 		try {
 			// Check servicename
-			String urlEV = null;
-			String urlKO = null;
 			if(!(props.containsKey(SERVICENAMEEV) && props.containsKey(SERVICENAMEKO))) {
 				features.put(ERROR, "\"Servicename is missing!\"");
 				return features;
 			}
-			urlEV = getServiceName(props.get(SERVICENAMEEV));
-			urlKO = getServiceName(props.get(SERVICENAMEKO));
+			String urlEV = getServiceName(props.get(SERVICENAMEEV));
+			String urlKO = getServiceName(props.get(SERVICENAMEKO));
 			if(urlEV == null || urlKO == null) {
 				features.put(ERROR, "\"Servicename is invalid!\"");
 				return features;
