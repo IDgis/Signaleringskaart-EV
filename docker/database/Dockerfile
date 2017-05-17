@@ -10,4 +10,5 @@ RUN apt-get update \
 
 # create database
 COPY 000_create_db.sql /docker-entrypoint-initdb.d/
+COPY 001_create_ev_services_tables.sql /docker-entrypoint-initdb.d/
 
