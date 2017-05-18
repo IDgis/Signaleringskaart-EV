@@ -1,0 +1,22 @@
+<SQLFeatureStore xmlns="http://www.deegree.org/datasource/feature/sql" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" configVersion="3.2.0" xsi:schemaLocation="http://www.deegree.org/datasource/feature/sql http://schemas.deegree.org/datasource/feature/sql/3.2.0/sql.xsd">
+
+	<JDBCConnId>jdbc_ev_services_ov</JDBCConnId>
+
+	<FeatureTypeMapping xmlns:myapp="http://www.deegree.org/myapp" table="wegen_grplafond" name="myapp:wegen_grplafond">
+	    <FIDMapping>
+	        <Column name="id"/>
+	        <AutoIdGenerator/>
+	    </FIDMapping>
+	    <Primitive path="wegvak" mapping="wegvak"/>
+	    <Primitive path="naam_basis" mapping="naam_basis"/>
+	   	<Primitive path="pr_plafond" mapping="pr_plafond"/>
+	    <Primitive path="gr_plafond" mapping="gr_plafond"/>
+	    <Primitive path="plasbrand" mapping="plasbrand_"/>
+	    <Primitive path="vervoershoeveelheid" mapping="vervoersho"/>
+	   	<Primitive path="bijzonderheden" mapping="bijzonderh"/>
+	    <Geometry path="geom" mapping="geom">
+	        <StorageCRS srid="28992">EPSG:28992</StorageCRS>
+	    </Geometry>
+	</FeatureTypeMapping>
+	
+</SQLFeatureStore>	
