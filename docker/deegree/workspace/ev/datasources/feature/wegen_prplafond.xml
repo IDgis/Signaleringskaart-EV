@@ -8,7 +8,7 @@
 	        <AutoIdGenerator/>
 	    </FIDMapping>
 	    <Primitive path="wegvak" mapping="wegvak"/>
-	    <Primitive path="naam_basis" mapping="naam_basis"/>
+	    <Primitive path="naam" mapping="naam_basis"/>
 	   	<Primitive path="pr_plafond" mapping="pr_plafond"/>
 	    <Primitive path="gr_plafond" mapping="gr_plafond"/>
 	    <Primitive path="plasbrand" mapping="plasbrand_"/>
