@@ -8,10 +8,6 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -50,17 +46,18 @@ public class SpatialQuery {
 	
 	private String urlstr;
 	private String template;
+	private String filterResult;
 
 	public SpatialQuery(String urlstr, String template) {
 		this.urlstr = urlstr;
 		this.template = template;
+		processFilter();
 	}
-
+	
 	/**
-	 * 
-	 * @return Gets an xml with the data given in the postbody
+	 * Gets the feature response of the request with the filled template.
 	 */
-	private String getResult() {
+	private void processFilter() {
 		URL url = null;
 		HttpURLConnection hpcon = null;
 		StringBuilder response = new StringBuilder(256);
@@ -98,140 +95,15 @@ public class SpatialQuery {
 			LOGGER.log(Level.FATAL, String.format("fout in request naar %s met filter %s response: %s", urlstr, template, response.toString()));
 		}
 		
-		return response.toString();
+		filterResult = response.toString();
 	}
 	
 	/**
-	 * Returns the number of properties found or a json of the features with the properties specified in the filter.
-	 * @return A Map with the result of the found features
+	 * Gets the filtered properties in a xml string
+	 * @return
 	 */
-	public Map<String, String> getFeatureResult() {
-		Map<String, String> features = new HashMap<>();
-		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
-			
-			Document templateDoc = builder.parse(new InputSource(new ByteArrayInputStream(template.getBytes())));
-			String resultType = templateDoc.getDocumentElement().getAttribute("resultType");
-			if("hits".equals(resultType)) {
-				return getNumFeatures(doc);
-			}
-			
-			// Getting properties to filter
-			List<String> properties = new ArrayList<>();
-			NodeList queryList = templateDoc.getElementsByTagName("wfs:Query");
-			Element queryElement = (Element)queryList.item(0);
-			Node childNode = queryElement.getFirstChild().getNextSibling();
-			while("ogc:PropertyName".equals(childNode.getNodeName())) {
-				properties.add(childNode.getTextContent());
-				childNode = childNode.getNextSibling().getNextSibling();
-			}
-			
-			NodeList featureList = doc.getElementsByTagName("*");
-			features = getFeatures(properties, featureList);
-		} 
-		catch (IOException | ParserConfigurationException | SAXException e) {
-			LOGGER.log(Level.FATAL, e.toString(), e);
-			features.put("error", "\"" + e.getMessage() + "\"");
-			return features;
-		}
-		return features;
-	}
-	
-	/**
-	 * Returns the number of features found in the given document
-	 * @param doc - the xml document created by the template
-	 * @return The number of features found
-	 */
-	private Map<String, String> getNumFeatures(Document doc) {
-		Map<String, String> numFeatures = new HashMap<>();
-		
-		Element element = doc.getDocumentElement();
-		int result = Integer.parseInt(element.getAttribute("numberOfFeatures"));
-		numFeatures.put("numberOfFeaturesFound", Integer.toString(result));
-		
-		return numFeatures;
-	}
-	
-	/**
-	 * Returns a Map with the name and json array string of the features found
-	 * @param properties - The name of properties to filter e.g. PR10-6, PR10-7, PAG
-	 * @param elementList - All xml tags in the given filter
-	 * @return A Map with all features found as a json string
-	 */
-	private Map<String, String> getFeatures(List<String> properties, NodeList elementList) {
-		Map<String, String> features = new HashMap<>();
-		List<String> featureList = new ArrayList<>();
-		
-		// Loop through all elements in the document
-		for(int i = 0; i < elementList.getLength(); i++) {
-			Node featureMemberNode = elementList.item(i);
-			//Loop through the filters and add matched elements
-			fillPropertyList(featureList, properties, featureMemberNode);
-		}
-		if(featureList.isEmpty()) {
-			features.put("message", "\"NO_FEATURES_FOUND\"");
-			return features;
-		}
-		
-		// DEBUGGING
-		LOGGER.log(Level.DEBUG, String.format("properties: %d, featureList: %d", properties.size(), featureList.size()));
-		String valueString = mergeAsJsonString(properties, featureList);
-		LOGGER.log(Level.DEBUG, "features to return: " + valueString);
-		features.put("features", valueString);
-		
-		return features;
-	}
-	
-	/**
-	 * Fills the propertyList with matching elements
-	 * @param propertyList - the List to fill with properties
-	 * @param properties - the property names to check to match
-	 * @param featureMemberNode - the current element
-	 */
-	private void fillPropertyList(List<String> propertyList, List<String> properties, Node featureMemberNode) {
-		for(int i = 0; i < properties.size(); i++) {
-			String propertyName = properties.get(i);
-			String nodeName = featureMemberNode.getNodeName();
-			int nameStart = nodeName.indexOf(':');
-			nodeName = nodeName.substring(nameStart, nodeName.length());
-			if(nodeName.equalsIgnoreCase(":" + propertyName)) {
-				String textContent = featureMemberNode.getTextContent();
-				if(textContent == null || "".equals(textContent)) {
-					properties.remove(i);
-					continue;
-				}
-				propertyList.add(textContent);
-			}
-		}
-	}
-	
-	/**
-	 * Gets 2 Lists with properties and combines them into a single json string.
-	 * @param propertyList the property names found in the template
-	 * @param featureList all features found for the names by the given propertyList
-	 * @return A json string from the combined lists
-	 */
-	private String mergeAsJsonString(List<String> propertyList, List<String> featureList) {
-		int index = 0;
-		int resultId = 1;
-		int numIters = featureList.size() / propertyList.size();
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("[");
-		for(int i = 0; i < numIters; i++) {
-			sb.append("{");
-			sb.append("\"id\":\"" + resultId++ + "\",");
-			sb.append("\"properties\":" + "[");
-			for(int j = 0; j < propertyList.size() - 1; j++) {
-				sb.append("{\"" + propertyList.get(j) + "\":\"" + featureList.get(index++) + "\"},");
-			}
-			sb.append("{\"" + propertyList.get(propertyList.size() - 1) + "\":\"" + featureList.get(index++) + "\"}]},");
-		}
-		sb.replace(sb.length() - 1, sb.length(), "]");
-		LOGGER.log(Level.DEBUG, "JSON value String: " + sb.toString());
-		return sb.toString();
+	public String getFilterResult() {
+		return filterResult;
 	}
 	
 	/**
@@ -246,7 +118,7 @@ public class SpatialQuery {
 			LOGGER.log(Level.INFO, "Creating MultiPolygon Geometry for Kwetsbare Objecten...");
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
+			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(filterResult.getBytes())));
 		
 		
 			// Get the Geometry for the plangebiedWkt
@@ -309,74 +181,5 @@ public class SpatialQuery {
 		}
 		
 		return null;
-	}
-	
-	/**
-	 * Returns the features for the Kwetsbare Objecten found or a message with no features
-	 * @return
-	 */
-	public Map<String, String> getKOFeatures() {
-		Map<String, String> features = new HashMap<>();
-		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(getResult().getBytes())));
-			
-			// Get property names to filter from the template
-			Document templateDoc = builder.parse(new InputSource(new ByteArrayInputStream(template.getBytes())));
-			List<String> propertyNames = new ArrayList<>();
-			NodeList queryList = templateDoc.getElementsByTagName("wfs:Query");
-			Element queryElement = (Element)queryList.item(0);
-			Node childNode = queryElement.getFirstChild().getNextSibling();
-			while("ogc:PropertyName".equals(childNode.getNodeName())) {
-				propertyNames.add(childNode.getTextContent());
-				childNode = childNode.getNextSibling().getNextSibling();
-			}
-			
-			// Get all Kwetsbare Objecten found by the second template
-			NodeList memberList = doc.getElementsByTagName("wfs:member");
-			if(memberList.getLength() == 0) {
-				features.put("message", "\"NO_FEATURES_FOUND\"");
-				return features;
-			}
-			
-			// Get the features for the given properties
-			List<String> featureList = new ArrayList<>();
-			for(int i = 0; i < memberList.getLength(); i++) {
-				Element tagElement = (Element)memberList.item(i);
-				NodeList tagList = tagElement.getElementsByTagName("*");
-				setKOProperties(tagList, propertyNames, featureList);
-			}
-			
-			String resultString = mergeAsJsonString(propertyNames, featureList);
-			features.put("features", resultString);
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			LOGGER.log(Level.FATAL, e.getMessage(), e);
-		}
-		
-		return features;
-	}
-	
-	/**
-	 * Puts all found features in the featureList
-	 * @param nodeList - the MemberList with all features found
-	 * @param propertyNames - The propertyNames to filter
-	 * @param featureList - the List with all filtered features
-	 */
-	private void setKOProperties(NodeList nodeList, List<String> propertyNames, List<String> featureList) {
-		// Go through all tags in the nodeList
-		for(int i = 0; i < nodeList.getLength(); i++) {
-			Element node = (Element)nodeList.item(i);
-			// Go through the propertyNames if they exist and add them to the map
-			for(int j = 0; j < propertyNames.size(); j++) {
-				String propertyName = propertyNames.get(j);
-				String nodeName = node.getNodeName();
-				int nameStart = nodeName.indexOf(':');
-				nodeName = nodeName.substring(nameStart, nodeName.length());
-				if(nodeName.equalsIgnoreCase(":" + propertyName)) {
-					featureList.add(node.getTextContent());
-				}
-			}
-		}
 	}
 }
