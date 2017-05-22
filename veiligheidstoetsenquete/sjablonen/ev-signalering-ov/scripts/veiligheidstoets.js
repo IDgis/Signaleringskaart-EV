@@ -15,7 +15,7 @@ var curId;
 
 $(document).ready(function() {
     if(document.limesurvey) {
-		$('.ev-map').each(function() {
+    	$('.ev-map').each(function() {
             if (map===undefined) {
      			var mapDiv = $(this);
     		    var sgq = mapDiv.attr('data-sgq');
@@ -48,7 +48,13 @@ $(document).ready(function() {
             spatialQuestions.push(spatialquestion);
         }); 
         
-	} 
+	} else {
+        $('.properties').each(function() {
+            var propDiv = $(this);
+            var answer = propDiv.attr('data-answer');
+            propDiv.append(answer);
+        });
+	}
 });	
 
 
@@ -72,7 +78,7 @@ jQuery(function($) {
 jQuery(function($) {
   $('.spatialquestion')
     .bind('beforeShow', function() {
-        if($(this)[0]=== $('.spatialquestion')[0]) {
+        if($(this)[0]=== $('.spatialquestion')[0] && document.limesurvey) {
             postSpatialQuestion(spatialQuestions[0]);
         }
     }) 
@@ -81,7 +87,6 @@ jQuery(function($) {
     })
     .show();
 });
-    
 
 
 function postSpatialQuestion(spatialQuestion) {
@@ -124,26 +129,33 @@ function postSpatialQuestion(spatialQuestion) {
 
 function showProperties (features) {
     $('.properties').empty();
-    var table = $('.properties')[0];
-    
-    var thead = table.appendChild(document.createElement("thead"));
-    var hrow = thead.appendChild(document.createElement("tr"));
-    var tbody = table.appendChild(document.createElement("tbody"));
-
+    //var propertiesDiv = $('.properties')[0];
+    var sgq = $('.properties').attr('data-sgq');
+    if(sgq===undefined) {
+        return;
+    }    
+    var table = "<table class='table-striped table-condensed'>";
+    var tableHead = "<thead><tr>"
+    var tableBody = "<tbody><tr>"
+    var first = true;
     for (var feature of features) {
-		var row = tbody.appendChild(document.createElement("tr"));
-        var properties = feature.properties;
-        
-		for (var property of properties) {
-            if (feature==="0") {
-                var hcol = hrow.appendChild(document.createElement("th"));
-                hcol.appendChild(document.createTextNode(Object.keys(property)));
-            }  
-            var col = row.appendChild(document.createElement("td"));
-            col.appendChild(document.createTextNode(Object.values(property)));
+		for (var property of  feature.properties) {
+            if (first) {
+                tableHead += "<th>" + Object.keys(property) + "</th>";
+            } 
+            tableBody += "<td>" + Object.values(property)+ "</td>";
 		}
+        tableHead += "</tr><tr>";
+        tableBody += "</tr><tr>";
+		first = false;
 	}
-	//resultDiv.show();
+    tableHead = tableHead.substr(0, tableHead.length - 4) + "<thead>";
+    tableBody = tableBody.substr(0, tableBody.length - 4) + "<thead>";
+    table += tableHead + tableBody + "<table>";
+    var propertyInput = $('#answer'+ sgq);
+    propertyInput.hide();
+    propertyInput.val(table);
+    $('.properties').append(table);
 }
 
 
@@ -167,7 +179,6 @@ function zoomToPlangebied() {
 
 function updateImageUrl(){
 	if(urlInput!==undefined){
-		var kleur = 'EE9900';
 		var bbox = map.getExtent().toBBOX(0,false);
 		var url = wmsurl + '/services/plangebied_wms_ov?service=WMS&REQUEST=GetMap&LAYERS=&STYLES=&TRANSPARENT=TRUE&SRS=EPSG:28992&VERSION=1.1.1&EXCEPTIONS=application/vnd.ogc.se_xml&FORMAT=image/png';
 		url += '&HEIGHT=500&WIDTH=800';
@@ -284,6 +295,7 @@ function initialiseBaseMap(mapDiv,editable,answerInput) {
 		showOnMap(wktPoly);
 	 } 
 }
+
 
 
 
