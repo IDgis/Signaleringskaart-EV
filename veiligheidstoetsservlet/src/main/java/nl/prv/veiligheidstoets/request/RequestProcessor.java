@@ -53,6 +53,7 @@ public class RequestProcessor {
 			NodeList memberList = doc.getElementsByTagName("wfs:member");
 			if(memberList.getLength() == 0) {
 				features.put("message", "\"NO_FEATURES_FOUND\"");
+				return features;
 			}
 			
 			StringBuilder valueString = new StringBuilder();

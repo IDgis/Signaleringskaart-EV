@@ -17,6 +17,7 @@ import org.xml.sax.SAXException;
 
 public abstract class VeiligheidtoetsRequest {
 
+	private String configDir = "/etc/veiligheidstoets";
 	protected Document configDoc;
 	protected String plangebiedWkt;
 	protected Map<String, String> props;
@@ -34,8 +35,7 @@ public abstract class VeiligheidtoetsRequest {
 	 * @return An error message if something went wrong, null otherwise
 	 */
 	public String setupProperties() {
-		String configdir = "/etc/veiligheidstoets";
-		File configFile= new File(configdir + File.separator + "veiligheidstoets.xml");
+		File configFile= new File(configDir + File.separator + "veiligheidstoets.xml");
 		if(configFile.exists()) {
 			try {
 				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -49,8 +49,8 @@ public abstract class VeiligheidtoetsRequest {
 			
 		}
 		else {
-			logger.log(Level.FATAL, String.format("Config file missing %s%sveiligheidstoets.xml", configdir, File.separator));
-			return String.format("Config file missing %s%sveiligheidstoets.xml", configdir, File.separator);
+			logger.log(Level.FATAL, String.format("Config file missing %s%sveiligheidstoets.xml", configDir, File.separator));
+			return String.format("Config file missing %s%sveiligheidstoets.xml", configDir, File.separator);
 		}
 		
 		if(!(props.containsKey(WKT) || props.containsKey("wkt"))) {

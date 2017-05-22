@@ -34,17 +34,18 @@ public class EVFeaturesRequest extends VeiligheidtoetsRequest {
 		if(!props.containsKey("servicename")) {
 			return "Service name is missing!";
 		}
-		if(!props.containsKey("filter")) {
-			return "Filter is missing!";
-		}
 		String servicename = props.get("servicename");
-		filter = props.get("filter");
 		url = getConfigProperty(servicename + "Url");
 		
-		if(url == null) {
+		if(url == null || "".equals(url)) {
 			logger.log(Level.WARN, "Service name is invalid: " + servicename);
 			return "Service name is invalid: " + servicename;
 		}
+		
+		if(!props.containsKey("filter")) {
+			return "Filter is missing!";
+		}
+		filter = props.get("filter");
 		
 		return null;
 	}

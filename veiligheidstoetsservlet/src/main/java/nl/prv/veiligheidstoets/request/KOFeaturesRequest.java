@@ -40,27 +40,27 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 		if(!props.containsKey("servicenameKo")) {
 			return "Service name KO is missing!";
 		}
+		String servicenameEv = props.get("servicenameEv");
+		String servicenameKo = props.get("servicenameKo");
+		urlEv = getConfigProperty(servicenameEv + "Url");
+		urlKo = getConfigProperty(servicenameKo + "Url");
+		if(urlEv == null || "".equals(urlEv)) {
+			logger.log(Level.WARN, "Service name EV is invalid: " + servicenameEv);
+			return "Service name EV is invalid!";
+		}
+		if(urlKo == null || "".equals(urlKo)) {
+			logger.log(Level.WARN, "Service name KO is invalid: " + servicenameKo);
+			return "Service name KO is invalid!";
+		}
+		
 		if(!props.containsKey("filterEv")) {
 			return "Filter EV is missing!";
 		}
 		if(!props.containsKey("filterKo")) {
 			return "Filter KO is missing!";
 		}
-		String servicenameEv = props.get("servicenameEv");
-		String servicenameKo = props.get("servicenameKo");
 		filterEv = props.get("filterEv");
 		filterKo = props.get("filterKo");
-		urlEv = getConfigProperty(servicenameEv + "Url");
-		urlKo = getConfigProperty(servicenameKo + "Url");
-		
-		if(urlEv == null) {
-			logger.log(Level.WARN, "Service name EV is invalid: " + servicenameEv);
-			return "Service name EV is invalid!";
-		}
-		if(urlKo == null) {
-			logger.log(Level.WARN, "Service name KO is invalid: " + servicenameKo);
-			return "Service name KO is invalid!";
-		}
 		
 		return null;
 	}
