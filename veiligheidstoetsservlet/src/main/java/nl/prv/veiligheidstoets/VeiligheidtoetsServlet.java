@@ -33,9 +33,6 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private static final Logger LOGGER = Logger.getLogger(VeiligheidtoetsServlet.class.getName());
-	static {
-		LOGGER.setLevel(Level.ALL);
-	}
 	
 	private static final String ERROR = "error";
 	
@@ -44,6 +41,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 */
 	@Override
 	public void init() {
+		LOGGER.setLevel(Level.DEBUG);
 		LOGGER.log(Level.INFO, "init servlet...");
 	}
 	

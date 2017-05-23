@@ -13,15 +13,13 @@ import org.apache.log4j.Logger;
 
 public class SpatialQuery {
 	private static final Logger LOGGER = Logger.getLogger(SpatialQuery.class.getName());
-	static {
-		LOGGER.setLevel(Level.ALL);
-	}
 	
 	private String urlstr;
 	private String template;
 	private String featureResult;
 
 	public SpatialQuery(String urlstr, String template) {
+		LOGGER.setLevel(Level.DEBUG);
 		this.urlstr = urlstr;
 		this.template = template;
 		processFilter();

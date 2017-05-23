@@ -17,10 +17,11 @@ public class EVFeaturesRequest extends VeiligheidtoetsRequest {
 	private String url;
 	private TemplateHandler templateHandler;
 	
+	private static final Logger LOGGER = Logger.getLogger(EVFeaturesRequest.class.getName());
+	
 	protected EVFeaturesRequest(Map<String, String> props) {
 		super(props);
-		logger = Logger.getLogger(EVFeaturesRequest.class.getName());
-		logger.setLevel(Level.ALL);
+		LOGGER.setLevel(Level.DEBUG);
 		templateHandler = new TemplateHandler();
 	}
 	
@@ -38,7 +39,7 @@ public class EVFeaturesRequest extends VeiligheidtoetsRequest {
 		url = getConfigProperty(servicename + "Url");
 		
 		if(url == null || "".equals(url)) {
-			logger.log(Level.WARN, "Service name is invalid: " + servicename);
+			LOGGER.log(Level.WARN, "Service name is invalid: " + servicename);
 			return "Service name is invalid: " + servicename;
 		}
 		
@@ -57,16 +58,16 @@ public class EVFeaturesRequest extends VeiligheidtoetsRequest {
 			String gml = GMLParser.parseFromWKT(plangebiedWkt);
 			props.put("plangebiedgml", gml);
 		} catch (IOException e) {
-			logger.log(Level.FATAL, e.getMessage(), e);
+			LOGGER.log(Level.FATAL, e.getMessage(), e);
 			features.put(ERROR, "\"" + e.getMessage() + "\"");
 			return features;
 		}
 		
 		String template = templateHandler.getFilter(filter, props);
-		logger.log(Level.DEBUG, "TEMPLATE:\n" + template);
-		logger.log(Level.DEBUG, "URL: " + url);
+		LOGGER.log(Level.DEBUG, "TEMPLATE:\n" + template);
+		LOGGER.log(Level.DEBUG, "URL: " + url);
 		SpatialQuery sq = new SpatialQuery(url, template);
-		logger.log(Level.INFO, "Getting features...");
+		LOGGER.log(Level.INFO, "Getting features...");
 		RequestProcessor rp = new RequestProcessor();
 		return rp.getFeatureResult(sq.getFeatureResult());
 	}

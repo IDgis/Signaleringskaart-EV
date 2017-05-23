@@ -14,10 +14,12 @@ import com.vividsolutions.jts.io.WKTReader;
 public class WktValidRequest extends VeiligheidtoetsRequest {
 	
 	private String wktError;
+	
+	private static final Logger LOGGER = Logger.getLogger(WktValidRequest.class.getName());
 
 	protected WktValidRequest(Map<String, String> props) {
 		super(props);
-		logger = Logger.getLogger(WktValidRequest.class.getName());
+		LOGGER.setLevel(Level.DEBUG);
 	}
 	
 	@Override
@@ -41,7 +43,7 @@ public class WktValidRequest extends VeiligheidtoetsRequest {
 			if(geom != null && !(geom.isValid())) {
 				checkResult.put("isValid", "false");
 				checkResult.put("error", "\"" + wktError + "\"");
-				logger.log(Level.WARN, wktError);
+				LOGGER.log(Level.WARN, wktError);
 				return checkResult;
 			}
 			else {
@@ -49,7 +51,7 @@ public class WktValidRequest extends VeiligheidtoetsRequest {
 				return checkResult;
 			}
 		} catch (ParseException e) {
-			logger.log(Level.FATAL, e.getMessage(), e);
+			LOGGER.log(Level.FATAL, e.getMessage(), e);
 			checkResult.put("error", "\"" + e.getMessage() + "\"");
 			return checkResult;
 		}

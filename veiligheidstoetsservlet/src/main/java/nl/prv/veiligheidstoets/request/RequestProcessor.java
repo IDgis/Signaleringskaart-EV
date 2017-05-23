@@ -39,10 +39,10 @@ import nl.prv.veiligheidstoets.util.GMLParser;
 
 public class RequestProcessor {
 	
-	private Logger logger = Logger.getLogger(RequestProcessor.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(RequestProcessor.class.getName());
 	
 	public RequestProcessor() {
-		logger.setLevel(Level.ALL);
+		LOGGER.setLevel(Level.ALL);
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class RequestProcessor {
 			
 			features.put("features", valueString.toString());
 		} catch (ParserConfigurationException | SAXException | IOException e) {
-			logger.log(Level.FATAL, e.getMessage(), e);
+			LOGGER.log(Level.FATAL, e.getMessage(), e);
 			features.put("error", "\"" + e.getMessage() + "\"");
 		}
 		return features;
@@ -154,7 +154,7 @@ public class RequestProcessor {
 	public Geometry getRisicogebiedGeom(SpatialQuery sq, String plangebiedWkt) {
 		Geometry finalGeometry = null;
 		try {
-			logger.log(Level.INFO, "Creating MultiPolygon Geometry for Kwetsbare Objecten...");
+			LOGGER.log(Level.INFO, "Creating MultiPolygon Geometry for Kwetsbare Objecten...");
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(sq.getFeatureResult().getBytes())));
@@ -166,7 +166,7 @@ public class RequestProcessor {
 			Geometry plangebiedWktGeom = wktReader.read(plangebiedWkt);
 			// Get all risicogebieden found and parse the geometry in it
 			NodeList memberList = doc.getElementsByTagName("wfs:member");
-			logger.log(Level.DEBUG, "Members found: " + memberList.getLength());
+			LOGGER.log(Level.DEBUG, "Members found: " + memberList.getLength());
 			if(memberList.getLength() == 0) {
 				return null;
 			}
@@ -191,7 +191,7 @@ public class RequestProcessor {
 			}
 		}
 		catch(SAXException | IOException | ParserConfigurationException | ParseException e) {
-			logger.log(Level.FATAL, e.getMessage(), e);
+			LOGGER.log(Level.FATAL, e.getMessage(), e);
 		}
 		return finalGeometry;
 	}
@@ -216,7 +216,7 @@ public class RequestProcessor {
 			return GMLParser.parseToGeometry(sw.toString());
 		}
 		catch(TransformerException | XMLParsingException | IOException e) {
-			logger.log(Level.FATAL, e.getMessage(), e);
+			LOGGER.log(Level.FATAL, e.getMessage(), e);
 		}
 		
 		return null;

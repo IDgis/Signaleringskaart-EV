@@ -21,12 +21,14 @@ public abstract class VeiligheidtoetsRequest {
 	protected Document configDoc;
 	protected String plangebiedWkt;
 	protected Map<String, String> props;
-	protected Logger logger;
+	
+	private static final Logger LOGGER = Logger.getLogger(VeiligheidtoetsRequest.class.getName());
 	
 	private static final String WKT = "plangebiedWkt";
 	protected static final String ERROR = "error";
 	
 	protected VeiligheidtoetsRequest(Map<String, String> props) {
+		LOGGER.setLevel(Level.DEBUG);
 		this.props = props;
 	}
 	
@@ -43,13 +45,13 @@ public abstract class VeiligheidtoetsRequest {
 				FileInputStream fis = new FileInputStream(configFile);
 				configDoc = builder.parse(fis);
 			} catch (ParserConfigurationException | SAXException | IOException e) {
-				logger.log(Level.FATAL, e.getMessage(), e);
+				LOGGER.log(Level.FATAL, e.getMessage(), e);
 				return e.getMessage();
 			}
 			
 		}
 		else {
-			logger.log(Level.FATAL, String.format("Config file missing %s%sveiligheidstoets.xml", configDir, File.separator));
+			LOGGER.log(Level.FATAL, String.format("Config file missing %s%sveiligheidstoets.xml", configDir, File.separator));
 			return String.format("Config file missing %s%sveiligheidstoets.xml", configDir, File.separator);
 		}
 		

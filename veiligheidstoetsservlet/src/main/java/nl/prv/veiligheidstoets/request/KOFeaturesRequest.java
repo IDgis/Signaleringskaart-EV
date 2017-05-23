@@ -20,10 +20,11 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 	private String urlKo;
 	private TemplateHandler templateHandler;
 	
+	private static final Logger LOGGER = Logger.getLogger(KOFeaturesRequest.class.getName());
+	
 	protected KOFeaturesRequest(Map<String, String> props) {
 		super(props);
-		logger = Logger.getLogger(EVFeaturesRequest.class.getName());
-		logger.setLevel(Level.ALL);
+		LOGGER.setLevel(Level.DEBUG);
 		templateHandler = new TemplateHandler();
 	}
 	
@@ -45,11 +46,11 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 		urlEv = getConfigProperty(servicenameEv + "Url");
 		urlKo = getConfigProperty(servicenameKo + "Url");
 		if(urlEv == null || "".equals(urlEv)) {
-			logger.log(Level.WARN, "Service name EV is invalid: " + servicenameEv);
+			LOGGER.log(Level.WARN, "Service name EV is invalid: " + servicenameEv);
 			return "Service name EV is invalid!";
 		}
 		if(urlKo == null || "".equals(urlKo)) {
-			logger.log(Level.WARN, "Service name KO is invalid: " + servicenameKo);
+			LOGGER.log(Level.WARN, "Service name KO is invalid: " + servicenameKo);
 			return "Service name KO is invalid!";
 		}
 		
@@ -72,14 +73,14 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 			String gml = GMLParser.parseFromWKT(plangebiedWkt);
 			props.put("plangebiedgml", gml);
 		} catch (IOException e) {
-			logger.log(Level.FATAL, e.getMessage(), e);
+			LOGGER.log(Level.FATAL, e.getMessage(), e);
 			features.put(ERROR, "\"" + e.getMessage() + "\"");
 			return features;
 		}
 		
 		String templateEv = templateHandler.getFilter(filterEv, props);
-		logger.log(Level.DEBUG, "TEMPLATE EV:\n" + templateEv);
-		logger.log(Level.DEBUG, "URL EV: " + urlEv);
+		LOGGER.log(Level.DEBUG, "TEMPLATE EV:\n" + templateEv);
+		LOGGER.log(Level.DEBUG, "URL EV: " + urlEv);
 		
 		// Get MultiPolygon Geometry from first template
 		SpatialQuery sq = new SpatialQuery(urlEv, templateEv);
@@ -94,17 +95,17 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 			String gml = GMLParser.parseFromGeometry(geometry);
 			props.put("plangebiedgml", gml);
 		} catch (IOException e) {
-			logger.log(Level.FATAL, e.getMessage(), e);
+			LOGGER.log(Level.FATAL, e.getMessage(), e);
 			features.put(ERROR, "\"" + e.getMessage() + "\"");
 			return features;
 		}
 		
 		// Get Kwetsbare Objecten within the MultiPoint object
 		String templateKo = templateHandler.getFilter(filterKo, props);
-		logger.log(Level.DEBUG, "TEMPLATE KO:\n" + templateKo);
-		logger.log(Level.DEBUG, "URL KO:\n" + urlKo);
+		LOGGER.log(Level.DEBUG, "TEMPLATE KO:\n" + templateKo);
+		LOGGER.log(Level.DEBUG, "URL KO:\n" + urlKo);
 		sq = new SpatialQuery(urlKo, templateKo);
-		logger.log(Level.INFO, "Getting features...");
+		LOGGER.log(Level.INFO, "Getting features...");
 		return rp.getFeatureResult(sq.getFeatureResult());
 	}
 }
