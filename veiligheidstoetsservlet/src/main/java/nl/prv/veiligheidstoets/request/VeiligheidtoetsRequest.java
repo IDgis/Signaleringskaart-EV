@@ -26,7 +26,7 @@ public abstract class VeiligheidtoetsRequest {
 	private static final String WKT = "plangebiedWkt";
 	protected static final String ERROR = "error";
 	
-	public VeiligheidtoetsRequest(Map<String, String> props) {
+	protected VeiligheidtoetsRequest(Map<String, String> props) {
 		this.props = props;
 	}
 	
@@ -34,7 +34,7 @@ public abstract class VeiligheidtoetsRequest {
 	 * Sets up all properties needed by the request and checks if all information is present
 	 * @return An error message if something went wrong, null otherwise
 	 */
-	public String setupProperties() {
+	public String initProperties() {
 		File configFile= new File(configDir + File.separator + "veiligheidstoets.xml");
 		if(configFile.exists()) {
 			try {

@@ -15,14 +15,14 @@ public class WktValidRequest extends VeiligheidtoetsRequest {
 	
 	private String wktError;
 
-	public WktValidRequest(Map<String, String> props) {
+	protected WktValidRequest(Map<String, String> props) {
 		super(props);
 		logger = Logger.getLogger(WktValidRequest.class.getName());
 	}
 	
 	@Override
-	public String setupProperties() {
-		String result = super.setupProperties();
+	public String initProperties() {
+		String result = super.initProperties();
 		if(result != null) {
 			return result;
 		}

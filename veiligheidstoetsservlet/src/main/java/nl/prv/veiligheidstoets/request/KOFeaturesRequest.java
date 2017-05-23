@@ -20,7 +20,7 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 	private String urlKo;
 	private TemplateHandler templateHandler;
 	
-	public KOFeaturesRequest(Map<String, String> props) {
+	protected KOFeaturesRequest(Map<String, String> props) {
 		super(props);
 		logger = Logger.getLogger(EVFeaturesRequest.class.getName());
 		logger.setLevel(Level.ALL);
@@ -28,8 +28,8 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 	}
 	
 	@Override
-	public String setupProperties() {
-		String result = super.setupProperties();
+	public String initProperties() {
+		String result = super.initProperties();
 		if(result != null) {
 			return result;
 		}
@@ -83,7 +83,8 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 		
 		// Get MultiPolygon Geometry from first template
 		SpatialQuery sq = new SpatialQuery(urlEv, templateEv);
-		Geometry geometry = sq.getRisicogebiedGeom(plangebiedWkt);
+		RequestProcessor rp = new RequestProcessor();
+		Geometry geometry = rp.getRisicogebiedGeom(sq, plangebiedWkt);
 		if(geometry == null) {
 			features.put("message", "\"NO_FEATURES_FOUND\"");
 			return features;
@@ -104,7 +105,6 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 		logger.log(Level.DEBUG, "URL KO:\n" + urlKo);
 		sq = new SpatialQuery(urlKo, templateKo);
 		logger.log(Level.INFO, "Getting features...");
-		RequestProcessor rp = new RequestProcessor();
-		return rp.processFeatureResult(sq.getFilterResult());
+		return rp.getFeatureResult(sq.getFeatureResult());
 	}
 }

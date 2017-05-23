@@ -17,7 +17,7 @@ public class EVFeaturesRequest extends VeiligheidtoetsRequest {
 	private String url;
 	private TemplateHandler templateHandler;
 	
-	public EVFeaturesRequest(Map<String, String> props) {
+	protected EVFeaturesRequest(Map<String, String> props) {
 		super(props);
 		logger = Logger.getLogger(EVFeaturesRequest.class.getName());
 		logger.setLevel(Level.ALL);
@@ -25,8 +25,8 @@ public class EVFeaturesRequest extends VeiligheidtoetsRequest {
 	}
 	
 	@Override
-	public String setupProperties() {
-		String result = super.setupProperties();
+	public String initProperties() {
+		String result = super.initProperties();
 		if(result != null) {
 			return result;
 		}
@@ -68,6 +68,6 @@ public class EVFeaturesRequest extends VeiligheidtoetsRequest {
 		SpatialQuery sq = new SpatialQuery(url, template);
 		logger.log(Level.INFO, "Getting features...");
 		RequestProcessor rp = new RequestProcessor();
-		return rp.processFeatureResult(sq.getFilterResult());
+		return rp.getFeatureResult(sq.getFeatureResult());
 	}
 }
