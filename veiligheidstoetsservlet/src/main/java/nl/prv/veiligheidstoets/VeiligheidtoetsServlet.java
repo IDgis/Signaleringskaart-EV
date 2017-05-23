@@ -15,9 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonParser;
 
 import nl.prv.veiligheidstoets.request.RequestFactory;
 import nl.prv.veiligheidstoets.request.VeiligheidtoetsRequest;
@@ -71,45 +69,25 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 			if(toetsRequest == null) {
 				returnMessage.put(ERROR, "\"Requesttype is missing or invalid\"");
 				LOGGER.log(Level.WARN, "Missing or invalid requesttype!");
-				out.println(createJsonObject(returnMessage));
+				out.println(ServletResponse.convertToJson(returnMessage));
 				out.flush();
 				return;
 			}
 			
-			String propertiesNotPresentMessage = toetsRequest.setupProperties();
+			String propertiesNotPresentMessage = toetsRequest.initProperties();
 			if(propertiesNotPresentMessage != null) {
 				returnMessage.put(ERROR, "\"" + propertiesNotPresentMessage + "\"");
 				LOGGER.log(Level.WARN, propertiesNotPresentMessage);
-				out.println(createJsonObject(returnMessage));
+				out.println(ServletResponse.convertToJson(returnMessage));
 				out.flush();
 				return;
 			}
 			
-			out.println(createJsonObject(toetsRequest.getResponse()));
+			out.println(ServletResponse.convertToJson(toetsRequest.getResponse()));
 			out.flush();
 		}			
 		catch(IOException | JsonParseException e) {
 			LOGGER.log(Level.FATAL, e.toString(), e);
 		}
-	}
-	
-	/**
-	 * Returns a JSON object with the error message or features as values
-	 * @param responseMessage
-	 * @return
-	 */
-	private JsonObject createJsonObject(Map<String, String> responseMessage) {
-		JsonObject json = new JsonObject();
-		JsonParser parser = new JsonParser();
-		
-		Iterator<String> iter = responseMessage.keySet().iterator();
-		while(iter.hasNext()) {
-			String key = iter.next();
-			String value = responseMessage.get(key);
-			json.add(key, parser.parse(value));
-		}
-		LOGGER.log(Level.DEBUG, "Returning JSON: " + json);
-		
-		return json;
 	}
 }
