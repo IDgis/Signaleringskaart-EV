@@ -2,6 +2,7 @@ package nl.prv.veiligheidstoets.request;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,15 +11,31 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.deegree.commons.xml.XMLParsingException;
+import org.deegree.cs.persistence.CRSManager;
+import org.deegree.cs.refs.coordinatesystem.CRSRef;
+import org.deegree.geometry.Geometry;
+import org.deegree.geometry.io.WKTReader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import com.vividsolutions.jts.io.ParseException;
+
+import nl.prv.veiligheidstoets.SpatialQuery;
+import nl.prv.veiligheidstoets.util.GMLParser;
 
 public class RequestProcessor {
 	
@@ -33,7 +50,7 @@ public class RequestProcessor {
 	 * @param featureResult - The xml string
 	 * @return
 	 */
-	public Map<String, String> processFeatureResult(String featureResult) {
+	public Map<String, String> getFeatureResult(String featureResult) {
 		Map<String, String> features = new HashMap<>();
 		
 		try {
@@ -56,6 +73,7 @@ public class RequestProcessor {
 				return features;
 			}
 			
+			// Features found
 			StringBuilder valueString = new StringBuilder();
 			valueString.append("[");
 			for(int i = 0; i < memberList.getLength(); i++) {
@@ -106,7 +124,7 @@ public class RequestProcessor {
 	}
 	
 	/**
-	 * Gets all filtered property names and features and creates one value String from it.
+	 * Gets all filtered property names and features and creates one value String from it in Json notation.
 	 * @param properties
 	 * @param features
 	 * @return
@@ -124,5 +142,83 @@ public class RequestProcessor {
 		}
 		
 		return valueString.toString();
+	}
+	
+	/**
+	 * Creates a MultiPoint Geometry of the area where the plangebiedWkt and the risicovolle gebieden are overlapping
+	 * @param sq - The result of the GetFeature request
+	 * @param plangebiedWkt - The plangebiedWkt entered by the client
+	 * @return
+	 * @throws ParseException 
+	 */
+	public Geometry getRisicogebiedGeom(SpatialQuery sq, String plangebiedWkt) {
+		Geometry finalGeometry = null;
+		try {
+			logger.log(Level.INFO, "Creating MultiPolygon Geometry for Kwetsbare Objecten...");
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(new InputSource(new ByteArrayInputStream(sq.getFeatureResult().getBytes())));
+		
+		
+			// Get the Geometry for the plangebiedWkt
+			CRSRef crs = CRSManager.getCRSRef("EPSG:28992");
+			WKTReader wktReader = new WKTReader(crs);
+			Geometry plangebiedWktGeom = wktReader.read(plangebiedWkt);
+			// Get all risicogebieden found and parse the geometry in it
+			NodeList memberList = doc.getElementsByTagName("wfs:member");
+			logger.log(Level.DEBUG, "Members found: " + memberList.getLength());
+			if(memberList.getLength() == 0) {
+				return null;
+			}
+			Geometry risicogebiedGeometry = null;
+			for(int i = 0; i < memberList.getLength(); i++) {
+				Element memberElement = (Element)memberList.item(i);
+				NodeList polygonList = memberElement.getElementsByTagName("gml:Polygon");
+				// Create MultiPolygon from all Polygons found in the document
+				Geometry combinedGeom = getGeometry(polygonList);
+				if(risicogebiedGeometry == null) {
+					risicogebiedGeometry = combinedGeom;
+				}
+				else {
+					risicogebiedGeometry = risicogebiedGeometry.getUnion(combinedGeom);
+				}
+			}
+			
+			// Check if part of the risicogebied intersects with the wktGeom and add the overlapping part to geometry as MultiPolygon
+			
+			if(plangebiedWktGeom != null && risicogebiedGeometry != null && risicogebiedGeometry.intersects(plangebiedWktGeom)) {
+				finalGeometry = risicogebiedGeometry.getIntersection(plangebiedWktGeom);
+			}
+		}
+		catch(SAXException | IOException | ParserConfigurationException | ParseException e) {
+			logger.log(Level.FATAL, e.getMessage(), e);
+		}
+		return finalGeometry;
+	}
+	
+	/**
+	 * Creates a MultiPolygon Geometry of all coordinates within the member node of the NodeList
+	 * @param polygonList
+	 * @return
+	 */
+	private Geometry getGeometry(NodeList polygonList) {
+		try {
+			Node polygonNode = polygonList.item(0);
+			((Element)polygonNode).setAttribute("xmlns:gml", "http://www.opengis.net/gml");
+			
+			TransformerFactory tFactory = TransformerFactory.newInstance();
+			Transformer transformer = tFactory.newTransformer();
+			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+			
+			StringWriter sw = new StringWriter();
+			transformer.transform(new DOMSource(polygonNode), new StreamResult(sw));
+			
+			return GMLParser.parseToGeometry(sw.toString());
+		}
+		catch(TransformerException | XMLParsingException | IOException e) {
+			logger.log(Level.FATAL, e.getMessage(), e);
+		}
+		
+		return null;
 	}
 }
