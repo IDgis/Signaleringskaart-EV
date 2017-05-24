@@ -13,13 +13,9 @@
     <SQLStatement>
         SELECT 
             id, 
-            submitdate, 
             geom
         FROM 
-            (SELECT  
-                id, 
-                submitdate,                              ST_AsBinary(st_geomfromtext("substring"("457234X4X7", 38, length("457234X4X7") - 50), 28992)) AS geom
-                FROM survey_457234 WHERE length("457234X4X7") > 0) plangebieden
+            (select id, ST_AsBinary(st_geomfromtext(ev_getWkt(816391, id),28992)) as geom from  survey_816391) plangebieden
                 WHERE geom &amp;&amp; st_geomfromtext(?, -1)
     </SQLStatement>
     
