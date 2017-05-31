@@ -1,0 +1,80 @@
+﻿version: '2'
+
+volumes:
+    deegree_config_ev_ov:
+    lime_upload_ov:
+    nginx_logs:
+    base_certs:
+    base_vhost:
+    base_html:
+
+services:
+  nginx:
+    container_name: nginx
+    restart: always
+    build: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - ENABLE_IPV6=true
+    volumes:
+      - nginx_logs:/var/log/nginx
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - base_certs:/etc/nginx/certs:ro
+      - base_vhost:/etc/nginx/vhost.d
+      - base_html:/usr/share/nginx/html
+
+  nginx-letsencrypt:
+    container_name: nginx-letsencrypt
+    restart: always
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    volumes_from:
+      - nginx
+    volumes:
+      - base_certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro    
+
+
+
+
+  db:
+    container_name: db-ov
+    build: database
+    ports:
+      - "5432:5432"
+    expose:
+     - "5432"
+    environment:
+      DEBUG: "false"
+      
+  deegree:
+    container_name: deegree-ov
+    restart: always
+    build: deegree
+    expose:
+      - "8080"
+    environment:
+     VIRTUAL_HOST: "evs.local.nl"
+    volumes:
+      - deegree_config_ev_ov:/root/.deegree/ev      
+      
+  limesurvey:
+    container_name: limesurvey-ov
+    expose:
+     - "80"
+    environment:
+     LETSENCRYPT_EMAIL: "support@idgis.nl"
+     LETSENCRYPT_HOST: "ev.local.nl"
+     VIRTUAL_HOST: "ev.local.nl"
+    volumes:
+      - lime_upload_ov:/app/upload
+    image:
+      crramirez/limesurvey:latest     
+
+       
+
+networks:
+  default:
+    external:
+      name: ev-ov

@@ -14,6 +14,10 @@ RUN wget http://repo.deegree.org/content/repositories/public/org/deegree/deegree
 RUN unzip /tmp/deegree.zip -d /opt/ && \
     ln -s /opt/deegree-webservices-${DEEGREE_VERSION}/ /opt/deegree && \
     rm /tmp/deegree.zip
+     
+#kopieer deegree workspace
+COPY workspace/ev /root/.deegree/ev
+COPY workspace/webapps.properties /root/.deegree
 
 #kopieer de default workspace setting
 COPY workspace/ev /root/.deegree/ev
