@@ -2,6 +2,7 @@ version: '2'
 
 volumes:
     deegree_config_ev:
+    veiligheidstoets_config_ev:
 
 services:
   deegree:
@@ -14,6 +15,7 @@ services:
      VIRTUAL_HOST: "evs.local.nl"  
     volumes:
       - deegree_config_ev:/root/.deegree/ev
+      -  veiligheidstoets_config_ev:/etc/veiligheidstoets
 networks:
   default:
     external:
