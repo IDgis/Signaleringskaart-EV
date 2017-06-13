@@ -1,0 +1,803 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE WMT_MS_Capabilities SYSTEM "http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=DTD" [<!ELEMENT VendorSpecificCapabilities EMPTY>]>
+<WMT_MS_Capabilities version="1.1.1" updateSequence="0">
+  <Service>
+    <Name>OGC:WMS</Name>
+    <Title>WMS Risicokaart Referenties en Ondergronden</Title>
+    <Abstract></Abstract>
+    <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or"/>
+    <ContactInformation>
+      <ContactPersonPrimary>
+        <ContactPerson>Koen Rutten</ContactPerson>
+        <ContactOrganization>GBO-Provincies</ContactOrganization>
+      </ContactPersonPrimary>
+      <ContactPosition>Landelijk Functioneel Beheerder GBO Provincies</ContactPosition>
+      <ContactAddress>
+        <AddressType>postal</AddressType>
+        <Address></Address>
+        <City></City>
+        <StateOrProvince></StateOrProvince>
+        <PostCode></PostCode>
+        <Country></Country>
+      </ContactAddress>
+      <ContactVoiceTelephone></ContactVoiceTelephone>
+      <ContactFacsimileTelephone></ContactFacsimileTelephone>
+      <ContactElectronicMailAddress>inspire@gbo-provincies.nl</ContactElectronicMailAddress>
+    </ContactInformation>
+  </Service>
+  <Capability>
+    <Request>
+      <GetCapabilities>
+        <Format>application/vnd.ogc.wms_xml</Format>
+        <DCPType>
+          <HTTP>
+            <Get>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?"/>
+            </Get>
+          </HTTP>
+        </DCPType>
+      </GetCapabilities>
+      <GetMap>
+        <Format>image/png</Format>
+        <Format>image/png; subtype=8bit</Format>
+        <Format>image/png; mode=8bit</Format>
+        <Format>image/gif</Format>
+        <Format>image/jpeg</Format>
+        <Format>image/tiff</Format>
+        <Format>image/x-ms-bmp</Format>
+        <DCPType>
+          <HTTP>
+            <Get>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?"/>
+            </Get>
+          </HTTP>
+        </DCPType>
+      </GetMap>
+      <GetFeatureInfo>
+        <Format>application/vnd.ogc.gml</Format>
+        <Format>text/xml</Format>
+        <Format>text/plain</Format>
+        <Format>text/html</Format>
+        <Format>application/gml+xml; version=2.1</Format>
+        <Format>application/gml+xml; version=3.0</Format>
+        <Format>application/gml+xml; version=3.1</Format>
+        <Format>application/gml+xml; version=3.2</Format>
+        <Format>text/xml; subtype=gml/2.1.2</Format>
+        <Format>text/xml; subtype=gml/3.0.1</Format>
+        <Format>text/xml; subtype=gml/3.1.1</Format>
+        <Format>text/xml; subtype=gml/3.2.1</Format>
+        <DCPType>
+          <HTTP>
+            <Get>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?"/>
+            </Get>
+          </HTTP>
+        </DCPType>
+      </GetFeatureInfo>
+      <GetLegendGraphic>
+        <Format>image/png</Format>
+        <Format>image/png; subtype=8bit</Format>
+        <Format>image/png; mode=8bit</Format>
+        <Format>image/gif</Format>
+        <Format>image/jpeg</Format>
+        <Format>image/tiff</Format>
+        <Format>image/x-ms-bmp</Format>
+        <DCPType>
+          <HTTP>
+            <Get>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?"/>
+            </Get>
+          </HTTP>
+        </DCPType>
+      </GetLegendGraphic>
+    </Request>
+    <Exception>
+      <Format>application/vnd.ogc.se_xml</Format>
+      <Format>application/vnd.ogc.se_inimage</Format>
+      <Format>application/vnd.ogc.se_blank</Format>
+    </Exception>
+    <Layer>
+      <Title>Root</Title>
+      <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+      <LatLonBoundingBox minx="3.045189681873921" miny="50.66919719901065" maxx="7.276201705641493" maxy="53.6333808383029"/>
+      <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="7.27595761418343E-12" miny="300000.0" maxx="280000.0" maxy="627513.5625"/>
+      <Layer queryable="1">
+        <Name>referenties</Name>
+        <Title>referenties</Title>
+        <SRS>EPSG:28992</SRS>
+        <LatLonBoundingBox minx="3.045189681873921" miny="50.66919719901065" maxx="7.276201705641493" maxy="53.6333808383029"/>
+        <BoundingBox SRS="EPSG:28992" minx="7.27595761418343E-12" miny="300000.0" maxx="280000.0" maxy="627513.5625"/>
+        <Layer queryable="1">
+          <Name>provincie</Name>
+          <Title>provincie</Title>
+          <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+          <LatLonBoundingBox minx="3.045189681873921" miny="50.66919719901065" maxx="7.276201705641493" maxy="53.6333808383029"/>
+          <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="7.27595761418343E-12" miny="300000.0" maxx="280000.0" maxy="627513.5625"/>
+          <Style>
+            <Name>style-or</Name>
+            <Title>style-or</Title>
+            <LegendURL width="32" height="81">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=provincie&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="32" height="81">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=provincie&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <ScaleHint min="27.999999999999996" max="2520.0"/>
+        </Layer>
+        <Layer queryable="1">
+          <Name>gemeente</Name>
+          <Title>gemeente</Title>
+          <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+          <LatLonBoundingBox minx="3.205182287450859" miny="50.733412284933905" maxx="7.244186230121841" maxy="53.582652713756126"/>
+          <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="10425.1552734375" miny="306846.1875" maxx="278026.09375" maxy="621876.3125"/>
+          <Style>
+            <Name>style-or</Name>
+            <Title>style-or</Title>
+            <LegendURL width="32" height="81">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=gemeente&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="32" height="81">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=gemeente&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <ScaleHint min="2.8E-4" max="2520.0"/>
+        </Layer>
+        <Layer queryable="1">
+          <Name>waterschap</Name>
+          <Title>waterschap</Title>
+          <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+          <LatLonBoundingBox minx="3.2565909757011418" miny="50.734192515191324" maxx="7.240664783540235" maxy="53.501304761752685"/>
+          <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="13565.369140625" miny="306846.1875" maxx="278026.09375" maxy="612826.375"/>
+          <Style>
+            <Name>style-or</Name>
+            <Title>style-or</Title>
+            <LegendURL width="32" height="81">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=waterschap&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="32" height="81">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=waterschap&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <ScaleHint min="2.8E-4" max="2520.0"/>
+        </Layer>
+        <Layer queryable="1">
+          <Name>veiligheidsregio</Name>
+          <Title>veiligheidsregio</Title>
+          <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+          <LatLonBoundingBox minx="3.205182287450859" miny="50.733412284933905" maxx="7.244186230121841" maxy="53.582652713756126"/>
+          <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="10425.1552734375" miny="306846.1875" maxx="278026.09375" maxy="621876.3125"/>
+          <Style>
+            <Name>style-or</Name>
+            <Title>style-or</Title>
+            <LegendURL width="32" height="81">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=veiligheidsregio&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="32" height="81">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=veiligheidsregio&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <ScaleHint min="27.999999999999996" max="2520.0"/>
+        </Layer>
+        <Layer queryable="1">
+          <Name>wijken</Name>
+          <Title>wijken</Title>
+          <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+          <LatLonBoundingBox minx="3.205193378102436" miny="50.73334621185292" maxx="7.2441867015746695" maxy="53.58265270430792"/>
+          <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="10425.890625" miny="306838.8125" maxx="278026.125" maxy="621876.3125"/>
+          <Style>
+            <Name>style-or</Name>
+            <Title>style-or</Title>
+            <LegendURL width="32" height="81">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=wijken&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="32" height="81">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=wijken&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <ScaleHint min="2.8E-4" max="70.0"/>
+        </Layer>
+        <Layer queryable="1">
+          <Name>buurten</Name>
+          <Title>buurten</Title>
+          <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+          <LatLonBoundingBox minx="3.205193378102436" miny="50.73334621185292" maxx="7.2441867015746695" maxy="53.58265270430792"/>
+          <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="10425.890625" miny="306838.8125" maxx="278026.125" maxy="621876.3125"/>
+          <Style>
+            <Name>style-or</Name>
+            <Title>style-or</Title>
+            <LegendURL width="32" height="54">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=buurten&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="32" height="54">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=buurten&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <ScaleHint min="2.8E-4" max="55.99999999999999"/>
+        </Layer>
+        <Layer queryable="1">
+          <Name>PC4_single_vlak</Name>
+          <Title>PC4_single_vlak</Title>
+          <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+          <LatLonBoundingBox minx="3.2557578112296413" miny="50.73419869934138" maxx="7.241390225064414" maxy="53.518083951336195"/>
+          <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="13565.3994140625" miny="306846.875" maxx="278026.09375" maxy="614693.9375"/>
+          <Style>
+            <Name>style-or</Name>
+            <Title>style-or</Title>
+            <LegendURL width="32" height="81">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=PC4_single_vlak&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="32" height="81">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=PC4_single_vlak&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <ScaleHint min="2.8E-4" max="55.99999999999999"/>
+        </Layer>
+        <Layer queryable="1">
+          <Name>PC6_single_vlak</Name>
+          <Title>PC6_single_vlak</Title>
+          <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+          <LatLonBoundingBox minx="3.2557578112296413" miny="50.73419869934138" maxx="7.241390225064414" maxy="53.518083951336195"/>
+          <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="13565.3994140625" miny="306846.875" maxx="278026.09375" maxy="614693.9375"/>
+          <Style>
+            <Name>style-or</Name>
+            <Title>style-or</Title>
+            <LegendURL width="32" height="81">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=PC6_single_vlak&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <Style>
+            <Name>default</Name>
+            <Title>default</Title>
+            <LegendURL width="32" height="81">
+              <Format>image/png</Format>
+              <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=PC6_single_vlak&amp;style=style-or&amp;format=image/png"/>
+            </LegendURL>
+          </Style>
+          <ScaleHint min="2.8E-4" max="2.8"/>
+        </Layer>
+      </Layer>
+      <Layer queryable="1">
+        <Name>ondergronden</Name>
+        <Title>ondergronden</Title>
+        <SRS>EPSG:28992</SRS>
+        <LatLonBoundingBox minx="3.045189681873921" miny="50.66919719901065" maxx="7.276201705641493" maxy="53.6333808383029"/>
+        <BoundingBox SRS="EPSG:28992" minx="7.27595761418343E-12" miny="300000.0" maxx="280000.0" maxy="627513.5625"/>
+        <Layer queryable="1">
+          <Name>topografie</Name>
+          <Title>topografie</Title>
+          <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+          <LatLonBoundingBox minx="3.045189681873921" miny="50.66919719901065" maxx="7.276201705641493" maxy="53.6333808383029"/>
+          <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="7.27595761418343E-12" miny="300000.0" maxx="280000.0" maxy="627513.5625"/>
+          <Layer queryable="1">
+            <Name>top10nl</Name>
+            <Title>top10nl</Title>
+            <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+            <LatLonBoundingBox minx="3.045189681873921" miny="50.66919719901065" maxx="7.276201705641493" maxy="53.6333808383029"/>
+            <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="7.27595761418343E-12" miny="300000.0" maxx="280000.0" maxy="627513.5625"/>
+            <Layer queryable="1">
+              <Name>terrein_top10</Name>
+              <Title>terrein_top10</Title>
+              <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+              <LatLonBoundingBox minx="3.045189681873921" miny="50.66919719901065" maxx="7.276201705641493" maxy="53.6333808383029"/>
+              <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="7.27595761418343E-12" miny="300000.0" maxx="280000.0" maxy="627513.5625"/>
+              <Style>
+                <Name>or-style</Name>
+                <Title>or-style</Title>
+                <LegendURL width="32" height="135">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=terrein_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <Style>
+                <Name>default</Name>
+                <Title>default</Title>
+                <LegendURL width="32" height="135">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=terrein_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <ScaleHint min="2.8E-4" max="6.999999999999999"/>
+            </Layer>
+            <Layer queryable="1">
+              <Name>waterdeel_top10</Name>
+              <Title>waterdeel_top10</Title>
+              <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+              <LatLonBoundingBox minx="3.1952360300478944" miny="50.72793343893424" maxx="7.249769455137728" maxy="53.63330080196163"/>
+              <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="9937.6884765625" miny="306250.0" maxx="278250.0" maxy="627513.5625"/>
+              <Style>
+                <Name>or-style</Name>
+                <Title>or-style</Title>
+                <LegendURL width="32" height="27">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=waterdeel_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <Style>
+                <Name>default</Name>
+                <Title>default</Title>
+                <LegendURL width="32" height="27">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=waterdeel_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <ScaleHint min="2.8E-4" max="6.999999999999999"/>
+            </Layer>
+            <Layer queryable="1">
+              <Name>wegdeel_vlak_top10</Name>
+              <Title>wegdeel_vlak_top10</Title>
+              <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+              <LatLonBoundingBox minx="3.245674004253415" miny="50.72863354280812" maxx="7.246125858694317" maxy="53.549498281692166"/>
+              <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="12999.998046875" miny="306242.9375" maxx="278250.03125" maxy="618190.125"/>
+              <Style>
+                <Name>or-style</Name>
+                <Title>or-style</Title>
+                <LegendURL width="32" height="81">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=wegdeel_vlak_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <Style>
+                <Name>default</Name>
+                <Title>default</Title>
+                <LegendURL width="32" height="81">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=wegdeel_vlak_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <ScaleHint min="2.8E-4" max="6.999999999999999"/>
+            </Layer>
+            <Layer queryable="1">
+              <Name>wegdeel_hartlijn_tunnel_top10</Name>
+              <Title>wegdeel_hartlijn_tunnel_top10</Title>
+              <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+              <LatLonBoundingBox minx="3.344776932459013" miny="50.749357899395015" maxx="7.232658514113467" maxy="53.44950526274944"/>
+              <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="19259.466796875" miny="308381.5" maxx="277642.1875" maxy="607068.875"/>
+              <Style>
+                <Name>or-style</Name>
+                <Title>or-style</Title>
+                <LegendURL width="32" height="27">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=wegdeel_hartlijn_tunnel_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <Style>
+                <Name>default</Name>
+                <Title>default</Title>
+                <LegendURL width="32" height="27">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=wegdeel_hartlijn_tunnel_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <ScaleHint min="2.8E-4" max="6.999999999999999"/>
+            </Layer>
+            <Layer queryable="1">
+              <Name>wegdeel_lijn_top10</Name>
+              <Title>wegdeel_lijn_top10</Title>
+              <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+              <LatLonBoundingBox minx="3.2535431255315697" miny="50.73445984036578" maxx="7.233638681672509" maxy="53.54950752861542"/>
+              <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="13522.1318359375" miny="306877.125" maxx="277421.6875" maxy="618190.125"/>
+              <Style>
+                <Name>or-style</Name>
+                <Title>or-style</Title>
+                <LegendURL width="32" height="54">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=wegdeel_lijn_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <Style>
+                <Name>default</Name>
+                <Title>default</Title>
+                <LegendURL width="32" height="54">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=wegdeel_lijn_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <ScaleHint min="2.8E-4" max="6.999999999999999"/>
+            </Layer>
+            <Layer queryable="1">
+              <Name>spoorbaandeel_lijn_top10</Name>
+              <Title>spoorbaandeel_lijn_top10</Title>
+              <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+              <LatLonBoundingBox minx="3.5102724999951267" miny="50.732705638604955" maxx="7.242380707766487" maxy="53.46275799522712"/>
+              <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="30303.376953125" miny="306250.0" maxx="278250.0" maxy="608565.625"/>
+              <Style>
+                <Name>or-style</Name>
+                <Title>or-style</Title>
+                <LegendURL width="32" height="54">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=spoorbaandeel_lijn_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <Style>
+                <Name>default</Name>
+                <Title>default</Title>
+                <LegendURL width="32" height="54">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=spoorbaandeel_lijn_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <ScaleHint min="2.8E-4" max="6.999999999999999"/>
+            </Layer>
+            <Layer queryable="1">
+              <Name>spoorbaandeel_lijn_tunnel_top10</Name>
+              <Title>spoorbaandeel_lijn_tunnel_top10</Title>
+              <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+              <LatLonBoundingBox minx="3.5102724999951267" miny="50.732705638604955" maxx="7.242380707766487" maxy="53.46275799522712"/>
+              <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="30303.376953125" miny="306250.0" maxx="278250.0" maxy="608565.625"/>
+              <Style>
+                <Name>or-style</Name>
+                <Title>or-style</Title>
+                <LegendURL width="32" height="27">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=spoorbaandeel_lijn_tunnel_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <Style>
+                <Name>default</Name>
+                <Title>default</Title>
+                <LegendURL width="32" height="27">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=spoorbaandeel_lijn_tunnel_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <ScaleHint min="2.8E-4" max="6.999999999999999"/>
+            </Layer>
+            <Layer queryable="1">
+              <Name>gebouw_top10</Name>
+              <Title>gebouw_top10</Title>
+              <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+              <LatLonBoundingBox minx="3.2452913600469135" miny="50.72859528473279" maxx="7.2460489449364225" maxy="53.54745529115156"/>
+              <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="12967.830078125" miny="306239.5625" maxx="278250.8125" maxy="617962.6875"/>
+              <Style>
+                <Name>or-style</Name>
+                <Title>or-style</Title>
+                <LegendURL width="32" height="27">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=gebouw_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <Style>
+                <Name>default</Name>
+                <Title>default</Title>
+                <LegendURL width="32" height="27">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=gebouw_top10&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <ScaleHint min="2.8E-4" max="6.999999999999999"/>
+            </Layer>
+          </Layer>
+          <Layer queryable="1">
+            <Name>top250</Name>
+            <Title>top250</Title>
+            <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+            <LatLonBoundingBox minx="3.046426388369221" miny="50.720497800035496" maxx="7.2752037257269135" maxy="53.610798524431345"/>
+            <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="7.27595761418343E-12" miny="305710.59375" maxx="280000.0" maxy="625000.0"/>
+            <Layer queryable="1">
+              <Name>vlakken_top250</Name>
+              <Title>vlakken_top250</Title>
+              <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+              <LatLonBoundingBox minx="3.046426388369221" miny="50.720497800035496" maxx="7.2752037257269135" maxy="53.610798524431345"/>
+              <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="7.27595761418343E-12" miny="305710.59375" maxx="280000.0" maxy="625000.0"/>
+              <Style>
+                <Name>or-style</Name>
+                <Title>or-style</Title>
+                <LegendURL width="32" height="162">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=vlakken_top250&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <Style>
+                <Name>default</Name>
+                <Title>default</Title>
+                <LegendURL width="32" height="162">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=vlakken_top250&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <ScaleHint min="22.4" max="2520.0"/>
+            </Layer>
+            <Layer queryable="1">
+              <Name>lijnen_top250</Name>
+              <Title>lijnen_top250</Title>
+              <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+              <LatLonBoundingBox minx="3.046426388369221" miny="50.720497800035496" maxx="7.2752037257269135" maxy="53.610798524431345"/>
+              <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="7.27595761418343E-12" miny="305710.59375" maxx="280000.0" maxy="625000.0"/>
+              <Style>
+                <Name>or-style</Name>
+                <Title>or-style</Title>
+                <LegendURL width="32" height="108">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=lijnen_top250&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <Style>
+                <Name>default</Name>
+                <Title>default</Title>
+                <LegendURL width="32" height="108">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=lijnen_top250&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <ScaleHint min="41.99999999999999" max="2520.0"/>
+            </Layer>
+          </Layer>
+          <Layer queryable="1">
+            <Name>top50</Name>
+            <Title>top50</Title>
+            <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+            <LatLonBoundingBox minx="3.1973340353492468" miny="50.67179867822774" maxx="7.2752037257269135" maxy="53.61068508784003"/>
+            <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="10000.0" miny="300000.0" maxx="280000.0" maxy="625000.0"/>
+            <Layer queryable="1">
+              <Name>vlakken_top50</Name>
+              <Title>vlakken_top50</Title>
+              <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+              <LatLonBoundingBox minx="3.1973340353492468" miny="50.67179867822774" maxx="7.2752037257269135" maxy="53.61068508784003"/>
+              <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="10000.0" miny="300000.0" maxx="280000.0" maxy="625000.0"/>
+              <Style>
+                <Name>or-style</Name>
+                <Title>or-style</Title>
+                <LegendURL width="32" height="189">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=vlakken_top50&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <Style>
+                <Name>default</Name>
+                <Title>default</Title>
+                <LegendURL width="32" height="189">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=vlakken_top50&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <ScaleHint min="6.999999999999999" max="22.4"/>
+            </Layer>
+            <Layer queryable="1">
+              <Name>lijnen_top50</Name>
+              <Title>lijnen_top50</Title>
+              <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+              <LatLonBoundingBox minx="3.1974849543098" miny="50.67180119301298" maxx="7.2752037257269135" maxy="53.61068495927489"/>
+              <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="10010.0" miny="300000.0" maxx="280000.0" maxy="625000.0"/>
+              <Style>
+                <Name>or-style</Name>
+                <Title>or-style</Title>
+                <LegendURL width="32" height="135">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=lijnen_top50&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <Style>
+                <Name>default</Name>
+                <Title>default</Title>
+                <LegendURL width="32" height="135">
+                  <Format>image/png</Format>
+                  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=lijnen_top50&amp;style=or-style&amp;format=image/png"/>
+                </LegendURL>
+              </Style>
+              <ScaleHint min="6.999999999999999" max="41.99999999999999"/>
+            </Layer>
+          </Layer>
+          <Layer queryable="1">
+            <Name>gemeentegrenzen</Name>
+            <Title>Gemeentegrenzen</Title>
+            <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+            <LatLonBoundingBox minx="3.205182287450859" miny="50.733412284933905" maxx="7.244186230121841" maxy="53.582652713756126"/>
+            <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="10425.1552734375" miny="306846.1875" maxx="278026.09375" maxy="621876.3125"/>
+            <Style>
+              <Name>or-style</Name>
+              <Title>or-style</Title>
+              <LegendURL width="32" height="27">
+                <Format>image/png</Format>
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=gemeentegrenzen&amp;style=or-style&amp;format=image/png"/>
+              </LegendURL>
+            </Style>
+            <Style>
+              <Name>default</Name>
+              <Title>default</Title>
+              <LegendURL width="32" height="27">
+                <Format>image/png</Format>
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=gemeentegrenzen&amp;style=or-style&amp;format=image/png"/>
+              </LegendURL>
+            </Style>
+            <ScaleHint min="2.8E-4" max="140.0"/>
+          </Layer>
+          <Layer queryable="1">
+            <Name>provinciegrenzen</Name>
+            <Title>Provinciegrenzen</Title>
+            <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+            <LatLonBoundingBox minx="3.2537734330927823" miny="50.734126255931145" maxx="7.243117165604394" maxy="53.55795579111452"/>
+            <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="13565.369140625" miny="306838.8125" maxx="278026.125" maxy="619131.8125"/>
+            <Style>
+              <Name>or-style</Name>
+              <Title>or-style</Title>
+              <LegendURL width="32" height="27">
+                <Format>image/png</Format>
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=provinciegrenzen&amp;style=or-style&amp;format=image/png"/>
+              </LegendURL>
+            </Style>
+            <Style>
+              <Name>default</Name>
+              <Title>default</Title>
+              <LegendURL width="32" height="27">
+                <Format>image/png</Format>
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=provinciegrenzen&amp;style=or-style&amp;format=image/png"/>
+              </LegendURL>
+            </Style>
+            <ScaleHint min="97.99999999999999" max="2520.0"/>
+          </Layer>
+        </Layer>
+        <Layer queryable="1">
+          <Name>annotatie</Name>
+          <Title>annotatie</Title>
+          <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+          <LatLonBoundingBox minx="3.1952360300478944" miny="50.72793343893424" maxx="7.249769455137728" maxy="53.63330080196163"/>
+          <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="9937.6884765625" miny="306250.0" maxx="278250.0" maxy="627513.5625"/>
+          <Layer queryable="1">
+            <Name>geografischgebied_label_top10</Name>
+            <Title>geografischgebied_label_top10</Title>
+            <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+            <LatLonBoundingBox minx="3.1952360300478944" miny="50.72793343893424" maxx="7.249769455137728" maxy="53.63330080196163"/>
+            <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="9937.6884765625" miny="306250.0" maxx="278250.0" maxy="627513.5625"/>
+            <Style>
+              <Name>or-style</Name>
+              <Title>or-style</Title>
+              <LegendURL width="32" height="27">
+                <Format>image/png</Format>
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=geografischgebied_label_top10&amp;style=or-style&amp;format=image/png"/>
+              </LegendURL>
+            </Style>
+            <Style>
+              <Name>default</Name>
+              <Title>default</Title>
+              <LegendURL width="32" height="27">
+                <Format>image/png</Format>
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=geografischgebied_label_top10&amp;style=or-style&amp;format=image/png"/>
+              </LegendURL>
+            </Style>
+            <ScaleHint min="2.8E-4" max="22.4"/>
+          </Layer>
+          <Layer queryable="1">
+            <Name>waterdeel_vlak_naam_top10</Name>
+            <Title>waterdeel_vlak_naam_top10</Title>
+            <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+            <LatLonBoundingBox minx="3.1952360300478944" miny="50.72793343893424" maxx="7.249769455137728" maxy="53.63330080196163"/>
+            <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="9937.6884765625" miny="306250.0" maxx="278250.0" maxy="627513.5625"/>
+            <Style>
+              <Name>or-style</Name>
+              <Title>or-style</Title>
+              <LegendURL width="32" height="54">
+                <Format>image/png</Format>
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=waterdeel_vlak_naam_top10&amp;style=or-style&amp;format=image/png"/>
+              </LegendURL>
+            </Style>
+            <Style>
+              <Name>default</Name>
+              <Title>default</Title>
+              <LegendURL width="32" height="54">
+                <Format>image/png</Format>
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=waterdeel_vlak_naam_top10&amp;style=or-style&amp;format=image/png"/>
+              </LegendURL>
+            </Style>
+            <ScaleHint min="2.8E-4" max="13.999999999999998"/>
+          </Layer>
+          <Layer queryable="1">
+            <Name>straat_naam_nwb</Name>
+            <Title>straat_naam_nwb</Title>
+            <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+            <LatLonBoundingBox minx="3.2570909378567117" miny="50.73518581972775" maxx="7.240530309842846" maxy="53.499521043484734"/>
+            <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="13592.6982421875" miny="306956.0" maxx="278022.28125" maxy="612627.875"/>
+            <Style>
+              <Name>or-style</Name>
+              <Title>or-style</Title>
+              <LegendURL width="32" height="27">
+                <Format>image/png</Format>
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=straat_naam_nwb&amp;style=or-style&amp;format=image/png"/>
+              </LegendURL>
+            </Style>
+            <Style>
+              <Name>default</Name>
+              <Title>default</Title>
+              <LegendURL width="32" height="27">
+                <Format>image/png</Format>
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=straat_naam_nwb&amp;style=or-style&amp;format=image/png"/>
+              </LegendURL>
+            </Style>
+            <ScaleHint min="2.8E-4" max="3.4999999999999996"/>
+          </Layer>
+          <Layer queryable="1">
+            <Name>gemeente_naam</Name>
+            <Title>gemeente_naam</Title>
+            <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+            <LatLonBoundingBox minx="3.205182287450859" miny="50.733412284933905" maxx="7.244186230121841" maxy="53.582652713756126"/>
+            <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="10425.1552734375" miny="306846.1875" maxx="278026.09375" maxy="621876.3125"/>
+            <Style>
+              <Name>or-style</Name>
+              <Title>or-style</Title>
+              <LegendURL width="32" height="27">
+                <Format>image/png</Format>
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=gemeente_naam&amp;style=or-style&amp;format=image/png"/>
+              </LegendURL>
+            </Style>
+            <Style>
+              <Name>default</Name>
+              <Title>default</Title>
+              <LegendURL width="32" height="27">
+                <Format>image/png</Format>
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=gemeente_naam&amp;style=or-style&amp;format=image/png"/>
+              </LegendURL>
+            </Style>
+            <ScaleHint min="22.4" max="97.99999999999999"/>
+          </Layer>
+          <Layer queryable="1">
+            <Name>provincie_naam</Name>
+            <Title>provincie_naam</Title>
+            <SRS>http://www.opengis.net/gml/srs/epsg.xml#28992</SRS>
+            <LatLonBoundingBox minx="3.2537734330927823" miny="50.734126255931145" maxx="7.243117165604394" maxy="53.55795579111452"/>
+            <BoundingBox SRS="http://www.opengis.net/gml/srs/epsg.xml#28992" minx="13565.369140625" miny="306838.8125" maxx="278026.125" maxy="619131.8125"/>
+            <Style>
+              <Name>or-style</Name>
+              <Title>or-style</Title>
+              <LegendURL width="32" height="27">
+                <Format>image/png</Format>
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=provincie_naam&amp;style=or-style&amp;format=image/png"/>
+              </LegendURL>
+            </Style>
+            <Style>
+              <Name>default</Name>
+              <Title>default</Title>
+              <LegendURL width="32" height="27">
+                <Format>image/png</Format>
+                <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="http://webservices.gbo-provincies.nl/OndergrondenEnReferenties/services/WMS-or?request=GetLegendGraphic&amp;version=1.1.1&amp;service=WMS&amp;layer=provincie_naam&amp;style=or-style&amp;format=image/png"/>
+              </LegendURL>
+            </Style>
+            <ScaleHint min="97.99999999999999" max="280.0"/>
+          </Layer>
+        </Layer>
+      </Layer>
+    </Layer>
+  </Capability>
+</WMT_MS_Capabilities>
