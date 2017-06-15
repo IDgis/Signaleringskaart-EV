@@ -79,11 +79,20 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 		}
 		
 		String templateEv = templateHandler.getFilter(filterEv, props);
+		if(templateEv == null) {
+			features.put(ERROR, "\"Filter EV is invalid!\"");
+			return features;
+		}
 		LOGGER.log(Level.DEBUG, "TEMPLATE EV:\n" + templateEv);
 		LOGGER.log(Level.DEBUG, "URL EV: " + urlEv);
 		
 		// Get MultiPolygon Geometry from first template
 		SpatialQuery sq = new SpatialQuery(urlEv, templateEv);
+		String errorMessage = sq.processFilter();
+		if(errorMessage != null) {
+			features.put(ERROR, "\"" + errorMessage.replaceAll("\"", "\'") + "\"");
+			return features;
+		}
 		RequestProcessor rp = new RequestProcessor();
 		Geometry geometry = rp.getRisicogebiedGeom(sq, plangebiedWkt);
 		if(geometry == null) {
@@ -102,9 +111,18 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 		
 		// Get Kwetsbare Objecten within the MultiPoint object
 		String templateKo = templateHandler.getFilter(filterKo, props);
+		if(templateKo == null) {
+			features.put(ERROR, "\"Filter KO is invalid!\"");
+			return features;
+		}
 		LOGGER.log(Level.DEBUG, "TEMPLATE KO:\n" + templateKo);
 		LOGGER.log(Level.DEBUG, "URL KO:\n" + urlKo);
 		sq = new SpatialQuery(urlKo, templateKo);
+		errorMessage = sq.processFilter();
+		if(errorMessage != null) {
+			features.put(ERROR, "\"" + errorMessage.replaceAll("\"", "\'") + "\"");
+			return features;
+		}
 		LOGGER.log(Level.INFO, "Getting features...");
 		return rp.getFeatureResult(sq.getFeatureResult());
 	}

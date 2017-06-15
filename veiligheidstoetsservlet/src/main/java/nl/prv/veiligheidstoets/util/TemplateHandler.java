@@ -15,7 +15,10 @@ public class TemplateHandler {
 	}
 	
 	public String getFilter(String templateName, Map<String,String> props){
-		StringTemplate template = templateGroup.getInstanceOf(templateName, props);
-		return template.toString();
+		if(templateGroup.isDefined(templateName)) {
+			StringTemplate template = templateGroup.getInstanceOf(templateName, props);
+			return template.toString();
+		}
+		return null;
 	}
 }

@@ -19,57 +19,46 @@
 	            <ogc:Or>
     	            <ogc:PropertyIsEqualTo>
     	                <ogc:PropertyName>gebruiksdoel</ogc:PropertyName>
-    	                <ogc:Literal>bijeenkomstfunctie</ogc:Literal>
+    	                <ogc:Literal>sportfunctie</ogc:Literal>
     	            </ogc:PropertyIsEqualTo> 
 	                <ogc:PropertyIsEqualTo>
 	                    <ogc:PropertyName>gebruiksdoel</ogc:PropertyName>
-	                    <ogc:Literal>celfunctie</ogc:Literal>
+	                    <ogc:Literal>overige gebruiksfunctie</ogc:Literal>
 	                </ogc:PropertyIsEqualTo> 
 	                <ogc:PropertyIsEqualTo>
 	                    <ogc:PropertyName>gebruiksdoel</ogc:PropertyName>
-	                    <ogc:Literal>gezondheidszorgfunctie</ogc:Literal>
+	                    <ogc:Literal>industriefunctie</ogc:Literal>
 	                </ogc:PropertyIsEqualTo>
-	                <ogc:PropertyIsEqualTo>
-	                    <ogc:PropertyName>gebruiksdoel</ogc:PropertyName>
-	                    <ogc:Literal>gezondheidszorgfunctie</ogc:Literal>
-	                </ogc:PropertyIsEqualTo>
-	                <ogc:PropertyIsEqualTo>
-	                    <ogc:PropertyName>gebruiksdoel</ogc:PropertyName>
-	                    <ogc:Literal>onderwijsfunctie</ogc:Literal>
-	                </ogc:PropertyIsEqualTo>
-	                <ogc:PropertyIsEqualTo>
-	                    <ogc:PropertyName>gebruiksdoel</ogc:PropertyName>
-	                    <ogc:Literal>woonfunctie</ogc:Literal>
-	                </ogc:PropertyIsEqualTo>
+	              
 	                <ogc:And>
 	                    <ogc:PropertyIsEqualTo>
 	                        <ogc:PropertyName>gebruiksdoel</ogc:PropertyName>
 	                        <ogc:Literal>winkelfunctie</ogc:Literal>
 	                    </ogc:PropertyIsEqualTo>
-	                    <ogc:PropertyIsGreaterThan>
+	                    <ogc:PropertyIsLessThanOrEqualTo>
 	                        <ogc:PropertyName>oppervlakte</ogc:PropertyName>
 	                        <ogc:Literal>1000</ogc:Literal>
-	                    </ogc:PropertyIsGreaterThan>    
+	                    </ogc:PropertyIsLessThanOrEqualTo>
 	                </ogc:And>
 	                <ogc:And>
 	                    <ogc:PropertyIsEqualTo>
 	                        <ogc:PropertyName>gebruiksdoel</ogc:PropertyName>
 	                        <ogc:Literal>logiesfunctie</ogc:Literal>
 	                    </ogc:PropertyIsEqualTo>
-	                    <ogc:PropertyIsGreaterThan>
+	                    <ogc:PropertyIsLessThanOrEqualTo>
 	                        <ogc:PropertyName>oppervlakte</ogc:PropertyName>
 	                        <ogc:Literal>1500</ogc:Literal>
-	                    </ogc:PropertyIsGreaterThan>    
+	                    </ogc:PropertyIsLessThanOrEqualTo>   
 	                </ogc:And>
 	                <ogc:And>
 	                    <ogc:PropertyIsEqualTo>
 	                        <ogc:PropertyName>gebruiksdoel</ogc:PropertyName>
 	                        <ogc:Literal>kantoorfunctie</ogc:Literal>
 	                    </ogc:PropertyIsEqualTo>
-	                    <ogc:PropertyIsGreaterThan>
+	                    <ogc:PropertyIsLessThanOrEqualTo>
 	                        <ogc:PropertyName>oppervlakte</ogc:PropertyName>
 	                        <ogc:Literal>1500</ogc:Literal>
-	                    </ogc:PropertyIsGreaterThan>    
+	                    </ogc:PropertyIsLessThanOrEqualTo>    
 	                </ogc:And>
 	            </ogc:Or>
 	        </ogc:And>

@@ -22,13 +22,12 @@ public class SpatialQuery {
 		LOGGER.setLevel(Level.DEBUG);
 		this.urlstr = urlstr;
 		this.template = template;
-		processFilter();
 	}
 	
 	/**
 	 * Gets the feature response of the request with the filled template.
 	 */
-	private void processFilter() {
+	public String processFilter() {
 		URL url = null;
 		HttpURLConnection hpcon = null;
 		StringBuilder response = new StringBuilder(256);
@@ -43,12 +42,14 @@ public class SpatialQuery {
 			hpcon.setDoOutput(true);
 		} catch (IOException e) {
 			LOGGER.log(Level.FATAL, e.toString(), e);
+			return e.getMessage();
 		}
 		if(hpcon != null) {
 			try(DataOutputStream printout = new DataOutputStream(hpcon.getOutputStream())) {
 				printout.writeBytes(template);
 			} catch (IOException e) {
 				LOGGER.log(Level.FATAL, e.toString(), e);
+				return e.getMessage();
 			}
 			try(BufferedReader in = new BufferedReader(new InputStreamReader(hpcon.getInputStream()))) {
 				String input;
@@ -56,17 +57,20 @@ public class SpatialQuery {
 					response.append(input + "\r");
 				}
 			} catch(IOException e) {
-				LOGGER.log(Level.WARN, String.format("fout in request naar %s met filter %s", urlstr, template));
+				LOGGER.log(Level.FATAL, String.format("fout in request naar %s met filter %s", urlstr, template));
 				LOGGER.log(Level.FATAL, e.toString(), e);
+				return String.format("fout in request naar %s met filter %s", urlstr, template);
 			} finally {
 				hpcon.disconnect();
 			}
 		}
 		if(response.toString().indexOf("ExceptionReport") > -1) {
 			LOGGER.log(Level.FATAL, String.format("fout in request naar %s met filter %s response: %s", urlstr, template, response.toString()));
+			return String.format("fout in request naar %s met filter %s response: %s", urlstr, template, response.toString());
 		}
 		
 		featureResult = response.toString();
+		return null;
 	}
 	
 	/**

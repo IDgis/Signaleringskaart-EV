@@ -5,15 +5,17 @@ var baseservleturl = "http://evs.local.nl/veiligheidstoetsservlet/toets";
 
 var toetsError = false;
 var spatialQuestions = [];
+var nextSpatialQuestion = 0
 var vlayer;
 var map;
 var urlInput;
 var curId;
 
 
+
 $(document).ready(function() {
     if(document.limesurvey) {
-		$('.ev-map').each(function() {
+    	$('.ev-map').each(function() {
             if (map===undefined) {
      			var mapDiv = $(this);
     		    var sgq = mapDiv.attr('data-sgq');
@@ -37,11 +39,26 @@ $(document).ready(function() {
 		    var inputChoiceAns =  $('#answer' + sgq + 'A3');
 		    inputChoiceAns.click();   
 		});
-	} 
+        $('.spatialquestion').each(function() {
+            var sq = $(this);
+            var spatialquestion = {};
+        	for(var s in sq.data()) {
+        		spatialquestion[s] = sq.data(s);
+        	}
+            spatialQuestions.push(spatialquestion);
+        }); 
+        
+	} else {
+        $('.properties').each(function() {
+            var propDiv = $(this);
+            var answer = propDiv.attr('data-answer');
+            propDiv.append(answer);
+        });
+	}
 });	
 
 
-/*jQuery(function($) {
+jQuery(function($) {
   var _oldShow = $.fn.show;
   $.fn.show = function(speed, oldCallback) {
     return $(this).each(function() {
@@ -55,73 +72,91 @@ $(document).ready(function() {
       _oldShow.apply(obj, [speed, newCallback]);
     });
   };
-});*/
+});
 
-function postSpatialQuestion(Qcode,wktStr,sgq,serviceName,requestType) {
-	var postbody = {
-				servicename:((serviceName!==undefined && serviceName!==null) ? serviceName: 'veiligheidstoetsWFS'), 
-				requesttype:((requestType!==undefined && requestType!==null) ? requestType: 'getEVFeatures'),
-				filter:Qcode,
-				plangebiedWkt:wktStr};
+
+jQuery(function($) {
+  $('.spatialquestion')
+    .bind('beforeShow', function() {
+        if($(this)[0]=== $('.spatialquestion')[0] && document.limesurvey) {
+            postSpatialQuestion(spatialQuestions[0]);
+        }
+    }) 
+    .show(1000, function() {
+      //in show callback;
+    })
+    .show();
+});
+
+
+function postSpatialQuestion(spatialQuestion) {
+	var sgq = spatialQuestion['sgq'];              
 	var sgqArray = sgq.split('X');
 	var question =  $('#question' + sgqArray[2]);
 	//question.hide();
-	spatialQuestions.push(question);
 	document.body.style.cursor = 'wait';
-	$.post( baseservleturl, postbody,	
-		function(result){
-			if (result.error) {
-				alert (result.error);
+	$.post( baseservleturl, spatialQuestion, function(result){
+
+		if (result.error) {
+			alert (result.error);
+		}
+		if (result.numberOfFeaturesFound !== undefined) {
+			if (result.numberOfFeaturesFound > 0) {
+				$('#answer'+ sgq + 'Y').click();
+			} else {
+                $('#answer'+ sgq + 'N').click(); 
 			}
-			if (result.numberOfFeaturesFound !== undefined) {
-				if (result.numberOfFeaturesFound > 0) {
-					$('#answer'+ sgq + 'Y').click();  
-                    $('#answer'+ sgq + 'Y').off("click");
-				} else {
-                    $('#answer'+ sgq + 'N').click(); 
-    			    $('#answer'+ sgq + 'N').off("click");   
-				}
-			}
+		} else {
 			if (result.features !== undefined) {
 				showProperties (result.features);
                 $('#answer'+ sgq + 'Y').click();
+                
 			} else {
     		    $('#answer'+ sgq + 'N').click();  
 			}
-            
-            
-            
-	    	document.body.style.cursor = 'default';
-	    });
+		}	
+		nextSpatialQuestion++;
+		if (nextSpatialQuestion < spatialQuestions.length){
+		postSpatialQuestion(spatialQuestions[nextSpatialQuestion]);
+		}
+		if (nextSpatialQuestion === spatialQuestions.length){
+			document.body.style.cursor = 'default';
+		}	 
+    });
 
 }
 
 
 function showProperties (features) {
-    var table = $('.properties')[0]; 
-    var thead = table.appendChild(document.createElement("thead"));
-    var hrow = thead.appendChild(document.createElement("tr"));
-    var tbody = table.appendChild(document.createElement("tbody"));
-	
-	for (var feature in features) {
-		var row = tbody.appendChild(document.createElement("tr"));
-        var properties = features[feature].properties;
-        
-		for (var property in properties) {
-            if (feature==="0") {
-                var hcol = hrow.appendChild(document.createElement("th"));
-                hcol.appendChild(document.createTextNode(Object.keys(properties[property])));
-            }  
-            var col = row.appendChild(document.createElement("td"));
-            col.appendChild(document.createTextNode(Object.values(properties[property])));
+    $('.properties').empty();
+    //var propertiesDiv = $('.properties')[0];
+    var sgq = $('.properties').attr('data-sgq');
+    if(sgq===undefined) {
+        return;
+    }    
+    var table = "<table class='table-striped table-condensed'>";
+    var tableHead = "<thead><tr>"
+    var tableBody = "<tbody><tr>"
+    var first = true;
+    for (var feature of features) {
+		for (var property of  feature.properties) {
+            if (first) {
+                tableHead += "<th>" + Object.keys(property) + "</th>";
+            } 
+            tableBody += "<td>" + Object.values(property)+ "</td>";
 		}
+        tableHead += "</tr><tr>";
+        tableBody += "</tr><tr>";
+		first = false;
 	}
-
-	
-
-	//resultDiv.show();
+    tableHead = tableHead.substr(0, tableHead.length - 4) + "<thead>";
+    tableBody = tableBody.substr(0, tableBody.length - 4) + "<thead>";
+    table += tableHead + tableBody + "<table>";
+    var propertyInput = $('#answer'+ sgq);
+    propertyInput.hide();
+    propertyInput.val(table);
+    $('.properties').append(table);
 }
-
 
 
 function showOnMap(wktStr) {
@@ -144,7 +179,6 @@ function zoomToPlangebied() {
 
 function updateImageUrl(){
 	if(urlInput!==undefined){
-		var kleur = 'EE9900';
 		var bbox = map.getExtent().toBBOX(0,false);
 		var url = wmsurl + '/services/plangebied_wms_ov?service=WMS&REQUEST=GetMap&LAYERS=&STYLES=&TRANSPARENT=TRUE&SRS=EPSG:28992&VERSION=1.1.1&EXCEPTIONS=application/vnd.ogc.se_xml&FORMAT=image/png';
 		url += '&HEIGHT=500&WIDTH=800';
@@ -261,6 +295,10 @@ function initialiseBaseMap(mapDiv,editable,answerInput) {
 		showOnMap(wktPoly);
 	 } 
 }
+
+
+
+
 
 
 
