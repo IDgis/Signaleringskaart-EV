@@ -64,9 +64,18 @@ public class EVFeaturesRequest extends VeiligheidtoetsRequest {
 		}
 		
 		String template = templateHandler.getFilter(filter, props);
+		if(template == null) {
+			features.put(ERROR, "\"Filter is invalid!\"");
+			return features;
+		}
 		LOGGER.log(Level.DEBUG, "TEMPLATE:\n" + template);
 		LOGGER.log(Level.DEBUG, "URL: " + url);
 		SpatialQuery sq = new SpatialQuery(url, template);
+		String errorMessage = sq.processFilter();
+		if(errorMessage != null) {
+			features.put(ERROR, "\"" + errorMessage.replaceAll("\"", "\'") + "\"");
+			return features;
+		}
 		LOGGER.log(Level.INFO, "Getting features...");
 		RequestProcessor rp = new RequestProcessor();
 		return rp.getFeatureResult(sq.getFeatureResult());
