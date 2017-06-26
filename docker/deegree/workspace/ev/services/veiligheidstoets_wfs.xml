@@ -13,6 +13,7 @@
 	<FeatureStoreId>wegen_prplafond</FeatureStoreId>
 	<FeatureStoreId>wegen_grplafond</FeatureStoreId>
 	<FeatureStoreId>wegdeel_vlak_ov_plus</FeatureStoreId>
+	<FeatureStoreId>trns_buisleidingen</FeatureStoreId>
 	
 	<QueryCRS>EPSG:28992</QueryCRS>
 	<GMLFormat gmlVersion="GML_32">

@@ -1,0 +1,15 @@
+<SQLFeatureStore xmlns="http://www.deegree.org/datasource/feature/sql" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" configVersion="3.2.0" xsi:schemaLocation="http://www.deegree.org/datasource/feature/sql http://schemas.deegree.org/datasource/feature/sql/3.2.0/sql.xsd">
+
+	<JDBCConnId>jdbc_ev_services_ov</JDBCConnId>
+
+	<FeatureTypeMapping xmlns:myapp="http://www.deegree.org/myapp" table="trns_buisleidingen_ov" name="myapp:trns_buisleidingen">
+	    <FIDMapping>
+	        <Column name="id"/>
+	        <AutoIdGenerator/>
+	    </FIDMapping>
+	    <Geometry path="geometrie" mapping="geometrie">
+	        <StorageCRS srid="28992">EPSG:28992</StorageCRS>
+	    </Geometry>
+	</FeatureTypeMapping>
+	
+</SQLFeatureStore>	
