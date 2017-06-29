@@ -9,10 +9,11 @@ RUN apt-get update \
 	
 
 # create database
-COPY data/ev_lime_ov.sql /tmp/
+#COPY data/ev_lime_ov.sql /tmp/
 COPY data/ev_services_ov.sql /tmp/
 COPY 000_create_db.sql /docker-entrypoint-initdb.d/
 COPY 001_restore_db.sql /docker-entrypoint-initdb.d/
+#COPY 002_create_view_plangebieden.sql /docker-entrypoint-initdb.d/
 
 
 
