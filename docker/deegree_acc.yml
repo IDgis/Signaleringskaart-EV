@@ -12,7 +12,7 @@ services:
     expose:
       - "8080"
     environment:
-     VIRTUAL_HOST: "ev-signalering-overijssel.idgis.eu"  
+     VIRTUAL_HOST: "ev-services-ov.idgis.eu"  
     volumes:
       - deegree_config_ev:/root/.deegree/ev
       - veiligheidstoets_config_ev:/etc/veiligheidstoets
