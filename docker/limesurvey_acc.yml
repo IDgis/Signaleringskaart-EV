@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  limesurvey:
+    container_name: limesurvey-ov
+    expose:
+     - "80"
+    environment:
+     LETSENCRYPT_EMAIL: "support@idgis.nl"
+     LETSENCRYPT_HOST: "ev-signalering-overijssel.idgis.eu"
+     VIRTUAL_HOST: "ev-signalering-overijssel.idgis.eu"
+     WMSURL: "http://ev-signalering-overijssel.idgis.eu/services/plangebied_wms_ov"
+     BASESERVLETURL: "http://ev-signalering-overijssel.idgis.eu"
+    volumes:
+      - upload:/app/upload
+    build: limesurvey
+volumes:
+  upload:
+networks:
+  default:
+    external:
+      name: ev-ov 
+  
