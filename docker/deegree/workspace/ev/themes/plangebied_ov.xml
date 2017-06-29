@@ -1,9 +1,7 @@
 <Themes xmlns="http://www.deegree.org/themes/standard" xmlns:s="http://www.deegree.org/metadata/spatial" xmlns:d="http://www.deegree.org/metadata/description" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" configVersion="3.2.0" xsi:schemaLocation="http://www.deegree.org/themes/standard http://schemas.deegree.org/themes/3.2.0/themes.xsd">
-    
-    
-    <LayerStoreId>plangebied_ov</LayerStoreId>
+ 
+    <LayerStoreId>plangebied</LayerStoreId>
     <LayerStoreId>rk_ondergronden</LayerStoreId>
-   	<LayerStoreId>rk_risicocontouren</LayerStoreId>
     
     <Theme>
         <Identifier>pg_ond_ov</Identifier>
@@ -14,17 +12,10 @@
             <d:Title>Ondergrond</d:Title>
                <Layer>ondergronden</Layer>
         </Theme>   
-         <Theme>
-            <Identifier>risicocontouren</Identifier>
-            <d:Title>Risicocontouren</d:Title>
-            <Layer>risicocontouren</Layer>
-        </Theme> 
         <Theme>
-            <Identifier>plangebied_ov</Identifier>
+            <Identifier>plangebied</Identifier>
             <d:Title>Plangebied</d:Title>
-            <Layer>plangebied_ov</Layer>
+            <Layer>plangebied</Layer>
         </Theme>
     </Theme>
-    
-    
 </Themes>

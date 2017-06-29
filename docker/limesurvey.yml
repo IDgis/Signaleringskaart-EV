@@ -9,10 +9,11 @@ services:
      LETSENCRYPT_EMAIL: "support@idgis.nl"
      LETSENCRYPT_HOST: "ev.local.nl"
      VIRTUAL_HOST: "ev.local.nl"
+     WMSURL: "http://evs.local.nl/services/plangebied_wms_ov"
+     BASESERVLETURL: "http://ev.local.nl"
     volumes:
       - upload:/app/upload
-    image:
-      crramirez/limesurvey:latest
+    build: limesurvey
 volumes:
   upload:
 networks:

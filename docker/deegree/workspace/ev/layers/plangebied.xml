@@ -1,0 +1,20 @@
+<FeatureLayers xmlns="http://www.deegree.org/layers/feature" xmlns:s="http://www.deegree.org/metadata/spatial" xmlns:l="http://www.deegree.org/layers/base" xmlns:d="http://www.deegree.org/metadata/description" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.deegree.org/layers/feature http://schemas.deegree.org/layers/feature/3.2.0/feature.xsd" configVersion="3.2.0">
+    <FeatureStoreId>plangebied</FeatureStoreId>
+    <FeatureLayer>
+        <l:Name>plangebied</l:Name>
+        <d:Title>Plangebied</d:Title>
+        <s:Envelope crs="EPSG:28992">
+            <s:LowerCorner>-2500 300000</s:LowerCorner>
+            <s:UpperCorner>290000 620000</s:UpperCorner>
+        </s:Envelope>
+        <s:CRS>EPSG:28992</s:CRS>
+        <l:StyleRef>
+            <l:StyleStoreId>plangebied</l:StyleStoreId>
+            <l:Style>
+                <l:StyleName>plangebied</l:StyleName>
+                <l:LayerNameRef>plangebied</l:LayerNameRef>
+                <l:StyleNameRef>plangebied</l:StyleNameRef>
+            </l:Style>
+        </l:StyleRef>
+    </FeatureLayer>
+</FeatureLayers>
