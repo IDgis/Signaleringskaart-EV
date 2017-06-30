@@ -6,11 +6,11 @@ services:
     expose:
      - "80"
     environment:
-     LETSENCRYPT_EMAIL: "support@idgis.nl"
-     LETSENCRYPT_HOST: "ev-signalering-overijssel.idgis.eu"
-     VIRTUAL_HOST: "ev-signalering-overijssel.idgis.eu"
-     WMSURL: "http://ev-services-ov/services/plangebied_wms_ov"
-     BASESERVLETURL: "http://localhost:8080"
+      LETSENCRYPT_EMAIL: "support@idgis.nl"
+      LETSENCRYPT_HOST: "ev-signalering-overijssel.idgis.eu"
+      VIRTUAL_HOST: "ev-signalering-overijssel.idgis.eu"
+      WMSURL: "http://ev-services-ov/services/plangebied_wms_ov"
+      BASESERVLETURL: "http://localhost:8080"
     volumes:
       - upload:/app/upload
     build: limesurvey
