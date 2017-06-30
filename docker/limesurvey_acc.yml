@@ -14,8 +14,8 @@ services:
     build: 
       context: limesurvey
       args:
-        - WMSURL=http://ev-services-ov/services/plangebied_wms_ov
-        - BASESERVLETURL=http://localhost:8080
+        - WMSURL=http://ev-services-ov.idgis.eu/services/plangebied_wms_ov
+        - TOETSSERVLETURL=http://ev-services-ov.idgis.eu/veiligheidstoetsservlet/toets
 
 volumes:
   upload:

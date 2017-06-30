@@ -1,7 +1,7 @@
 FROM crramirez/limesurvey:latest
 
 ARG WMSURL
-ARG BASESERVLETURL
+ARG TOETSSERVLETURL
 
-RUN echo "{\"wmsurl\":\"$WMSURL\", \"baseservleturl\":\"$BASESERVLETURL\"}" > /var/www/html/ov-ev-config.json
+RUN echo "{\"wmsurl\":\"$WMSURL\", \"toetsservleturl\":\"$TOETSSERVLETURL\"}" > /var/www/html/ov-ev-config.json
 
