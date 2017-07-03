@@ -45,8 +45,8 @@ services:
      - "80"
     environment:
       LETSENCRYPT_EMAIL: "support@idgis.nl"
-      LETSENCRYPT_HOST: "overijssel.ev-signaleringskaart.nl""
-      VIRTUAL_HOST: "overijssel.ev-signaleringskaart.nl""
+      LETSENCRYPT_HOST: "overijssel.ev-signaleringskaart.nl"
+      VIRTUAL_HOST: "overijssel.ev-signaleringskaart.nl"
     volumes:
       - upload:/app/upload
     build: 
@@ -55,17 +55,15 @@ services:
         - WMSURL=http://overijssel.ev-signaleringskaart.nl/services/plangebied_wms_ov
         - TOETSSERVLETURL=http://overijssel.ev-signaleringskaart.nl/toets
         
-    deegree:
-      container_name: deegree-ov
-      restart: always
-      build: deegree
-      expose:
-        - "8080"
-      environment:
-       VIRTUAL_HOST: "overijssel.ev-signaleringskaart.nl"  
-      volumes:
-        - deegree_config_ev:/root/.deegree/ev
-        - veiligheidstoets_config_ev:/etc/veiligheidstoets        
+  deegree:
+    container_name: deegree-ov
+    restart: always
+    build: deegree
+    expose:
+      - "8080"
+    volumes:
+      - deegree_config_ev:/root/.deegree/ev
+      - veiligheidstoets_config_ev:/etc/veiligheidstoets        
 
 volumes:
   db_ov_data:
