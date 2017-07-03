@@ -1,6 +1,6 @@
-FROM jwilder/nginx-proxy
+FROM nginx
 
-COPY nginx.tmpl /app/.
+COPY conf /etc/nginx/conf.d
 
 
 

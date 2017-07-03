@@ -1,0 +1,84 @@
+version: '2'
+
+services:
+  proxy:
+    container_name: nginx
+    restart: always
+    build: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - ENABLE_IPV6=true
+    volumes:
+      - nginx_logs:/var/log/nginx
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - base_certs:/etc/nginx/certs:ro
+      - base_vhost:/etc/nginx/vhost.d
+      - base_html:/usr/share/nginx/html
+      
+  letsencrypt:
+    container_name: letsencrypt
+    restart: always
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    volumes_from:
+      - proxy
+    volumes:
+      - base_certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro    
+
+  db:
+    container_name: db-ov
+    build: database
+    ports:
+      - "5432:5432"
+    expose:
+     - "5432"
+    environment:
+      DEBUG: "false"
+    volumes:
+      - db_ov_data:/var/lib/postgresql/data    
+      
+  limesurvey:
+    container_name: limesurvey-ov
+    expose:
+     - "80"
+    environment:
+      LETSENCRYPT_EMAIL: "support@idgis.nl"
+      LETSENCRYPT_HOST: "overijssel.ev-signaleringskaart.nl""
+      VIRTUAL_HOST: "overijssel.ev-signaleringskaart.nl""
+    volumes:
+      - upload:/app/upload
+    build: 
+      context: limesurvey
+      args:
+        - WMSURL=http://overijssel.ev-signaleringskaart.nl/services/plangebied_wms_ov
+        - TOETSSERVLETURL=http://overijssel.ev-signaleringskaart.nl/toets
+        
+    deegree:
+      container_name: deegree-ov
+      restart: always
+      build: deegree
+      expose:
+        - "8080"
+      environment:
+       VIRTUAL_HOST: "overijssel.ev-signaleringskaart.nl"  
+      volumes:
+        - deegree_config_ev:/root/.deegree/ev
+        - veiligheidstoets_config_ev:/etc/veiligheidstoets        
+
+volumes:
+  db_ov_data:
+  upload:
+  nginx_logs:
+  base_certs:
+  base_vhost:
+  base_html:
+  deegree_config_ev:
+  veiligheidstoets_config_ev:
+
+networks:
+  default:
+    external:
+      name: ev-ov 
+  
