@@ -6,9 +6,10 @@
  xmlns:wfs="http://www.opengis.net/wfs"
  service="WFS"
  version="1.1.0"
- outputFormat="text/xml; subtype=gml/3.2.1"
- resultType="hits">
+ outputFormat="text/xml; subtype=gml/3.2.1">
     <wfs:Query typeName="risico_inrichting_invloedsgebied">
+        <wfs:PropertyName>NAAM_INRICHTING</wfs:PropertyName>
+        <wfs:PropertyName>DATE_CHANGED</wfs:PropertyName>
         <ogc:Filter>
             <ogc:And>
                 <ogc:Intersects>
