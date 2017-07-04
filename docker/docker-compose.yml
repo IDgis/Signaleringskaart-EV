@@ -49,9 +49,6 @@ volumes:
   db_ov_data:
   upload:
   nginx_logs:
-  base_certs:
-  base_vhost:
-  base_html:
   deegree_config_ev:
   veiligheidstoets_config_ev:
 
