@@ -8,8 +8,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    environment:
-      - ENABLE_IPV6=true
     volumes:
       - nginx_logs:/var/log/nginx
       - /var/run/docker.sock:/tmp/docker.sock:ro
@@ -17,15 +15,6 @@ services:
       - base_vhost:/etc/nginx/vhost.d
       - base_html:/usr/share/nginx/html
       
-  letsencrypt:
-    container_name: letsencrypt
-    restart: always
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    volumes_from:
-      - proxy
-    volumes:
-      - base_certs:/etc/nginx/certs:rw
-      - /var/run/docker.sock:/var/run/docker.sock:ro    
 
   db:
     container_name: db-ov
@@ -44,8 +33,6 @@ services:
     expose:
      - "80"
     environment:
-      LETSENCRYPT_EMAIL: "support@idgis.nl"
-      LETSENCRYPT_HOST: "overijssel.ev-signaleringskaart.nl"
       VIRTUAL_HOST: "overijssel.ev-signaleringskaart.nl"
     volumes:
       - upload:/app/upload
