@@ -1,21 +1,14 @@
 version: '2'
 
 services:
-  proxy:
-    container_name: nginx
+  nginx:
+    container_name: proxy
     restart: always
     build: nginx
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - nginx_logs:/var/log/nginx
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - base_certs:/etc/nginx/certs:ro
-      - base_vhost:/etc/nginx/vhost.d
-      - base_html:/usr/share/nginx/html
-      
-
   db:
     container_name: db-ov
     build: database
