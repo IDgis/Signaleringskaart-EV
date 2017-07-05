@@ -4,7 +4,10 @@ import java.util.Iterator;
 import java.util.Map;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.stream.MalformedJsonException;
 
 public class ServletResponse {
 
@@ -21,9 +24,13 @@ public class ServletResponse {
 		
 		Iterator<String> iter = featureMap.keySet().iterator();
 		while(iter.hasNext()) {
-			String key = iter.next();
-			String value = featureMap.get(key);
-			json.add(key, parser.parse(value));
+			try {
+				String key = iter.next();
+				String value = featureMap.get(key);
+				json.add(key, parser.parse(value));
+			} catch(JsonParseException e) {
+				json.add("error", parser.parse("\"" + e.getMessage() + "\""));
+			}
 		}
 		return json;
 	}
