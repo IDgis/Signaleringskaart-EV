@@ -3,6 +3,9 @@ package nl.prv.veiligheidstoets;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
@@ -10,6 +13,8 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.MalformedJsonException;
 
 public class ServletResponse {
+	
+	private static final Logger LOGGER = Logger.getLogger(ServletResponse.class.getName());
 
 	private ServletResponse() {}
 	
@@ -19,6 +24,7 @@ public class ServletResponse {
 	 * @return
 	 */
 	public static JsonObject convertToJson(Map<String, String> featureMap) {
+		LOGGER.setLevel(Level.ALL);
 		JsonObject json = new JsonObject();
 		JsonParser parser = new JsonParser();
 		
@@ -29,6 +35,7 @@ public class ServletResponse {
 				String value = featureMap.get(key);
 				json.add(key, parser.parse(value));
 			} catch(JsonParseException e) {
+				LOGGER.log(Level.FATAL, e.getMessage(), e);
 				json.add("error", parser.parse("\"" + e.getMessage() + "\""));
 			}
 		}
