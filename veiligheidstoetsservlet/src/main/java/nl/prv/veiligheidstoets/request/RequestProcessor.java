@@ -116,8 +116,8 @@ public class RequestProcessor {
 				firstIteration = false;
 				continue;
 			}
-			properties.add(nodeName.replaceAll("/", "").replaceAll("\"", "\'"));
-			features.add(node.getTextContent().replaceAll("/", "").replaceAll("\"", "\'"));
+			properties.add(nodeName.replaceAll("\"", "\'"));
+			features.add(node.getTextContent().replaceAll("\"", "\'"));
 			
 		}
 		return createValueString(properties, features);
