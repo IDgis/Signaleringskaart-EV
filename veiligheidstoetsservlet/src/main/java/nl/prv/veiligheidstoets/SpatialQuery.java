@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 
 import org.apache.log4j.Level;
@@ -13,6 +14,8 @@ import org.apache.log4j.Logger;
 
 public class SpatialQuery {
 	private static final Logger LOGGER = Logger.getLogger(SpatialQuery.class.getName());
+	
+	private static final int TIMEOUT_VALUE = 10000; // Time in milliseconds to wait for a url to connect
 	
 	private String urlstr;
 	private String template;
@@ -34,12 +37,17 @@ public class SpatialQuery {
 		try {
 			url = new URL(urlstr);
 			hpcon = (HttpURLConnection)url.openConnection();
+			hpcon.setConnectTimeout(TIMEOUT_VALUE);
+			hpcon.setReadTimeout(TIMEOUT_VALUE);
 			hpcon.setRequestMethod("POST");
 			hpcon.setRequestProperty("Content-Length", "" + Integer.toString(template.getBytes().length));
 			hpcon.setRequestProperty("Content-Type", "xml/text");
 			hpcon.setUseCaches(false);
 			hpcon.setDoInput(true);
 			hpcon.setDoOutput(true);
+		} catch (SocketTimeoutException e) {
+			LOGGER.log(Level.FATAL, e.toString(), e);
+			return "Timeout in connection to " + urlstr + ": " + e.getMessage();
 		} catch (IOException e) {
 			LOGGER.log(Level.FATAL, e.toString(), e);
 			return e.getMessage();
