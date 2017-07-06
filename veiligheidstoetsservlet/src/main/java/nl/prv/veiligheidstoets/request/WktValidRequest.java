@@ -19,7 +19,7 @@ public class WktValidRequest extends VeiligheidtoetsRequest {
 
 	protected WktValidRequest(Map<String, String> props) {
 		super(props);
-		LOGGER.setLevel(Level.DEBUG);
+		LOGGER.setLevel(Level.INFO);
 	}
 	
 	@Override

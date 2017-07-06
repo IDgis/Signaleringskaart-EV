@@ -24,7 +24,7 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 	
 	protected KOFeaturesRequest(Map<String, String> props) {
 		super(props);
-		LOGGER.setLevel(Level.DEBUG);
+		LOGGER.setLevel(Level.INFO);
 		templateHandler = new TemplateHandler();
 	}
 	

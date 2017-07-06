@@ -21,7 +21,7 @@ public class EVFeaturesRequest extends VeiligheidtoetsRequest {
 	
 	protected EVFeaturesRequest(Map<String, String> props) {
 		super(props);
-		LOGGER.setLevel(Level.DEBUG);
+		LOGGER.setLevel(Level.INFO);
 		templateHandler = new TemplateHandler();
 	}
 	

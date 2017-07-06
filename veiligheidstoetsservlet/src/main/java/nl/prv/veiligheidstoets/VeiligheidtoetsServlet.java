@@ -41,7 +41,7 @@ public class VeiligheidtoetsServlet extends HttpServlet {
 	 */
 	@Override
 	public void init() {
-		LOGGER.setLevel(Level.DEBUG);
+		LOGGER.setLevel(Level.INFO);
 		LOGGER.log(Level.INFO, "init servlet...");
 	}
 	

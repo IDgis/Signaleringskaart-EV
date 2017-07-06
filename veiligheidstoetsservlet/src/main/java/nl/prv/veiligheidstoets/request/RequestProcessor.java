@@ -42,7 +42,7 @@ public class RequestProcessor {
 	private static final Logger LOGGER = Logger.getLogger(RequestProcessor.class.getName());
 	
 	public RequestProcessor() {
-		LOGGER.setLevel(Level.ALL);
+		LOGGER.setLevel(Level.INFO);
 	}
 	
 	/**
