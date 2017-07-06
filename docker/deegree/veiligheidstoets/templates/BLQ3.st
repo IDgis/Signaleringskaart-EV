@@ -8,12 +8,13 @@
  version="1.1.0"
  outputFormat="text/xml; subtype=gml/3.2.1"
  resultType="hits">
-    <wfs:Query typeName="trns_ead_let_expl">
+    <wfs:Query typeName= "trns_buisleidingen">
         <ogc:Filter>
-            <ogc:Intersects>
-                <ogc:PropertyName>geometrie</ogc:PropertyName>
-                $plangebiedgml$                           
-            </ogc:Intersects>
+    	    <ogc:DWithin>
+              <ogc:PropertyName>geometrie</ogc:PropertyName>
+              $plangebiedgml$        
+              <ogc:Distance units="meter">500</ogc:Distance>
+          </ogc:DWithin>
         </ogc:Filter>
     </wfs:Query>
 </wfs:GetFeature>

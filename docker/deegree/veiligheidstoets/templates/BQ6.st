@@ -6,9 +6,13 @@
  xmlns:wfs="http://www.opengis.net/wfs"
  service="WFS"
  version="1.1.0"
- outputFormat="text/xml; subtype=gml/3.2.1"
- resultType="hits">
+ outputFormat="text/xml; subtype=gml/3.2.1">
     <wfs:Query typeName="ea_explosief_isb">
+        <wfs:PropertyName>NAAMINRICHTING</wfs:PropertyName>
+        <wfs:PropertyName>DATE_CHANGED</wfs:PropertyName>
+        <wfs:PropertyName>NAAM_INSTALLATIE</wfs:PropertyName>
+        <wfs:PropertyName>SOORT_INSTALLATIE</wfs:PropertyName>
+        <wfs:PropertyName>SCENARIO</wfs:PropertyName>
         <ogc:Filter>
             <ogc:And>
                 <ogc:Intersects>

@@ -4,15 +4,14 @@
  xmlns:ogc="http://www.opengis.net/ogc"
  xmlns:gml="http://www.opengis.net/gml"
  xmlns:wfs="http://www.opengis.net/wfs"
- xmlns:rrgs="http://www.risicokaart.nl/schemas/rrgs" 
  service="WFS"
  version="1.1.0"
  outputFormat="text/xml; subtype=gml/3.2.1">
     <wfs:Query typeName="risico_installatie_invloedsgebied">
-        <wfs:PropertyName>rrgs:NAAMINRICHTING</wfs:PropertyName>
-        <wfs:PropertyName>rrgs:DATE_CHANGED</wfs:PropertyName>
-        <wfs:PropertyName>rrgs:NAAM_INSTALLATIE</wfs:PropertyName>
-        <wfs:PropertyName>rrgs:SOORT_INSTALLATIE</wfs:PropertyName>
+        <wfs:PropertyName>NAAMINRICHTING</wfs:PropertyName>
+        <wfs:PropertyName>DATE_CHANGED</wfs:PropertyName>
+        <wfs:PropertyName>NAAM_INSTALLATIE</wfs:PropertyName>
+        <wfs:PropertyName>SOORT_INSTALLATIE</wfs:PropertyName>
         <ogc:Filter>
             <ogc:And>
                 <ogc:Intersects>
