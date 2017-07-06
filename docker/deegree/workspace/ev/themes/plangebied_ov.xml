@@ -12,10 +12,10 @@
             <d:Title>Ondergrond</d:Title>
                <Layer>ondergronden</Layer>
         </Theme>   
-        <Theme>
+        <!--Theme>
             <Identifier>plangebied</Identifier>
             <d:Title>Plangebied</d:Title>
             <Layer>plangebied</Layer>
-        </Theme>
+        </Theme-->
     </Theme>
 </Themes>
