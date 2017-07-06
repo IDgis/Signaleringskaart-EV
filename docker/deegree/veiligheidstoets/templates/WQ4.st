@@ -3,14 +3,9 @@
     xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.1.0/wfs.xsd"
     xmlns:ogc="http://www.opengis.net/ogc" xmlns:gml="http://www.opengis.net/gml"
     xmlns:wfs="http://www.opengis.net/wfs" service="WFS" version="1.1.0"
-    outputFormat="text/xml; subtype=gml/3.2.1">
+    outputFormat="text/xml; subtype=gml/3.2.1"
+    resultType="hits">
     <wfs:Query typeName="wegen_prplafond">
-        <ogc:PropertyName>naam</ogc:PropertyName>
-        <ogc:PropertyName>pr_plafond</ogc:PropertyName>
-        <ogc:PropertyName>gr_plafond</ogc:PropertyName>
-        <ogc:PropertyName>plasbrand</ogc:PropertyName>
-        <ogc:PropertyName>vervoershoeveelheid</ogc:PropertyName>
-        <ogc:PropertyName>bijzonderheden</ogc:PropertyName>
         <ogc:Filter>
          <ogc:Intersects>
              <ogc:PropertyName>geom</ogc:PropertyName>
