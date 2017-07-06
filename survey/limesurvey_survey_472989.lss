@@ -17,7 +17,7 @@
   </fields>
   <rows>
    <row>
-    <qid><![CDATA[374]]></qid>
+    <qid><![CDATA[82]]></qid>
     <code><![CDATA[A1]]></code>
     <answer><![CDATA[2.1 Wro structuurplan ]]></answer>
     <sortorder><![CDATA[1]]></sortorder>
@@ -26,7 +26,7 @@
     <scale_id><![CDATA[0]]></scale_id>
    </row>
    <row>
-    <qid><![CDATA[374]]></qid>
+    <qid><![CDATA[82]]></qid>
     <code><![CDATA[A2]]></code>
     <answer><![CDATA[3.1 Wro bestemmingsplan  (artikelen 3.1, eerste tot en met derde lid) ]]></answer>
     <sortorder><![CDATA[2]]></sortorder>
@@ -35,7 +35,7 @@
     <scale_id><![CDATA[0]]></scale_id>
    </row>
    <row>
-    <qid><![CDATA[374]]></qid>
+    <qid><![CDATA[82]]></qid>
     <code><![CDATA[A3]]></code>
     <answer><![CDATA[3.6 Wro wijzigings-/uitwerkingsplan (3.6, eerste lid) ]]></answer>
     <sortorder><![CDATA[3]]></sortorder>
@@ -44,7 +44,7 @@
     <scale_id><![CDATA[0]]></scale_id>
    </row>
    <row>
-    <qid><![CDATA[374]]></qid>
+    <qid><![CDATA[82]]></qid>
     <code><![CDATA[A4]]></code>
     <answer><![CDATA[3.26 Wro Provinciaal inpassingsplan ]]></answer>
     <sortorder><![CDATA[4]]></sortorder>
@@ -53,7 +53,7 @@
     <scale_id><![CDATA[0]]></scale_id>
    </row>
    <row>
-    <qid><![CDATA[374]]></qid>
+    <qid><![CDATA[82]]></qid>
     <code><![CDATA[A5]]></code>
     <answer><![CDATA[3.28 Wro Rijksinpassingsplan ]]></answer>
     <sortorder><![CDATA[5]]></sortorder>
@@ -62,7 +62,7 @@
     <scale_id><![CDATA[0]]></scale_id>
    </row>
    <row>
-    <qid><![CDATA[374]]></qid>
+    <qid><![CDATA[82]]></qid>
     <code><![CDATA[A6]]></code>
     <answer><![CDATA[4.2 Wro proactieve aanwijzing provincie ]]></answer>
     <sortorder><![CDATA[6]]></sortorder>
@@ -71,7 +71,7 @@
     <scale_id><![CDATA[0]]></scale_id>
    </row>
    <row>
-    <qid><![CDATA[374]]></qid>
+    <qid><![CDATA[82]]></qid>
     <code><![CDATA[A7]]></code>
     <answer><![CDATA[4.4 Wro proactieve aanwijzing Rijk ]]></answer>
     <sortorder><![CDATA[7]]></sortorder>
@@ -80,7 +80,7 @@
     <scale_id><![CDATA[0]]></scale_id>
    </row>
    <row>
-    <qid><![CDATA[374]]></qid>
+    <qid><![CDATA[82]]></qid>
     <code><![CDATA[A8]]></code>
     <answer><![CDATA[2.12 Wabo Buitenplanse afwijking (artikel 2.12, eerste lid, onder a, onder 2°) ]]></answer>
     <sortorder><![CDATA[8]]></sortorder>
@@ -89,7 +89,7 @@
     <scale_id><![CDATA[0]]></scale_id>
    </row>
    <row>
-    <qid><![CDATA[374]]></qid>
+    <qid><![CDATA[82]]></qid>
     <code><![CDATA[A9]]></code>
     <answer><![CDATA[2.12 Wabo Buitenplanse afwijking (voorheen projectbesluit) (artikel 2.12, eerste lid, onder a, onder 3°) ]]></answer>
     <sortorder><![CDATA[9]]></sortorder>
@@ -98,7 +98,7 @@
     <scale_id><![CDATA[0]]></scale_id>
    </row>
    <row>
-    <qid><![CDATA[374]]></qid>
+    <qid><![CDATA[82]]></qid>
     <code><![CDATA[A10]]></code>
     <answer><![CDATA[2.12 Wabo Tijdelijke buitenplanse afwijking (artikel 2.12, tweede lid) ]]></answer>
     <sortorder><![CDATA[10]]></sortorder>
@@ -107,7 +107,7 @@
     <scale_id><![CDATA[0]]></scale_id>
    </row>
    <row>
-    <qid><![CDATA[374]]></qid>
+    <qid><![CDATA[82]]></qid>
     <code><![CDATA[A11]]></code>
     <answer><![CDATA[Afwijken van de bouwverordening middels art 11 Woningwet ]]></answer>
     <sortorder><![CDATA[11]]></sortorder>
@@ -116,7 +116,7 @@
     <scale_id><![CDATA[0]]></scale_id>
    </row>
    <row>
-    <qid><![CDATA[374]]></qid>
+    <qid><![CDATA[82]]></qid>
     <code><![CDATA[A12]]></code>
     <answer><![CDATA[Overig ]]></answer>
     <sortorder><![CDATA[12]]></sortorder>
@@ -139,8 +139,8 @@
   </fields>
   <rows>
    <row>
-    <gid><![CDATA[44]]></gid>
-    <sid><![CDATA[476659]]></sid>
+    <gid><![CDATA[6]]></gid>
+    <sid><![CDATA[472989]]></sid>
     <group_name><![CDATA[Algemeen - Type plan]]></group_name>
     <group_order><![CDATA[0]]></group_order>
     <description/>
@@ -149,8 +149,8 @@
     <grelevance/>
    </row>
    <row>
-    <gid><![CDATA[45]]></gid>
-    <sid><![CDATA[476659]]></sid>
+    <gid><![CDATA[7]]></gid>
+    <sid><![CDATA[472989]]></sid>
     <group_name><![CDATA[Overige Risicovolle objecten]]></group_name>
     <group_order><![CDATA[4]]></group_order>
     <description/>
@@ -159,8 +159,8 @@
     <grelevance><![CDATA[((AV1.NAOK != "A1") and (AV1.NAOK != "A12"))]]></grelevance>
    </row>
    <row>
-    <gid><![CDATA[46]]></gid>
-    <sid><![CDATA[476659]]></sid>
+    <gid><![CDATA[8]]></gid>
+    <sid><![CDATA[472989]]></sid>
     <group_name><![CDATA[Plancontour]]></group_name>
     <group_order><![CDATA[1]]></group_order>
     <description/>
@@ -169,8 +169,8 @@
     <grelevance><![CDATA[((AV1.NAOK != "A1") and (AV1.NAOK != "A12"))]]></grelevance>
    </row>
    <row>
-    <gid><![CDATA[47]]></gid>
-    <sid><![CDATA[476659]]></sid>
+    <gid><![CDATA[9]]></gid>
+    <sid><![CDATA[472989]]></sid>
     <group_name><![CDATA[Ruimtelijke toets]]></group_name>
     <group_order><![CDATA[2]]></group_order>
     <description/>
@@ -179,8 +179,8 @@
     <grelevance><![CDATA[((AV1.NAOK != "A1") and (AV1.NAOK != "A12"))]]></grelevance>
    </row>
    <row>
-    <gid><![CDATA[52]]></gid>
-    <sid><![CDATA[476659]]></sid>
+    <gid><![CDATA[10]]></gid>
+    <sid><![CDATA[472989]]></sid>
     <group_name><![CDATA[(Beperkt) kwetsbare Objecten]]></group_name>
     <group_order><![CDATA[3]]></group_order>
     <description/>
@@ -212,10 +212,10 @@
   </fields>
   <rows>
    <row>
-    <qid><![CDATA[374]]></qid>
+    <qid><![CDATA[82]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[44]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[6]]></gid>
     <type><![CDATA[L]]></type>
     <title><![CDATA[AV1]]></title>
     <question><![CDATA[Wat voor ruimtelijk plan betreft het?]]></question>
@@ -231,10 +231,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[375]]></qid>
+    <qid><![CDATA[83]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[44]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[6]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[AR1A]]></title>
     <question><![CDATA[<span style="color:#FF0000;">Op basis van de huidige wetgeving is er geen verplichting om externe veiligheid mee te nemen in het plan. In geval van een Structuurvisie moeten alle belemmeringen in kaart gebracht zijn en als gevolg daarvan kan het zijn dat externe veiligheid toch moet worden meegenomen.</span>]]></question>
@@ -250,10 +250,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[376]]></qid>
+    <qid><![CDATA[84]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[M]]></type>
     <title><![CDATA[AV2]]></title>
     <question><![CDATA[Welke kwetsbare objecten worden toegestaan?]]></question>
@@ -269,10 +269,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[377]]></qid>
+    <qid><![CDATA[85]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[M]]></type>
     <title><![CDATA[AV3]]></title>
     <question><![CDATA[Welke beperkt kwetsbare objecten worden toegestaan?]]></question>
@@ -288,10 +288,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[378]]></qid>
+    <qid><![CDATA[86]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[46]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[8]]></gid>
     <type><![CDATA[S]]></type>
     <title><![CDATA[plancontour]]></title>
     <question><![CDATA[<div class="ev-map dontshowinprint" data-sgq="{SGQ}" data-sid="{SID}">Toon of teken de plancontour: {SGQ}</div>
@@ -308,10 +308,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[379]]></qid>
+    <qid><![CDATA[87]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[SQ1]]></title>
     <question><![CDATA[Liggen er spoorlijnen uit het basisnet in het plangebied?
@@ -329,10 +329,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[380]]></qid>
+    <qid><![CDATA[88]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[SQ2]]></title>
     <question><![CDATA[Overlapt de PR 10<sup><span style="font-size:12px;">-6 </span></sup>contour van spoorwegen uit het basisnet geheel of gedeeltelijk het plangebied?
@@ -350,10 +350,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[381]]></qid>
+    <qid><![CDATA[89]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[AV4]]></title>
     <question><![CDATA[Wilt a beperkt kwetsbare objecten mogelijk maken binnen de PR10<span style="font-size:12px;"><sup>-6</sup></span> risicocontour?]]></question>
@@ -369,10 +369,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[382]]></qid>
+    <qid><![CDATA[90]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[SQ3]]></title>
     <question><![CDATA[Overlapt de PR 10<sup><span style="font-size:12px;">-7 </span></sup>contour van spoorwegen uit het basisnet geheel of gedeeltelijk met het plangebied?
@@ -390,10 +390,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[383]]></qid>
+    <qid><![CDATA[91]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[46]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[8]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[PlanPlaatjeUrl]]></title>
     <question><![CDATA[Plangebied url:
@@ -411,10 +411,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[384]]></qid>
+    <qid><![CDATA[92]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[BQ1]]></title>
     <question><![CDATA[Ligt er een risicovolle inrichting in het plangebied?
@@ -432,10 +432,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[385]]></qid>
+    <qid><![CDATA[93]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[BQ2]]></title>
     <question><![CDATA[Overlapt een plaatsgebonden risicocontour (PR10<sup><span style="font-size:12px;">-6 </span></sup>)  van een inrichting geheel of gedeeltelijk het plangebied?<div class="spatialquestion" data-filter="BQ2" data-plangebied-wkt="{plancontour}" data-requesttype="getEVFeatures" data-servicename="risicokaartWFS" data-sgq="{SGQ}"> </div>]]></question>
@@ -451,10 +451,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[386]]></qid>
+    <qid><![CDATA[94]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[BQ3]]></title>
     <question><![CDATA[Overlapt een plaatsgebonden risicocontour (PR10<sup><span style="font-size:12px;">-6 </span></sup>)  van een installatie geheel of gedeeltelijk het plangebied?<div class="spatialquestion" data-filter="BQ3" data-plangebied-wkt="{plancontour}" data-requesttype="getEVFeatures" data-servicename="risicokaartWFS" data-sgq="{SGQ}"> </div>]]></question>
@@ -470,10 +470,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[387]]></qid>
+    <qid><![CDATA[95]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[BQ4]]></title>
     <question><![CDATA[Overlapt een invloedsgebied van een inrichting geheel of gedeeltelijk het plangebied?<div class="spatialquestion" data-filter="BQ4" data-plangebied-wkt="{plancontour}" data-requesttype="getEVFeatures" data-servicename="risicokaartWFS" data-sgq="{SGQ}"> </div>]]></question>
@@ -489,10 +489,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[388]]></qid>
+    <qid><![CDATA[96]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[BQ5]]></title>
     <question><![CDATA[Overlapt een invloedsgebied van een installatie geheel of gedeeltelijk het plangebied?
@@ -510,10 +510,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[389]]></qid>
+    <qid><![CDATA[97]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[BQ6]]></title>
     <question><![CDATA[Overlapt een 1% letaliteitszone explosief geheel of gedeeltelijk met het plangebied?<div class="spatialquestion" data-filter="BQ6" data-plangebied-wkt="{plancontour}" data-requesttype="getEVFeatures" data-servicename="risicokaartWFS" data-sgq="{SGQ}"> </div>]]></question>
@@ -529,10 +529,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[390]]></qid>
+    <qid><![CDATA[98]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[BQ7]]></title>
     <question><![CDATA[Overlapt een 1% letaliteitszone ontvlambaar geheel of gedeeltelijk met het plangebied?<div class="spatialquestion" data-filter="BQ7" data-plangebied-wkt="{plancontour}" data-requesttype="getEVFeatures" data-servicename="risicokaartWFS" data-sgq="{SGQ}"> </div>]]></question>
@@ -548,10 +548,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[391]]></qid>
+    <qid><![CDATA[99]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[BQ8]]></title>
     <question><![CDATA[Overlapt een 1% letaliteitszone toxisch geheel of gedeeltelijk het plangebied?<div class="spatialquestion" data-filter="BQ8" data-plangebied-wkt="{plancontour}" data-requesttype="getEVFeatures" data-servicename="risicokaartWFS" data-sgq="{SGQ}"> </div>]]></question>
@@ -567,10 +567,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[392]]></qid>
+    <qid><![CDATA[100]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[BR1]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is niet aan de orde voor het onderdeel BEVI.</span></div>]]></question>
@@ -586,10 +586,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[393]]></qid>
+    <qid><![CDATA[101]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[BR2]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is aan de orde voor het onderdeel BEVI.</span></div>]]></question>
@@ -605,10 +605,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[394]]></qid>
+    <qid><![CDATA[102]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[45]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[7]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[AV51]]></title>
     <question><![CDATA[Wilt u risicovolle inrichtingen in het plangebied mogelijk maken?]]></question>
@@ -624,10 +624,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[395]]></qid>
+    <qid><![CDATA[103]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[SQ4]]></title>
     <question><![CDATA[Overlapt de PR 10<sup><span style="font-size:12px;">-8 </span></sup> contour van spoorwegen uit het basisnet geheel of gedeeltelijk met het plangebied?
@@ -645,10 +645,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[396]]></qid>
+    <qid><![CDATA[104]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[SQ5]]></title>
     <question><![CDATA[Overlapt de toetsafstand voor de bepaling van het groepsrisico (200m) voor spoorwegen uit het basisnet geheel of gedeeltelijk het plangebied?
@@ -666,10 +666,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[397]]></qid>
+    <qid><![CDATA[105]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[SQ6]]></title>
     <question><![CDATA[Overlapt het plasbrandaandachtsgebied van spoorwegen uit het basisnet geheel of gedeeltelijk het plangebied?
@@ -687,10 +687,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[398]]></qid>
+    <qid><![CDATA[106]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[WQ1]]></title>
     <question><![CDATA[Overlapt een weg uit het basisnet geheel of gedeeltelijk het plangebied?
@@ -708,10 +708,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[399]]></qid>
+    <qid><![CDATA[107]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[WQ3]]></title>
     <question><![CDATA[Overlapt een plasbrandaandachtsgebied (PAG) uit het basisnet weg geheel of gedeeltelijk het plangebied?
@@ -729,10 +729,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[400]]></qid>
+    <qid><![CDATA[108]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[WQ4]]></title>
     <question><![CDATA[Overlapt het GR-plafond van een weg uit het basisnet geheel of gedeeltelijk het plangebied?
@@ -750,10 +750,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[401]]></qid>
+    <qid><![CDATA[109]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[WQ5]]></title>
     <question><![CDATA[Overlapt de toetsafstand voor de bepaling van het groepsrisico (200m) voor wegen uit het basisnet geheel of gedeeltelijk het plangebied?
@@ -771,10 +771,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[402]]></qid>
+    <qid><![CDATA[110]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[WOQ1]]></title>
     <question><![CDATA[Overlapt een weg uit de provinciale routering gevaarlijke stoffen geheel of gedeeltelijk het plangebied?
@@ -792,10 +792,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[403]]></qid>
+    <qid><![CDATA[111]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[WOQ3]]></title>
     <question><![CDATA[Overlapt het plasbrandaandachtsgebied (PAG) van een weg uit de provinciale routering gevaarlijke stoffen geheel of gedeeltelijk het plangebied?<div class="spatialquestion" data-filter="WOQ3" data-plangebied-wkt="{plancontour}" data-requesttype="getEVFeatures" data-servicename="ruimtelijkeplannenWFS" data-sgq="{SGQ}"> </div>]]></question>
@@ -811,10 +811,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[404]]></qid>
+    <qid><![CDATA[112]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[WOQ4]]></title>
     <question><![CDATA[Overlapt de toetsafstand voor de bepaling van het groepsrisico (200m) voor wegen uit de provinciale routering gevaarlijke stoffen geheel of gedeeltelijk het plangebied?
@@ -832,10 +832,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[405]]></qid>
+    <qid><![CDATA[113]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[WR4]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ffffcc;">Bepaal het maximale invloedsgebied voor de weg(en) met behulp van onderstaande tabel:</span>
@@ -915,10 +915,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[406]]></qid>
+    <qid><![CDATA[114]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[SR2]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is aan de orde voor het onderdeel basisnet spoor.</span></div>]]></question>
@@ -934,10 +934,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[407]]></qid>
+    <qid><![CDATA[115]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[SR4]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ffffcc;">Gebruik voor berekeningen het maximale invloedsgebied uit onderstaande tabel:</span>
@@ -989,10 +989,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[408]]></qid>
+    <qid><![CDATA[116]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[SR1]]></title>
     <question><![CDATA[<div class="ev-visible-print">
@@ -1010,10 +1010,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[409]]></qid>
+    <qid><![CDATA[117]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[WQ2]]></title>
     <question><![CDATA[Overlapt het PR-plafond (10<sup>-6</sup>) van een weg uit het basisnet met het plangebied?
@@ -1031,10 +1031,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[410]]></qid>
+    <qid><![CDATA[118]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[WR1]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is niet aan de orde voor het onderdeel basinet weg</span></div>]]></question>
@@ -1050,10 +1050,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[411]]></qid>
+    <qid><![CDATA[119]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[WR2]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is aan de orde voor het onderdeel basisnet weg.</span></div>]]></question>
@@ -1069,10 +1069,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[412]]></qid>
+    <qid><![CDATA[120]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[WOR2]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is aan de orde voor het onderdeel provinciale routering gevaarlijke stoffen.</span></div>]]></question>
@@ -1088,10 +1088,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[413]]></qid>
+    <qid><![CDATA[121]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[WOR1]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is niet aan de orde voor het onderdeel provinciale routering gevaalijke stoffen</span></div>]]></question>
@@ -1107,10 +1107,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[414]]></qid>
+    <qid><![CDATA[122]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[WOR3]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ffffcc;">Bepaal het maximale invloedsgebied voor de provinciale weg(en) aan de hand van onderstaande tabel:</span>
@@ -1190,10 +1190,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[415]]></qid>
+    <qid><![CDATA[123]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[BLQ1]]></title>
     <question><![CDATA[Ligt er (een belemmeringsstrook van) een buisleiding in het plangebied?
@@ -1211,10 +1211,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[416]]></qid>
+    <qid><![CDATA[124]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[BLQ2]]></title>
     <question><![CDATA[Overlapt een PR 10-6 van een buisleiding geheel of gedeeltelijk met het  plangebied?
@@ -1232,10 +1232,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[417]]></qid>
+    <qid><![CDATA[125]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[BLQ3]]></title>
     <question><![CDATA[Bevindt er zich een buisleiding binnen 500 meter van het plangebied? Let op: De afstand is artbitrair gekozen, ruimtelijke is nog niet betrouwbaar.
@@ -1253,10 +1253,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[418]]></qid>
+    <qid><![CDATA[126]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[BLQ4]]></title>
     <question><![CDATA[Overlapt de 1% letaliteit (ontvlambaar) van een buisleiding met het plangebied?
@@ -1274,10 +1274,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[419]]></qid>
+    <qid><![CDATA[127]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[BLR1]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is niet aan de orde voor bestaande buisleidingen</span></div>]]></question>
@@ -1293,10 +1293,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[420]]></qid>
+    <qid><![CDATA[128]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[BLR3]]></title>
     <question><![CDATA[<div class="ev-visible-print"><p><span style="background-color:#ADD8E6;">Externe Veiligheid is aan de orde voor buisleidingen.</span></p>
@@ -1315,10 +1315,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[421]]></qid>
+    <qid><![CDATA[129]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[45]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[7]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[AV52]]></title>
     <question><![CDATA[Wilt u een buisleidingen met een diameter > 50mm en een druk > 1600kPa in het plangebied mogelijk maken?]]></question>
@@ -1334,10 +1334,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[422]]></qid>
+    <qid><![CDATA[130]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[45]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[7]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[AV53]]></title>
     <question><![CDATA[Wilt u transportroutes voor gevaarlijke stoffen in het plangebied mogelijk maken?]]></question>
@@ -1353,10 +1353,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[423]]></qid>
+    <qid><![CDATA[131]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[45]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[7]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[AR1]]></title>
     <question><![CDATA[<div class="ev-visible-print">
@@ -1387,10 +1387,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[424]]></qid>
+    <qid><![CDATA[132]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[BLR2]]></title>
     <question><![CDATA[<div class="ev-visible-print"><p><span style="background-color:#ADD8E6;">Er bevindt zich een (belemmeringsstrook) buisleiding in het plangebied.</span></p>
@@ -1420,10 +1420,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[425]]></qid>
+    <qid><![CDATA[133]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[KWOQ1]]></title>
     <question><![CDATA[Ligt de PR 10-6 buisleiding in het plangebied en overlapt deze met bestaande kwetsbare objecten?
@@ -1441,10 +1441,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[426]]></qid>
+    <qid><![CDATA[134]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[KWOQ4]]></title>
     <question><![CDATA[Ligt de PR 10-6 van buisleiding in het plangebied en overlapt deze met bestaande beperkt kwetsbare objecten?
@@ -1462,10 +1462,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[427]]></qid>
+    <qid><![CDATA[135]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[KWOQ2]]></title>
     <question><![CDATA[Ligt de PR 10-6 van een inrichting in het plangebied en overlapt deze met bestaande kwetsbare objecten?
@@ -1483,10 +1483,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[428]]></qid>
+    <qid><![CDATA[136]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[KWOQ5]]></title>
     <question><![CDATA[Ligt de PR 10-6 van een inrichting in het plangebied en overlapt deze met bestaande beperkt kwetsbare objecten?
@@ -1504,10 +1504,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[429]]></qid>
+    <qid><![CDATA[137]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[45]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[7]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[AR2]]></title>
     <question><![CDATA[<div class="ev-visible-print"><ul>
@@ -1530,10 +1530,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[430]]></qid>
+    <qid><![CDATA[138]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[U]]></type>
     <title><![CDATA[SR3]]></title>
     <question><![CDATA[<div class="ev-visible-print">De volgende spoorwegen uit het basisnet hebben invloed op het plangebied, gebruik de onderstaande waarden voor berekeningen:
@@ -1552,10 +1552,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[431]]></qid>
+    <qid><![CDATA[139]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[44]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[6]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[AR1B]]></title>
     <question><![CDATA[<span style="color:#FF0000;">De resultaten van de toets zijn gebaseerd op live data die in de tijd wijzigt. Wees er daarom van bewust dat deze data beperkt houdbaar is. Bij twijfel over de actualiteit van de data graag contact opnemen met ....</span>]]></question>
@@ -1571,10 +1571,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[432]]></qid>
+    <qid><![CDATA[140]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[WR3]]></title>
     <question><![CDATA[<div class="ev-visible-print">De volgende wegen uit het basisnet hebben invloed op het plangebied, gebruik de onderstaande waarden voor berekeningen:  
@@ -1593,10 +1593,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[433]]></qid>
+    <qid><![CDATA[141]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[KWOQ3]]></title>
     <question><![CDATA[Ligt de PR 10-6 van een installatie in het plangebied en overlapt deze met bestaande kwetsbare objecten?
@@ -1614,10 +1614,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[434]]></qid>
+    <qid><![CDATA[142]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[KWOQ6]]></title>
     <question><![CDATA[Ligt de PR 10-6 van een installatie in het plangebied en overlapt deze met bestaande beperkt kwetsbare objecten?
@@ -1635,10 +1635,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[435]]></qid>
+    <qid><![CDATA[143]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[KWOR2]]></title>
     <question><![CDATA[<div class="ev-visible-print">
@@ -1659,10 +1659,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[436]]></qid>
+    <qid><![CDATA[144]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[KWOR1]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Er bevinden zich geen kwetsbare objecten binnen een 10</span><sup><span style="background-color:#ADD8E6;">-6</span></sup><span style="background-color:#ADD8E6;"> contour in het plangebied.</span></div>]]></question>
@@ -1678,10 +1678,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[437]]></qid>
+    <qid><![CDATA[145]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[KWOR3]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Er bevinden zich geen beperkt kwetsbare objecten binnen een 10</span><sup><span style="background-color:#ADD8E6;">-6</span></sup><span style="background-color:#ADD8E6;"> contour in het plangebied.</span></div>]]></question>
@@ -1697,10 +1697,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[438]]></qid>
+    <qid><![CDATA[146]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[KWOR4]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Gevonden beperkt kwetsbare objecten binnen PR10</span><sup><span style="background-color:#ADD8E6;">-6</span></sup><span style="background-color:#ADD8E6;"> in plangebied:</span></div>]]></question>
@@ -1716,10 +1716,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[455]]></qid>
+    <qid><![CDATA[147]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[BR4]]></title>
     <question><![CDATA[<div class="ev-visible-print">Invloedsgebied onderstaande inrichting(en) overlapt geheel of gedeeltelijk met het plangebied:
@@ -1738,10 +1738,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[456]]></qid>
+    <qid><![CDATA[148]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[47]]></gid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[9]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[BR5]]></title>
     <question><![CDATA[<div class="ev-visible-print">Invloedsgebied onderstaande installatie(s) overlapt geheel of gedeeltelijk met het plangebied:
@@ -1782,10 +1782,10 @@
   </fields>
   <rows>
    <row>
-    <qid><![CDATA[439]]></qid>
-    <parent_qid><![CDATA[376]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[149]]></qid>
+    <parent_qid><![CDATA[84]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[M]]></type>
     <title><![CDATA[SQ001]]></title>
     <question><![CDATA[Bijeenkomst<div class="fa fa-info-circle text-info"  title="Zoals kerk, moskee, buurthuis etc."></div>]]></question>
@@ -1799,10 +1799,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[440]]></qid>
-    <parent_qid><![CDATA[376]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[150]]></qid>
+    <parent_qid><![CDATA[84]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[M]]></type>
     <title><![CDATA[SQ002]]></title>
     <question><![CDATA[Gezondheid<div class="fa fa-info-circle text-info"  title="Zoals ziekenhuizen, bejaardenhuizen en verpleeghuizen."></div>]]></question>
@@ -1816,10 +1816,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[441]]></qid>
-    <parent_qid><![CDATA[376]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[151]]></qid>
+    <parent_qid><![CDATA[84]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[M]]></type>
     <title><![CDATA[SQ003]]></title>
     <question><![CDATA[Wonen<div class="fa fa-info-circle text-info"  title="meer dan 2 woningen, woonschepen en woonwagens per ha."></div>]]></question>
@@ -1833,10 +1833,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[442]]></qid>
-    <parent_qid><![CDATA[376]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[152]]></qid>
+    <parent_qid><![CDATA[84]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[M]]></type>
     <title><![CDATA[SQ004]]></title>
     <question><![CDATA[Kampeer- en andere recreatieterreinens <div class="fa fa-info-circle text-info"  title="> meer dan 50 personen gedurende meerdere aaneengesloten dagen"></div>]]></question>
@@ -1850,10 +1850,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[443]]></qid>
-    <parent_qid><![CDATA[376]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[153]]></qid>
+    <parent_qid><![CDATA[84]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[M]]></type>
     <title><![CDATA[SQ005]]></title>
     <question><![CDATA[Onderwijs<div class="fa fa-info-circle text-info"  title="Alle vormen."></div>]]></question>
@@ -1867,10 +1867,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[444]]></qid>
-    <parent_qid><![CDATA[376]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[154]]></qid>
+    <parent_qid><![CDATA[84]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[M]]></type>
     <title><![CDATA[SQ006]]></title>
     <question><![CDATA[Kinderdagverblijf<div class="fa fa-info-circle text-info"  title="Kinderdagverblijf."></div>]]></question>
@@ -1884,10 +1884,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[445]]></qid>
-    <parent_qid><![CDATA[376]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[155]]></qid>
+    <parent_qid><![CDATA[84]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[M]]></type>
     <title><![CDATA[SQ007]]></title>
     <question><![CDATA[Logies<div class="fa fa-info-circle text-info"  title="> 1.500 m2 bvo."></div>]]></question>
@@ -1901,10 +1901,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[446]]></qid>
-    <parent_qid><![CDATA[377]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[156]]></qid>
+    <parent_qid><![CDATA[85]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[SQ001]]></title>
     <question><![CDATA[Wonen<div class="fa fa-info-circle text-info"  title="Dienst- en bedrijfswoningen van derden. 2 of minder woningen, woonschepen of woonwagens per ha."></div>]]></question>
@@ -1918,10 +1918,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[447]]></qid>
-    <parent_qid><![CDATA[377]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[157]]></qid>
+    <parent_qid><![CDATA[85]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[SQ002]]></title>
     <question><![CDATA[Kantoren<div class="fa fa-info-circle text-info"  title="< 1.500 m2 bvo."></div>]]></question>
@@ -1935,10 +1935,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[448]]></qid>
-    <parent_qid><![CDATA[377]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[158]]></qid>
+    <parent_qid><![CDATA[85]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[SQ003]]></title>
     <question><![CDATA[Winkel<div class="fa fa-info-circle text-info"  title="omplex met <= 5 winkels, bvo >1000 m2. Winkel met BVO < 2.000 m2. Met supermarkt, hypermarkt of warenhuis."></div>]]></question>
@@ -1952,10 +1952,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[449]]></qid>
-    <parent_qid><![CDATA[377]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[159]]></qid>
+    <parent_qid><![CDATA[85]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[SQ004]]></title>
     <question><![CDATA[Logies<div class="fa fa-info-circle text-info"  title="< 1.500 bvo."></div>]]></question>
@@ -1969,10 +1969,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[450]]></qid>
-    <parent_qid><![CDATA[377]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[160]]></qid>
+    <parent_qid><![CDATA[85]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[SQ005]]></title>
     <question><![CDATA[Sport<div class="fa fa-info-circle text-info"  title="sporthallen, sportterreinen, zwembaden en speeltuinen"></div>]]></question>
@@ -1986,10 +1986,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[451]]></qid>
-    <parent_qid><![CDATA[377]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[161]]></qid>
+    <parent_qid><![CDATA[85]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[SQ006]]></title>
     <question><![CDATA[Recreatie<div class="fa fa-info-circle text-info"  title="kampeerterreinen en andere terreinen bestemd voor recreatieve doeleinden, voor zover minder dan 50 personen gedurende meerdere aaneengesloten dagen"></div>]]></question>
@@ -2003,10 +2003,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[452]]></qid>
-    <parent_qid><![CDATA[377]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[162]]></qid>
+    <parent_qid><![CDATA[85]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[SQ007]]></title>
     <question><![CDATA[Industrie<div class="fa fa-info-circle text-info"  title="Bedrijfsgebouwen voor zover geen kantoorgebouw bvo > 1.500 m2"></div>]]></question>
@@ -2020,10 +2020,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[453]]></qid>
-    <parent_qid><![CDATA[376]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[163]]></qid>
+    <parent_qid><![CDATA[84]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[SQ008]]></title>
     <question><![CDATA[Winkel<div class="fa fa-info-circle text-info"  title="Complex met meer dan 5 winkels bvo >1000 m2  of winkel met BVO > 2.000 m2. Met supermarkt, hypermarkt of warenhuis"></div>]]></question>
@@ -2037,10 +2037,10 @@
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[454]]></qid>
-    <parent_qid><![CDATA[376]]></parent_qid>
-    <sid><![CDATA[476659]]></sid>
-    <gid><![CDATA[52]]></gid>
+    <qid><![CDATA[164]]></qid>
+    <parent_qid><![CDATA[84]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[10]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[SQ009]]></title>
     <question><![CDATA[Cel<div class="fa fa-info-circle text-info"  title="Cellencomplex, huis van bewaring, gesloten inrichting etc."></div>]]></question>
@@ -2064,79 +2064,79 @@
   </fields>
   <rows>
    <row>
-    <qid><![CDATA[374]]></qid>
+    <qid><![CDATA[102]]></qid>
+    <attribute><![CDATA[display_type]]></attribute>
+    <value><![CDATA[1]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[82]]></qid>
     <attribute><![CDATA[hide_tip]]></attribute>
     <value><![CDATA[1]]></value>
    </row>
    <row>
-    <qid><![CDATA[376]]></qid>
-    <attribute><![CDATA[display_columns]]></attribute>
-    <value><![CDATA[2]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[376]]></qid>
+    <qid><![CDATA[86]]></qid>
     <attribute><![CDATA[statistics_showgraph]]></attribute>
     <value><![CDATA[0]]></value>
    </row>
    <row>
-    <qid><![CDATA[377]]></qid>
-    <attribute><![CDATA[display_columns]]></attribute>
-    <value><![CDATA[2]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[377]]></qid>
-    <attribute><![CDATA[statistics_showgraph]]></attribute>
-    <value><![CDATA[0]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[378]]></qid>
-    <attribute><![CDATA[location_defaultcoordinates]]></attribute>
-    <value><![CDATA[52.5 6.2]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[378]]></qid>
+    <qid><![CDATA[86]]></qid>
     <attribute><![CDATA[location_mapheight]]></attribute>
     <value><![CDATA[600]]></value>
    </row>
    <row>
-    <qid><![CDATA[378]]></qid>
+    <qid><![CDATA[86]]></qid>
     <attribute><![CDATA[location_mapzoom]]></attribute>
     <value><![CDATA[9]]></value>
    </row>
    <row>
-    <qid><![CDATA[378]]></qid>
-    <attribute><![CDATA[statistics_showgraph]]></attribute>
-    <value><![CDATA[0]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[379]]></qid>
+    <qid><![CDATA[87]]></qid>
     <attribute><![CDATA[page_break]]></attribute>
     <value><![CDATA[1]]></value>
    </row>
    <row>
-    <qid><![CDATA[381]]></qid>
-    <attribute><![CDATA[display_type]]></attribute>
-    <value><![CDATA[1]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[394]]></qid>
-    <attribute><![CDATA[display_type]]></attribute>
-    <value><![CDATA[1]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[394]]></qid>
+    <qid><![CDATA[102]]></qid>
     <attribute><![CDATA[statistics_showgraph]]></attribute>
     <value><![CDATA[0]]></value>
    </row>
    <row>
-    <qid><![CDATA[421]]></qid>
+    <qid><![CDATA[129]]></qid>
     <attribute><![CDATA[display_type]]></attribute>
     <value><![CDATA[1]]></value>
    </row>
    <row>
-    <qid><![CDATA[422]]></qid>
+    <qid><![CDATA[85]]></qid>
+    <attribute><![CDATA[display_columns]]></attribute>
+    <value><![CDATA[2]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[84]]></qid>
+    <attribute><![CDATA[display_columns]]></attribute>
+    <value><![CDATA[2]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[86]]></qid>
+    <attribute><![CDATA[location_defaultcoordinates]]></attribute>
+    <value><![CDATA[52.5 6.2]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[130]]></qid>
     <attribute><![CDATA[display_type]]></attribute>
     <value><![CDATA[1]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[85]]></qid>
+    <attribute><![CDATA[statistics_showgraph]]></attribute>
+    <value><![CDATA[0]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[89]]></qid>
+    <attribute><![CDATA[display_type]]></attribute>
+    <value><![CDATA[1]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[84]]></qid>
+    <attribute><![CDATA[statistics_showgraph]]></attribute>
+    <value><![CDATA[0]]></value>
    </row>
   </rows>
  </question_attributes>
@@ -2200,7 +2200,7 @@
   </fields>
   <rows>
    <row>
-    <sid><![CDATA[476659]]></sid>
+    <sid><![CDATA[472989]]></sid>
     <admin><![CDATA[Administrator]]></admin>
     <adminemail><![CDATA[linda.vels@idgis.nl]]></adminemail>
     <anonymized><![CDATA[N]]></anonymized>
@@ -2278,7 +2278,7 @@
   </fields>
   <rows>
    <row>
-    <surveyls_survey_id><![CDATA[476659]]></surveyls_survey_id>
+    <surveyls_survey_id><![CDATA[472989]]></surveyls_survey_id>
     <surveyls_language><![CDATA[nl]]></surveyls_language>
     <surveyls_title><![CDATA[Signaleringskaart Externe Veiligheid Overijssel]]></surveyls_title>
     <surveyls_description/>
@@ -2405,8 +2405,8 @@ De volgende antwoorden zijn door de deelnemer gegeven:<br />
   </fields>
   <rows>
    <row>
-    <id><![CDATA[8]]></id>
-    <sid><![CDATA[476659]]></sid>
+    <id><![CDATA[4]]></id>
+    <sid><![CDATA[472989]]></sid>
     <parameter><![CDATA[test]]></parameter>
    </row>
   </rows>
