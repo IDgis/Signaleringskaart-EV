@@ -65,7 +65,7 @@ public class EVFeaturesRequest extends VeiligheidtoetsRequest {
 		
 		String template = templateHandler.getFilter(filter, props);
 		if(template == null) {
-			features.put(ERROR, "\"Filter is invalid!\"");
+			features.put(ERROR, String.format("\"Filter is invalid: %s!\"", filter));
 			return features;
 		}
 		LOGGER.log(Level.DEBUG, "TEMPLATE:\n" + template);
