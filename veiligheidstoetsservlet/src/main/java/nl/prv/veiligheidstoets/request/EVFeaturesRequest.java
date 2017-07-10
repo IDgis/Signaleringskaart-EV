@@ -21,7 +21,7 @@ public class EVFeaturesRequest extends VeiligheidtoetsRequest {
 	
 	protected EVFeaturesRequest(Map<String, String> props) {
 		super(props);
-		LOGGER.setLevel(Level.DEBUG);
+		LOGGER.setLevel(Level.INFO);
 		templateHandler = new TemplateHandler();
 	}
 	
@@ -65,7 +65,7 @@ public class EVFeaturesRequest extends VeiligheidtoetsRequest {
 		
 		String template = templateHandler.getFilter(filter, props);
 		if(template == null) {
-			features.put(ERROR, "\"Filter is invalid!\"");
+			features.put(ERROR, String.format("\"Filter is invalid: %s!\"", filter));
 			return features;
 		}
 		LOGGER.log(Level.DEBUG, "TEMPLATE:\n" + template);

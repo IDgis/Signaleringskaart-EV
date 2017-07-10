@@ -22,7 +22,7 @@ public class ServletResponse {
 	 * @return
 	 */
 	public static JsonObject convertToJson(Map<String, String> featureMap) {
-		LOGGER.setLevel(Level.ALL);
+		LOGGER.setLevel(Level.INFO);
 		JsonObject json = new JsonObject();
 		JsonParser parser = new JsonParser();
 		

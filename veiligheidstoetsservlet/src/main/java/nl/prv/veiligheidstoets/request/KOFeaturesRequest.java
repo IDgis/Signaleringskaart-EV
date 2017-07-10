@@ -24,7 +24,7 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 	
 	protected KOFeaturesRequest(Map<String, String> props) {
 		super(props);
-		LOGGER.setLevel(Level.DEBUG);
+		LOGGER.setLevel(Level.INFO);
 		templateHandler = new TemplateHandler();
 	}
 	
@@ -80,7 +80,7 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 		
 		String templateEv = templateHandler.getFilter(filterEv, props);
 		if(templateEv == null) {
-			features.put(ERROR, "\"Filter EV is invalid!\"");
+			features.put(ERROR, String.format("\"Filter EV is invalid: %s!\"", filterEv));
 			return features;
 		}
 		LOGGER.log(Level.DEBUG, "TEMPLATE EV:\n" + templateEv);
@@ -112,7 +112,7 @@ public class KOFeaturesRequest extends VeiligheidtoetsRequest {
 		// Get Kwetsbare Objecten within the MultiPoint object
 		String templateKo = templateHandler.getFilter(filterKo, props);
 		if(templateKo == null) {
-			features.put(ERROR, "\"Filter KO is invalid!\"");
+			features.put(ERROR, String.format("\"Filter KO is invalid: %s!\"", filterKo));
 			return features;
 		}
 		LOGGER.log(Level.DEBUG, "TEMPLATE KO:\n" + templateKo);

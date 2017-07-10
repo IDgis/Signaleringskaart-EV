@@ -28,7 +28,7 @@ public abstract class VeiligheidtoetsRequest {
 	protected static final String ERROR = "error";
 	
 	protected VeiligheidtoetsRequest(Map<String, String> props) {
-		LOGGER.setLevel(Level.DEBUG);
+		LOGGER.setLevel(Level.INFO);
 		this.props = props;
 	}
 	

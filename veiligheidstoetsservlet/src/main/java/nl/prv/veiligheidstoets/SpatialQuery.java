@@ -22,7 +22,7 @@ public class SpatialQuery {
 	private String featureResult;
 
 	public SpatialQuery(String urlstr, String template) {
-		LOGGER.setLevel(Level.DEBUG);
+		LOGGER.setLevel(Level.INFO);
 		this.urlstr = urlstr;
 		this.template = template;
 	}
