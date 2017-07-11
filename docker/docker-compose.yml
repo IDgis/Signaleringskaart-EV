@@ -11,6 +11,7 @@ services:
       - nginx_logs:/var/log/nginx
   db:
     container_name: db-ov
+    restart: always
     build: database
     ports:
       - "5432:5432"
@@ -23,6 +24,7 @@ services:
       
   limesurvey:
     container_name: limesurvey-ov
+    restart: always
     expose:
      - "80"
     environment:
