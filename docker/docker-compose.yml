@@ -41,6 +41,8 @@ services:
     container_name: deegree-ov
     restart: always
     build: deegree
+    depends_on:
+      - db
     expose:
       - "8080"
     volumes:
