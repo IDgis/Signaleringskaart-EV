@@ -485,7 +485,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
-    <question_order><![CDATA[30]]></question_order>
+    <question_order><![CDATA[29]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -506,7 +506,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
-    <question_order><![CDATA[32]]></question_order>
+    <question_order><![CDATA[30]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -527,7 +527,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
-    <question_order><![CDATA[34]]></question_order>
+    <question_order><![CDATA[31]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -548,7 +548,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
-    <question_order><![CDATA[36]]></question_order>
+    <question_order><![CDATA[32]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -567,7 +567,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[N]]></mandatory>
-    <question_order><![CDATA[38]]></question_order>
+    <question_order><![CDATA[33]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -586,7 +586,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[N]]></mandatory>
-    <question_order><![CDATA[39]]></question_order>
+    <question_order><![CDATA[34]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -647,7 +647,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
-    <question_order><![CDATA[5]]></question_order>
+    <question_order><![CDATA[4]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -668,7 +668,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
-    <question_order><![CDATA[4]]></question_order>
+    <question_order><![CDATA[5]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -710,7 +710,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
-    <question_order><![CDATA[13]]></question_order>
+    <question_order><![CDATA[12]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -731,7 +731,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
-    <question_order><![CDATA[12]]></question_order>
+    <question_order><![CDATA[13]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -1248,7 +1248,8 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[BLR1]]></title>
-    <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is niet aan de orde voor bestaande buisleidingen</span></div>]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is niet aan de orde voor bestaande buisleidingen</span></div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1257,7 +1258,7 @@
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
-    <relevance><![CDATA[(BLQ1.NAOK == "N" and BLQ2.NAOK == "N" and BLQ3.NAOK == "N" and  BLQ4.NAOK == "N" )]]></relevance>
+    <relevance><![CDATA[(BLQ1.NAOK == "N" and BLQ2.NAOK == "N" and BLQ3.NAOK == "N" )]]></relevance>
     <modulename/>
    </row>
    <row>
@@ -1294,7 +1295,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
-    <question_order><![CDATA[2]]></question_order>
+    <question_order><![CDATA[1]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -1313,7 +1314,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
-    <question_order><![CDATA[1]]></question_order>
+    <question_order><![CDATA[2]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -1388,7 +1389,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
-    <question_order><![CDATA[51]]></question_order>
+    <question_order><![CDATA[49]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -1430,7 +1431,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
-    <question_order><![CDATA[52]]></question_order>
+    <question_order><![CDATA[50]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -1442,7 +1443,7 @@
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[4]]></gid>
-    <type><![CDATA[X]]></type>
+    <type><![CDATA[T]]></type>
     <title><![CDATA[SR3]]></title>
     <question><![CDATA[<div class="ev-visible-print">De volgende spoorwegen uit het basisnet hebben invloed op het plangebied, gebruik de onderstaande waarden voor berekeningen:
 <div class="properties" data-sgq="{SGQ}"> </div>
@@ -1535,7 +1536,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
-    <question_order><![CDATA[53]]></question_order>
+    <question_order><![CDATA[51]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -1547,16 +1548,17 @@
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[4]]></gid>
-    <type><![CDATA[X]]></type>
+    <type><![CDATA[T]]></type>
     <title><![CDATA[KWOR2]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">De onderstaande beperkt kwetsbare objecten komen voor binnen een 10</span><sup><span style="background-color:#ADD8E6;">-6</span></sup><span style="background-color:#ADD8E6;"> contour in het plangebied:</span>
-<div class="properties" data-sgq="{SGQ}"> </div>
-</div>]]></question>
+<div class="properties" data-sgq="{SGQ}"> </div>
+</div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[N]]></mandatory>
-    <question_order><![CDATA[50]]></question_order>
+    <question_order><![CDATA[55]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -1568,7 +1570,7 @@
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[4]]></gid>
-    <type><![CDATA[X]]></type>
+    <type><![CDATA[T]]></type>
     <title><![CDATA[KWOR1]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">De onderstaande Kwetsbare objecten komen voor binnen een 10</span><sup><span style="background-color:#ADD8E6;">-6</span></sup><span style="background-color:#ADD8E6;"> contour in het plangebied:</span>
 <div class="properties" data-sgq="{SGQ}"> </div>
@@ -1578,7 +1580,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[N]]></mandatory>
-    <question_order><![CDATA[49]]></question_order>
+    <question_order><![CDATA[54]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -1592,13 +1594,12 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[KWOR3]]></title>
-    <question><![CDATA[Deze situatie kan erg gecompliceerd worden. Overleg met de EV-specialist over de vervolgstappen.
-]]></question>
+    <question><![CDATA[<div class="ev-visible-print">Deze situatie kan erg gecompliceerd worden. Overleg met de EV-specialist over de vervolgstappen.</div>]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[N]]></mandatory>
-    <question_order><![CDATA[54]]></question_order>
+    <question_order><![CDATA[56]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -1617,7 +1618,7 @@
     <help/>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[N]]></mandatory>
-    <question_order><![CDATA[55]]></question_order>
+    <question_order><![CDATA[57]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -1629,75 +1630,9 @@
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[4]]></gid>
-    <type><![CDATA[X]]></type>
+    <type><![CDATA[T]]></type>
     <title><![CDATA[BR4]]></title>
     <question><![CDATA[<div class="ev-visible-print">Invloedsgebied van onderstaande inrichting(en) overlapt geheel of gedeeltelijk met het plangebied:
-<div class="properties" data-sgq="{SGQ}"> </div>
-</div>
-]]></question>
-    <preg/>
-    <help/>
-    <other><![CDATA[N]]></other>
-    <mandatory><![CDATA[N]]></mandatory>
-    <question_order><![CDATA[29]]></question_order>
-    <language><![CDATA[nl]]></language>
-    <scale_id><![CDATA[0]]></scale_id>
-    <same_default><![CDATA[0]]></same_default>
-    <relevance><![CDATA[BQ4.NAOK=="Y"]]></relevance>
-    <modulename/>
-   </row>
-   <row>
-    <qid><![CDATA[63]]></qid>
-    <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[472989]]></sid>
-    <gid><![CDATA[4]]></gid>
-    <type><![CDATA[X]]></type>
-    <title><![CDATA[BR5]]></title>
-    <question><![CDATA[<div class="ev-visible-print">Invloedsgebied van onderstaande installatie(s) overlapt geheel of gedeeltelijk met het plangebied:
-<div class="properties" data-sgq="{SGQ}"> </div>
-</div>
-]]></question>
-    <preg/>
-    <help/>
-    <other><![CDATA[N]]></other>
-    <mandatory><![CDATA[N]]></mandatory>
-    <question_order><![CDATA[31]]></question_order>
-    <language><![CDATA[nl]]></language>
-    <scale_id><![CDATA[0]]></scale_id>
-    <same_default><![CDATA[0]]></same_default>
-    <relevance><![CDATA[BQ5.NAOK="Y"]]></relevance>
-    <modulename/>
-   </row>
-   <row>
-    <qid><![CDATA[64]]></qid>
-    <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[472989]]></sid>
-    <gid><![CDATA[4]]></gid>
-    <type><![CDATA[X]]></type>
-    <title><![CDATA[BR6]]></title>
-    <question><![CDATA[<div class="ev-visible-print">1% letaliteitszone (explosief) van onderstaande inrischting(en) overlapt geheel of gedeeltelijk met het plangebied:
-<div class="properties" data-sgq="{SGQ}"> </div>
-</div>
-]]></question>
-    <preg/>
-    <help/>
-    <other><![CDATA[N]]></other>
-    <mandatory><![CDATA[N]]></mandatory>
-    <question_order><![CDATA[33]]></question_order>
-    <language><![CDATA[nl]]></language>
-    <scale_id><![CDATA[0]]></scale_id>
-    <same_default><![CDATA[0]]></same_default>
-    <relevance><![CDATA[BQ6.NAOK=="Y"]]></relevance>
-    <modulename/>
-   </row>
-   <row>
-    <qid><![CDATA[65]]></qid>
-    <parent_qid><![CDATA[0]]></parent_qid>
-    <sid><![CDATA[472989]]></sid>
-    <gid><![CDATA[4]]></gid>
-    <type><![CDATA[X]]></type>
-    <title><![CDATA[BR7]]></title>
-    <question><![CDATA[<div class="ev-visible-print">1% letaliteiszone (ontvlambaar) van onderstaande inrichting(en) overlapt geheel of gedeeltelijk met het plangebied:
 <div class="properties" data-sgq="{SGQ}"> </div>
 </div>
 ]]></question>
@@ -1709,17 +1644,39 @@
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
-    <relevance><![CDATA[BQ7.NAOK=="Y"]]></relevance>
+    <relevance><![CDATA[BQ4.NAOK=="Y"]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[66]]></qid>
+    <qid><![CDATA[63]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[4]]></gid>
-    <type><![CDATA[X]]></type>
-    <title><![CDATA[BR8]]></title>
-    <question><![CDATA[<div class="ev-visible-print">1% letaliteiszone (toxisch) van onderstaande inrichting(en) overlapt geheel of gedeeltelijk met het plangebied:
+    <type><![CDATA[T]]></type>
+    <title><![CDATA[BR5]]></title>
+    <question><![CDATA[<div class="ev-visible-print">Invloedsgebied van onderstaande installatie(s) overlapt geheel of gedeeltelijk met het plangebied:
+<div class="properties" data-sgq="{SGQ}"> </div>
+</div>
+]]></question>
+    <preg/>
+    <help/>
+    <other><![CDATA[N]]></other>
+    <mandatory><![CDATA[N]]></mandatory>
+    <question_order><![CDATA[36]]></question_order>
+    <language><![CDATA[nl]]></language>
+    <scale_id><![CDATA[0]]></scale_id>
+    <same_default><![CDATA[0]]></same_default>
+    <relevance><![CDATA[BQ5.NAOK="Y"]]></relevance>
+    <modulename/>
+   </row>
+   <row>
+    <qid><![CDATA[64]]></qid>
+    <parent_qid><![CDATA[0]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[4]]></gid>
+    <type><![CDATA[T]]></type>
+    <title><![CDATA[BR6]]></title>
+    <question><![CDATA[<div class="ev-visible-print">1% letaliteitszone (explosief) van onderstaande inrischting(en) overlapt geheel of gedeeltelijk met het plangebied:
 <div class="properties" data-sgq="{SGQ}"> </div>
 </div>
 ]]></question>
@@ -1731,6 +1688,50 @@
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
+    <relevance><![CDATA[BQ6.NAOK=="Y"]]></relevance>
+    <modulename/>
+   </row>
+   <row>
+    <qid><![CDATA[65]]></qid>
+    <parent_qid><![CDATA[0]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[4]]></gid>
+    <type><![CDATA[T]]></type>
+    <title><![CDATA[BR7]]></title>
+    <question><![CDATA[<div class="ev-visible-print">1% letaliteiszone (ontvlambaar) van onderstaande inrichting(en) overlapt geheel of gedeeltelijk met het plangebied:
+<div class="properties" data-sgq="{SGQ}"> </div>
+</div>
+]]></question>
+    <preg/>
+    <help/>
+    <other><![CDATA[N]]></other>
+    <mandatory><![CDATA[N]]></mandatory>
+    <question_order><![CDATA[38]]></question_order>
+    <language><![CDATA[nl]]></language>
+    <scale_id><![CDATA[0]]></scale_id>
+    <same_default><![CDATA[0]]></same_default>
+    <relevance><![CDATA[BQ7.NAOK=="Y"]]></relevance>
+    <modulename/>
+   </row>
+   <row>
+    <qid><![CDATA[66]]></qid>
+    <parent_qid><![CDATA[0]]></parent_qid>
+    <sid><![CDATA[472989]]></sid>
+    <gid><![CDATA[4]]></gid>
+    <type><![CDATA[T]]></type>
+    <title><![CDATA[BR8]]></title>
+    <question><![CDATA[<div class="ev-visible-print">1% letaliteiszone (toxisch) van onderstaande inrichting(en) overlapt geheel of gedeeltelijk met het plangebied:
+<div class="properties" data-sgq="{SGQ}"> </div>
+</div>
+]]></question>
+    <preg/>
+    <help/>
+    <other><![CDATA[N]]></other>
+    <mandatory><![CDATA[N]]></mandatory>
+    <question_order><![CDATA[39]]></question_order>
+    <language><![CDATA[nl]]></language>
+    <scale_id><![CDATA[0]]></scale_id>
+    <same_default><![CDATA[0]]></same_default>
     <relevance><![CDATA[BQ8.NAOK=="Y"]]></relevance>
     <modulename/>
    </row>
@@ -1739,11 +1740,11 @@
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
-    <type><![CDATA[T]]></type>
+    <type><![CDATA[X]]></type>
     <title><![CDATA[AR2]]></title>
-    <question><![CDATA[<p><span style="background: #add8e6">Kwetsbare objecten worden mogelijk gemaakt en er bevindt zich een 10-6 contour van een risicovolle inrichting, transportroute of buisleiding in het plangebied. </span></p>
-
-<p>In de regels van het bestemmingsplan moet de realisatie van kwetsbare objecten binnen de 10-6 onmogelijk gemaakt worden. Overleg met de EV-specialist over de vervolgstappen.</p>
+    <question><![CDATA[<div class="ev-visible-print">
+<p><span style="background: #add8e6">Kwetsbare objecten worden mogelijk gemaakt en er bevindt zich een 10-6 contour van een risicovolle inrichting, transportroute of buisleiding in het plangebied. </span></p>
+In de regels van het bestemmingsplan moet de realisatie van kwetsbare objecten binnen de 10-6 onmogelijk gemaakt worden. Overleg met de EV-specialist over de vervolgstappen.</div>
 ]]></question>
     <preg/>
     <help/>
@@ -1764,10 +1765,10 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
-    <type><![CDATA[T]]></type>
+    <type><![CDATA[X]]></type>
     <title><![CDATA[AR3]]></title>
-    <question><![CDATA[<p><span style="background: #add8e6">Beperkt kwetsbare objecten worden mogelijk gemaakt en er bevindt zich een 10-6 contour van een risicovolle inrichting, transportroute of buisleiding in het plangebied. </span></p>
-In de motivatie bij het bestemmingsplan moet de noodzaak worden gemotiveerd waarom nieuwe beperkt kwetsbare objecten binnen de 10-6 worden toegestaan. Overleg met de EV-specialist over de vervolgstappen.]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><p><span style="background: #add8e6">Beperkt kwetsbare objecten worden mogelijk gemaakt en er bevindt zich een 10-6 contour van een risicovolle inrichting, transportroute of buisleiding in het plangebied. </span></p>
+  In de motivatie bij het bestemmingsplan moet de noodzaak worden gemotiveerd waarom nieuwe beperkt kwetsbare objecten binnen de 10-6 worden toegestaan. Overleg met de EV-specialist over de vervolgstappen.</div>]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1785,10 +1786,10 @@ AV3_SQ007.NAOK=="Y") ]]></relevance>
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
-    <type><![CDATA[T]]></type>
+    <type><![CDATA[X]]></type>
     <title><![CDATA[AR4]]></title>
-    <question><![CDATA[<p><span style="background: #add8e6">Kwetsbare objecten worden mogelijk gemaakt en er bevindt zich een invloedsgebied van een risicovolle inrichting, transportroute of buisleiding in het plangebied</span></p>
-De realisatie kan gevolgen hebben voor de hoogte van het groepsrisico. Overleg met de EV-specialist over de vervolgstappen.]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><p><span style="background: #add8e6">Kwetsbare objecten worden mogelijk gemaakt en er bevindt zich een invloedsgebied van een risicovolle inrichting, transportroute of buisleiding in het plangebied</span></p>
+  De realisatie kan gevolgen hebben voor de hoogte van het groepsrisico. Overleg met de EV-specialist over de vervolgstappen.</div>]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1808,10 +1809,10 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
-    <type><![CDATA[T]]></type>
+    <type><![CDATA[X]]></type>
     <title><![CDATA[AR5]]></title>
-    <question><![CDATA[<p><span style="background: #add8e6">Beperkt kwetsbare objecten worden mogelijk gemaakt en er bevindt zich een invloedsgebied van een risicovolle inrichting, transportroute of buisleiding in het plangebied.</span></p>
-De realisatie kan gevolgen hebben voor de hoogte van het groepsrisico. Overleg met de EV-specialist over de vervolgstappen.]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><p><span style="background: #add8e6">Beperkt kwetsbare objecten worden mogelijk gemaakt en er bevindt zich een invloedsgebied van een risicovolle inrichting, transportroute of buisleiding in het plangebied.</span></p>
+  De realisatie kan gevolgen hebben voor de hoogte van het groepsrisico. Overleg met de EV-specialist over de vervolgstappen.</div>]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1829,10 +1830,10 @@ AV3_SQ007.NAOK=="Y") ]]></relevance>
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
-    <type><![CDATA[T]]></type>
+    <type><![CDATA[X]]></type>
     <title><![CDATA[AR6]]></title>
-    <question><![CDATA[<p><span style="background: #add8e6">Kwetsbare objecten worden mogelijk gemaakt en er bevindt zich een PAG van een risicovolle transportroute in het plangebied. </span></p>
-Bepaal de noodzaak van het realiseren van kwetsbare objecten in een PAG. Is het niet noodzakelijk dan in de het bestemmingsplan opnemen dat er binnen een PAG geen kwetsbare objecten gerealiseerd mogen worden. Is het wel noodzakelijk, dan moet in de motivatie bij het bestemmingsplan een solide onderbouwing gevoegd worden en moeten de kwetsbare objecten voldoen aan aanvullende constructie-eisen zoals bedoeld in het Bouwbesluit. Overleg met de EV-specialist over de vervolgstappen.]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><p><span style="background: #add8e6">Kwetsbare objecten worden mogelijk gemaakt en er bevindt zich een PAG van een risicovolle transportroute in het plangebied. </span></p>
+  Bepaal de noodzaak van het realiseren van kwetsbare objecten in een PAG. Is het niet noodzakelijk dan in de het bestemmingsplan opnemen dat er binnen een PAG geen kwetsbare objecten gerealiseerd mogen worden. Is het wel noodzakelijk, dan moet in de motivatie bij het bestemmingsplan een solide onderbouwing gevoegd worden en moeten de kwetsbare objecten voldoen aan aanvullende constructie-eisen zoals bedoeld in het Bouwbesluit. Overleg met de EV-specialist over de vervolgstappen.</div>]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1852,10 +1853,10 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[2]]></gid>
-    <type><![CDATA[T]]></type>
+    <type><![CDATA[X]]></type>
     <title><![CDATA[AR7]]></title>
-    <question><![CDATA[<p><span style="background: #add8e6">Een risicovolle inrichting, transportroute of buisleiding wordt mogelijk gemaakt in een plangebied waar beperkt kwetsbare objecten voorkomen.</span></p>
-Deze situatie kan erg gecompliceerd worden. Overleg met de EV-specialist over de vervolgstappen.]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><p><span style="background: #add8e6">Een risicovolle inrichting, transportroute of buisleiding wordt mogelijk gemaakt in een plangebied waar beperkt kwetsbare objecten voorkomen.</span></p>
+  Deze situatie kan erg gecompliceerd worden. Overleg met de EV-specialist over de vervolgstappen.</div>]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1872,15 +1873,16 @@ Deze situatie kan erg gecompliceerd worden. Overleg met de EV-specialist over de
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[4]]></gid>
-    <type><![CDATA[T]]></type>
+    <type><![CDATA[Y]]></type>
     <title><![CDATA[KWOQ7]]></title>
     <question><![CDATA[Liggen er kwetsbare objecten in het plangebied?
-<div class="spatialquestion" data-filter="KWOQ7" data-plangebied-wkt="{plancontour}" data-requesttype="getEVFeatures" data-servicename="veiligheidstoetsWFS" data-sgq="{SGQ}"> </div>]]></question>
+<div class="spatialquestion" data-filter="KWOQ7" data-plangebied-wkt="{plancontour}" data-requesttype="getEVFeatures" data-servicename="veiligheidstoetsWFS" data-sgq="{SGQ}"> </div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
-    <mandatory><![CDATA[N]]></mandatory>
-    <question_order><![CDATA[56]]></question_order>
+    <mandatory><![CDATA[Y]]></mandatory>
+    <question_order><![CDATA[52]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
@@ -1892,29 +1894,31 @@ Deze situatie kan erg gecompliceerd worden. Overleg met de EV-specialist over de
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[4]]></gid>
-    <type><![CDATA[T]]></type>
+    <type><![CDATA[Y]]></type>
     <title><![CDATA[KWOQ8]]></title>
-    <question><![CDATA[Liggen er beperkt kwetsbare objecten in het plangebied?<br />
-<div class="spatialquestion" data-filter="KWOQ8" data-plangebied-wkt="{plancontour}" data-requesttype="getEVFeatures" data-servicename="veiligheidstoetsWFS" data-sgq="{SGQ}"> </div>]]></question>
+    <question><![CDATA[Liggen er beperkt kwetsbare objecten in het plangebied?
+<div class="spatialquestion" data-filter="KWOQ8" data-plangebied-wkt="{plancontour}" data-requesttype="getEVFeatures" data-servicename="veiligheidstoetsWFS" data-sgq="{SGQ}"> </div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
-    <mandatory><![CDATA[N]]></mandatory>
-    <question_order><![CDATA[57]]></question_order>
+    <mandatory><![CDATA[Y]]></mandatory>
+    <question_order><![CDATA[53]]></question_order>
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance><![CDATA[1]]></relevance>
+    <modulename/>
    </row>
    <row>
     <qid><![CDATA[75]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[2]]></gid>
-    <type><![CDATA[T]]></type>
+    <type><![CDATA[X]]></type>
     <title><![CDATA[AR8]]></title>
-    <question><![CDATA[<p><span style="background: #add8e6">Een risicovolle inrichting, transportroute of buisleiding wordt mogelijk gemaakt in een plangebied waar kwetsbare objecten voorkomen.</span></p><br />
-Deze situatie kan erg gecompliceerd worden. Overleg met de EV-specialist over de vervolgstappen.]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><p><span style="background: #add8e6">Een risicovolle inrichting, transportroute of buisleiding wordt mogelijk gemaakt in een plangebied waar kwetsbare objecten voorkomen.</span></p>
+  Deze situatie kan erg gecompliceerd worden. Overleg met de EV-specialist over de vervolgstappen.</div>]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1924,6 +1928,7 @@ Deze situatie kan erg gecompliceerd worden. Overleg met de EV-specialist over de
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance><![CDATA[KWOQ7.NAOK == "Y" and (AV51.NAOK == "Y" or AV52.NAOK =="Y" or AV53.NAOK == "Y")]]></relevance>
+    <modulename/>
    </row>
   </rows>
  </questions>
@@ -2376,7 +2381,7 @@ Deze situatie kan erg gecompliceerd worden. Overleg met de EV-specialist over de
     <usecookie><![CDATA[N]]></usecookie>
     <allowregister><![CDATA[N]]></allowregister>
     <allowsave><![CDATA[Y]]></allowsave>
-    <autonumber_start><![CDATA[44]]></autonumber_start>
+    <autonumber_start><![CDATA[61]]></autonumber_start>
     <autoredirect><![CDATA[N]]></autoredirect>
     <allowprev><![CDATA[Y]]></allowprev>
     <printanswers><![CDATA[Y]]></printanswers>
