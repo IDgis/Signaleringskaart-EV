@@ -825,7 +825,7 @@
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[4]]></gid>
-    <type><![CDATA[T]]></type>
+    <type><![CDATA[X]]></type>
     <title><![CDATA[WR4]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ffffcc;">Bepaal het maximale invloedsgebied voor de weg(en) met behulp van onderstaande tabel:</span>
 <table class="table-striped table-condensed">
@@ -927,7 +927,7 @@
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[4]]></gid>
-    <type><![CDATA[T]]></type>
+    <type><![CDATA[X]]></type>
     <title><![CDATA[SR4]]></title>
     <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ffffcc;">Gebruik voor berekeningen het maximale invloedsgebied uit onderstaande tabel:</span>
 <table class="table-striped table-condensed">
@@ -1742,9 +1742,9 @@
     <gid><![CDATA[5]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[AR2]]></title>
-    <question><![CDATA[<div class="ev-visible-print"><p><span style="background: #add8e6">Kwetsbare objecten worden mogelijk gemaakt en er bevindt zich een 10-6 contour van een risicovolle inrichting, transportroute of buisleiding in het plangebied. </span></p>
-
-  <p>In de regels van het bestemmingsplan moet de realisatie van kwetsbare objecten binnen de 10-6 onmogelijk gemaakt worden. Overleg met de EV-specialist over de vervolgstappen.</p></div>
+    <question><![CDATA[<div class="ev-visible-print">
+<p><span style="background: #add8e6">Kwetsbare objecten worden mogelijk gemaakt en er bevindt zich een 10-6 contour van een risicovolle inrichting, transportroute of buisleiding in het plangebied. </span></p>
+In de regels van het bestemmingsplan moet de realisatie van kwetsbare objecten binnen de 10-6 onmogelijk gemaakt worden. Overleg met de EV-specialist over de vervolgstappen.</div>
 ]]></question>
     <preg/>
     <help/>
@@ -2381,7 +2381,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <usecookie><![CDATA[N]]></usecookie>
     <allowregister><![CDATA[N]]></allowregister>
     <allowsave><![CDATA[Y]]></allowsave>
-    <autonumber_start><![CDATA[58]]></autonumber_start>
+    <autonumber_start><![CDATA[61]]></autonumber_start>
     <autoredirect><![CDATA[N]]></autoredirect>
     <allowprev><![CDATA[Y]]></allowprev>
     <printanswers><![CDATA[Y]]></printanswers>
