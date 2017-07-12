@@ -1362,7 +1362,7 @@
     <type><![CDATA[Y]]></type>
     <title><![CDATA[KWOQ1]]></title>
     <question><![CDATA[Ligt de PR 10-6 buisleiding in het plangebied en overlapt deze met bestaande kwetsbare objecten?
-<div class="spatialquestion" data-filter-ev="BLQ2" data-filter-ko="KWO1..3" data-plangebied-wkt="{plancontour}" data-requesttype="getKOFeatures" data-servicename-ev="risicokaartWFS" data-servicename-ko="veiligheidstoetsWFS" data-sgq="{SGQ}" data-result-sgq="{KWOR1.sgqa}"> </div>
+<div class="spatialquestion" data-filter-ev="BLQ2KWOQ" data-filter-ko="KWOQ13" data-plangebied-wkt="{plancontour}" data-requesttype="getKOFeatures" data-result-sgq="{KWOR1.sgqa}" data-servicename-ev="risicokaartWFS" data-servicename-ko="veiligheidstoetsWFS" data-sgq="{SGQ}"> </div>
 ]]></question>
     <preg/>
     <help/>
@@ -1383,7 +1383,7 @@
     <type><![CDATA[Y]]></type>
     <title><![CDATA[KWOQ4]]></title>
     <question><![CDATA[Ligt de PR 10-6 van buisleiding in het plangebied en overlapt deze met bestaande beperkt kwetsbare objecten?
-<div class="spatialquestion" data-filter-ev="BLQ2" data-filter-ko="KWO4..6" data-plangebied-wkt="{plancontour}" data-requesttype="getKOFeatures" data-servicename-ev="risicokaartWFS" data-servicename-ko="veiligheidstoetsWFS" data-sgq="{SGQ}" data-result-sgq="{KWOR2.sgqa}"> </div>
+<div class="spatialquestion" data-filter-ev="BLQ2KWOQ" data-filter-ko="KWOQ46" data-plangebied-wkt="{plancontour}" data-requesttype="getKOFeatures" data-result-sgq="{KWOR2.sgqa}" data-servicename-ev="risicokaartWFS" data-servicename-ko="veiligheidstoetsWFS" data-sgq="{SGQ}"> </div>
 ]]></question>
     <preg/>
     <help/>
@@ -1404,7 +1404,7 @@
     <type><![CDATA[Y]]></type>
     <title><![CDATA[KWOQ2]]></title>
     <question><![CDATA[Ligt de PR 10-6 van een inrichting in het plangebied en overlapt deze met bestaande kwetsbare objecten?
-<div class="spatialquestion" data-filter-ev="BQ2" data-filter-ko="KWO1..3" data-plangebied-wkt="{plancontour}" data-requesttype="getKOFeatures" data-servicename-ev="risicokaartWFS" data-servicename-ko="veiligheidstoetsWFS" data-sgq="{SGQ}" data-result-sgq="{KWOR1.sgqa}"> </div>
+<div class="spatialquestion" data-filter-ev="BQ2KWOQ" data-filter-ko="KWOQ13" data-plangebied-wkt="{plancontour}" data-requesttype="getKOFeatures" data-result-sgq="{KWOR1.sgqa}" data-servicename-ev="risicokaartWFS" data-servicename-ko="veiligheidstoetsWFS" data-sgq="{SGQ}"> </div>
 ]]></question>
     <preg/>
     <help/>
@@ -1425,7 +1425,7 @@
     <type><![CDATA[Y]]></type>
     <title><![CDATA[KWOQ5]]></title>
     <question><![CDATA[Ligt de PR 10-6 van een inrichting in het plangebied en overlapt deze met bestaande beperkt kwetsbare objecten?
-<div class="spatialquestion" data-filter-ev="BQ2" data-filter-ko="KWO4..6" data-plangebied-wkt="{plancontour}" data-requesttype="getKOFeatures" data-servicename-ev="risicokaartWFS" data-servicename-ko="veiligheidstoetsWFS" data-sgq="{SGQ}" data-result-sgq="{KWOR2.sgqa}"> </div>
+<div class="spatialquestion" data-filter-ev="BQ2KWOQ" data-filter-ko="KWOQ46" data-plangebied-wkt="{plancontour}" data-requesttype="getKOFeatures" data-result-sgq="{KWOR2.sgqa}" data-servicename-ev="risicokaartWFS" data-servicename-ko="veiligheidstoetsWFS" data-sgq="{SGQ}"> </div>
 ]]></question>
     <preg/>
     <help/>
@@ -1509,7 +1509,7 @@
     <type><![CDATA[Y]]></type>
     <title><![CDATA[KWOQ3]]></title>
     <question><![CDATA[Ligt de PR 10-6 van een installatie in het plangebied en overlapt deze met bestaande kwetsbare objecten?
-<div class="spatialquestion" data-filter-ev="BQ3" data-filter-ko="KWO1..3" data-plangebied-wkt="{plancontour}" data-requesttype="getKOFeatures" data-servicename-ev="risicokaartWFS" data-servicename-ko="veiligheidstoetsWFS" data-sgq="{SGQ}" data-result-sgq="{KWOR1.sgqa}"> </div>
+<div class="spatialquestion" data-filter-ev="BQ3KWOQ" data-filter-ko="KWOQ13" data-plangebied-wkt="{plancontour}" data-requesttype="getKOFeatures" data-result-sgq="{KWOR1.sgqa}" data-servicename-ev="risicokaartWFS" data-servicename-ko="veiligheidstoetsWFS" data-sgq="{SGQ}"> </div>
 ]]></question>
     <preg/>
     <help/>
@@ -1530,7 +1530,7 @@
     <type><![CDATA[Y]]></type>
     <title><![CDATA[KWOQ6]]></title>
     <question><![CDATA[Ligt de PR 10-6 van een installatie in het plangebied en overlapt deze met bestaande beperkt kwetsbare objecten?
-<div class="spatialquestion" data-filter-ev="BQ3" data-filter-ko="KWO4..6" data-plangebied-wkt="{plancontour}" data-requesttype="getKOFeatures" data-servicename-ev="risicokaartWFS" data-servicename-ko="veiligheidstoetsWFS" data-sgq="{SGQ}" data-result-sgq="{KWOR2.sgqa}"> </div>
+<div class="spatialquestion" data-filter-ev="BQ3KWOQ" data-filter-ko="KWOQ46" data-plangebied-wkt="{plancontour}" data-requesttype="getKOFeatures" data-result-sgq="{KWOR2.sgqa}" data-servicename-ev="risicokaartWFS" data-servicename-ko="veiligheidstoetsWFS" data-sgq="{SGQ}"> </div>
 ]]></question>
     <preg/>
     <help/>
@@ -1550,7 +1550,8 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[KWOR2]]></title>
-    <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">De onderstaande beperkt kwetsbare objecten komen voor binnen een 10</span><sup><span style="background-color:#ADD8E6;">-6</span></sup><span style="background-color:#ADD8E6;"> contour in het plangebied:</span>
+    <question><![CDATA[<div class="ev-visible-print">De onderstaande beperkt kwetsbare objecten komen voor binnen een 10<sup>-6</sup> contour in het plangebied:
+
 <div class="properties" data-sgq="{SGQ}"> </div>
 </div>
 ]]></question>
@@ -1572,7 +1573,7 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[T]]></type>
     <title><![CDATA[KWOR1]]></title>
-    <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">De onderstaande Kwetsbare objecten komen voor binnen een 10</span><sup><span style="background-color:#ADD8E6;">-6</span></sup><span style="background-color:#ADD8E6;"> contour in het plangebied:</span>
+    <question><![CDATA[<div class="ev-visible-print">De onderstaande Kwetsbare objecten komen voor binnen een 10<sup>-6</sup> contour in het plangebied:
 <div class="properties" data-sgq="{SGQ}"> </div>
 </div>
 ]]></question>
@@ -1594,7 +1595,8 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[KWOR3]]></title>
-    <question><![CDATA[<div class="ev-visible-print">Deze situatie kan erg gecompliceerd worden. Overleg met de EV-specialist over de vervolgstappen.</div>]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><span style="background: #add8e6">Deze situatie kan erg gecompliceerd worden. Overleg met de EV-specialist over de vervolgstappen.</span></div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1666,7 +1668,7 @@
     <language><![CDATA[nl]]></language>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
-    <relevance><![CDATA[BQ5.NAOK="Y"]]></relevance>
+    <relevance><![CDATA[BQ5.NAOK=="Y"]]></relevance>
     <modulename/>
    </row>
    <row>
