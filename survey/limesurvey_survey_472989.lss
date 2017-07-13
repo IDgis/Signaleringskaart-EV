@@ -294,7 +294,7 @@
     <gid><![CDATA[3]]></gid>
     <type><![CDATA[S]]></type>
     <title><![CDATA[plancontour]]></title>
-    <question><![CDATA[<div class="ev-map dontshowinprint" data-sgq="{SGQ}" data-sid="{SID}">Toon of teken de plancontour: {SGQ}</div>
+    <question><![CDATA[<div class="ev-map dontshowinprint" data-sgq="{SGQ}" data-sid="{SID}">Toon of teken de plancontour: </div>
 ]]></question>
     <preg/>
     <help/>
@@ -1942,8 +1942,9 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <type><![CDATA[T]]></type>
     <title><![CDATA[KWOR13]]></title>
     <question><![CDATA[<div class="ev-visible-print">De onderstaande Kwetsbare objecten komen voor binnen een 10<sup>-6</sup> contour installaties in het plangebied:
-<div class="properties" data-sgq="{SGQ}"> </div>
-</div>]]></question>
+<div class="properties" data-sgq="{SGQ}"> </div>
+</div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1953,6 +1954,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance><![CDATA[KWOQ3.NAOK=="Y"]]></relevance>
+    <modulename/>
    </row>
    <row>
     <qid><![CDATA[176]]></qid>
@@ -1962,8 +1964,9 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <type><![CDATA[T]]></type>
     <title><![CDATA[KWOR22]]></title>
     <question><![CDATA[<div class="ev-visible-print">De onderstaande beperkt kwetsbare objecten komen voor binnen een 10<sup>-6</sup> contour inrichtingen in het plangebied:
-<div class="properties" data-sgq="{SGQ}"> </div>
-</div>]]></question>
+<div class="properties" data-sgq="{SGQ}"> </div>
+</div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1973,6 +1976,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance><![CDATA[KWOQ5.NAOK=="Y"]]></relevance>
+    <modulename/>
    </row>
    <row>
     <qid><![CDATA[177]]></qid>
@@ -1982,8 +1986,9 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <type><![CDATA[T]]></type>
     <title><![CDATA[KWOR23]]></title>
     <question><![CDATA[<div class="ev-visible-print">De onderstaande beperkt kwetsbare objecten komen voor binnen een 10<sup>-6</sup> contour installaties in het plangebied:
-<div class="properties" data-sgq="{SGQ}"> </div>
-</div>]]></question>
+<div class="properties" data-sgq="{SGQ}"> </div>
+</div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1993,6 +1998,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <scale_id><![CDATA[0]]></scale_id>
     <same_default><![CDATA[0]]></same_default>
     <relevance><![CDATA[KWOQ6.NAOK=="Y"]]></relevance>
+    <modulename/>
    </row>
   </rows>
  </questions>
@@ -2300,6 +2306,11 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
   </fields>
   <rows>
    <row>
+    <qid><![CDATA[5]]></qid>
+    <attribute><![CDATA[location_defaultcoordinates]]></attribute>
+    <value><![CDATA[52.5 6.2]]></value>
+   </row>
+   <row>
     <qid><![CDATA[20]]></qid>
     <attribute><![CDATA[statistics_showgraph]]></attribute>
     <value><![CDATA[0]]></value>
@@ -2310,9 +2321,14 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <value><![CDATA[9]]></value>
    </row>
    <row>
-    <qid><![CDATA[5]]></qid>
-    <attribute><![CDATA[location_mapheight]]></attribute>
-    <value><![CDATA[600]]></value>
+    <qid><![CDATA[4]]></qid>
+    <attribute><![CDATA[statistics_showgraph]]></attribute>
+    <value><![CDATA[0]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[3]]></qid>
+    <attribute><![CDATA[statistics_showgraph]]></attribute>
+    <value><![CDATA[0]]></value>
    </row>
    <row>
     <qid><![CDATA[1]]></qid>
@@ -2323,6 +2339,16 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <qid><![CDATA[3]]></qid>
     <attribute><![CDATA[display_columns]]></attribute>
     <value><![CDATA[2]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[4]]></qid>
+    <attribute><![CDATA[display_columns]]></attribute>
+    <value><![CDATA[2]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[5]]></qid>
+    <attribute><![CDATA[location_mapheight]]></attribute>
+    <value><![CDATA[600]]></value>
    </row>
    <row>
     <qid><![CDATA[5]]></qid>
@@ -2345,29 +2371,9 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <value><![CDATA[1]]></value>
    </row>
    <row>
-    <qid><![CDATA[3]]></qid>
-    <attribute><![CDATA[statistics_showgraph]]></attribute>
-    <value><![CDATA[0]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[4]]></qid>
-    <attribute><![CDATA[statistics_showgraph]]></attribute>
-    <value><![CDATA[0]]></value>
-   </row>
-   <row>
     <qid><![CDATA[46]]></qid>
     <attribute><![CDATA[display_type]]></attribute>
     <value><![CDATA[1]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[4]]></qid>
-    <attribute><![CDATA[display_columns]]></attribute>
-    <value><![CDATA[2]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[5]]></qid>
-    <attribute><![CDATA[location_defaultcoordinates]]></attribute>
-    <value><![CDATA[52.5 6.2]]></value>
    </row>
   </rows>
  </question_attributes>
@@ -2445,7 +2451,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <usecookie><![CDATA[N]]></usecookie>
     <allowregister><![CDATA[N]]></allowregister>
     <allowsave><![CDATA[Y]]></allowsave>
-    <autonumber_start><![CDATA[2]]></autonumber_start>
+    <autonumber_start><![CDATA[8]]></autonumber_start>
     <autoredirect><![CDATA[N]]></autoredirect>
     <allowprev><![CDATA[Y]]></allowprev>
     <printanswers><![CDATA[Y]]></printanswers>
