@@ -1,10 +1,33 @@
-<SQLFeatureStore xmlns="http://www.deegree.org/datasource/feature/sql" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" configVersion="3.1.0" xsi:schemaLocation="http://www.deegree.org/datasource/feature/sql http://schemas.deegree.org/datasource/feature/sql/3.1.0/sql.xsd">
-    <JDBCConnId>jdbc_ev_lime_ov</JDBCConnId>
-    <FeatureType table="plangebieden" name="plangebied">
-        <FIDMapping>
-            <Column name="id" type="integer"/>
-        </FIDMapping>
-        <GeometryProperty name="geom" mapping="geom" crs="EPSG:28992" srid="28992"/>
-        <SimpleProperty name="id" mapping="id" type="integer"/>
-    </FeatureType> 
-</SQLFeatureStore>
+<SimpleSQLFeatureStore
+ configVersion="3.0.0"
+ xmlns="http://www.deegree.org/datasource/feature/simplesql"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.deegree.org/datasource/feature/simplesql http://schemas.deegree.org/datasource/feature/simplesql/3.0.0/simplesql.xsd">
+
+  <!-- [1] CRS for storing geometries -->
+  <StorageCRS>EPSG:28992</StorageCRS>
+
+  <!-- [0...1] Local name of the feature type (defaults to 'Feature') -->
+  <FeatureTypeName>plangebied</FeatureTypeName>
+
+  <!-- [0...1] Namespace of the feature type (defaults to NULL namespace) -->
+  <FeatureTypeNamespace>http://www.deegree.org/app</FeatureTypeNamespace>
+
+  <!-- [0...1] Prefix of the feature type (defaults to auto-generated prefix) -->
+  <FeatureTypePrefix>app</FeatureTypePrefix>
+
+  <!-- [1] database connection -->
+  <ConnectionPoolId>jdbc_ev_lime_ov</ConnectionPoolId>
+
+  <!-- [1] query statement -->
+  <SQLStatement>
+    SELECT id, st_asbinary(st_geomfromtext("472989X3X5")) AS geom
+    FROM survey_472989
+    WHERE length("472989X3X5") > 0 and
+    st_geomfromtext("472989X3X5") &amp;&amp; st_geomfromtext(?, 28992)
+  </SQLStatement>
+
+  <!-- [1] bounding box statement -->
+  <BBoxStatement>SELECT 'POLYGON((13500 302000,13500 620000,278000 620000,278000 302000,13500 302000))' AS bbox</BBoxStatement>
+
+</SimpleSQLFeatureStore>
