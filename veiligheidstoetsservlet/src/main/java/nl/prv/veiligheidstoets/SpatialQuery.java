@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 public class SpatialQuery {
 	private static final Logger LOGGER = Logger.getLogger(SpatialQuery.class.getName());
 	
-	private static final int TIMEOUT_VALUE = 10000; // Time in milliseconds to wait for a url to connect
+	private static final int TIMEOUT_VALUE = 20000; // Time in milliseconds to wait for a url to connect
 	
 	private String urlstr;
 	private String template;
