@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 public class SpatialQuery {
 	private static final Logger LOGGER = Logger.getLogger(SpatialQuery.class.getName());
 	
-	private static final int TIMEOUT_VALUE = 10000; // Time in milliseconds to wait for a url to connect
+	private static final int TIMEOUT_VALUE = 20000; // Time in milliseconds to wait for a url to connect
 	
 	private String urlstr;
 	private String template;
@@ -47,7 +47,7 @@ public class SpatialQuery {
 			hpcon.setDoOutput(true);
 		} catch (SocketTimeoutException e) {
 			LOGGER.log(Level.FATAL, e.toString(), e);
-			return "Timeout in connection to " + urlstr + ": " + e.getMessage();
+			return "Timeout in connection to " + urlstr + ". Probeer het later nogmaals of neem contact op met de beheerder als het probleem zich voor blijft doen.";
 		} catch (IOException e) {
 			LOGGER.log(Level.FATAL, e.toString(), e);
 			return e.getMessage();
@@ -67,14 +67,14 @@ public class SpatialQuery {
 			} catch(IOException e) {
 				LOGGER.log(Level.FATAL, String.format("fout in request naar %s met filter %s", urlstr, template));
 				LOGGER.log(Level.FATAL, e.toString(), e);
-				return String.format("fout in request naar %s met filter %s", urlstr, template);
+				return String.format("Er heeft zich een fout voorgedaan met het verzoek naar %s. Probeer het later nogmaals of neem contact op met de beheerder.", urlstr);
 			} finally {
 				hpcon.disconnect();
 			}
 		}
 		if(response.toString().indexOf("ExceptionReport") > -1) {
 			LOGGER.log(Level.FATAL, String.format("fout in request naar %s met filter %s response: %s", urlstr, template, response.toString()));
-			return String.format("fout in request naar %s met filter %s response: %s", urlstr, template, response.toString());
+			return String.format("Er heeft zich een fout voorgedaan in het verzoek naar %s. Probeer het later nogmaals of neem contact op met de beheerder als het probleem zich voor blijft doen", urlstr);
 		}
 		
 		featureResult = response.toString();
