@@ -13,10 +13,6 @@ services:
     container_name: db-ov
     restart: always
     build: database
-    ports:
-      - "5432:5432"
-    expose:
-     - "5432"
     environment:
       DEBUG: "false"
     volumes:
@@ -47,7 +43,20 @@ services:
       - "8080"
     volumes:
       - deegree_config_ev:/root/.deegree/ev
-      - veiligheidstoets_config_ev:/etc/veiligheidstoets        
+      - veiligheidstoets_config_ev:/etc/veiligheidstoets   
+
+  backup:
+    image: idgis/postgresql-backup
+    restart: always
+    environment:
+      # format: $DB_HOST:$DB_PORT:$DB_NAME:$DB_USER:$DB_PASSWORD
+      - DATABASE_0=db-ov:5432:ev_lime_ov:postgres:${DB_PG_PASSWORD}
+      - DATABASE_1=db-ov:5432:ev_services_ov:postgres:${DB_PG_PASSWORD}
+      - SFTP_USER=${BACKUP_SFTP_USER}
+      - SFTP_PASSWORD=${BACKUP_SFTP_PASSWORD}
+      - SFTP_HOST=${BACKUP_SFTP_HOST}
+      - SFTP_PORT=${BACKUP_SFTP_PORT}
+      - BACKUP_NAME=backup/${BACKUP_CLIENT}/db
 
 volumes:
   db_ov_data:
