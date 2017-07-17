@@ -40,10 +40,7 @@ services:
     depends_on:
       - db
     expose:
-      - "8080"
-    volumes:
-      - deegree_config_ev:/root/.deegree/ev
-      - veiligheidstoets_config_ev:/etc/veiligheidstoets   
+      - "8080" 
 
   backup:
     image: idgis/postgresql-backup
@@ -62,8 +59,6 @@ volumes:
   db_ov_data:
   upload:
   nginx_logs:
-  deegree_config_ev:
-  veiligheidstoets_config_ev:
 
 networks:
   default:
