@@ -15,6 +15,7 @@ import nl.prv.veiligheidstoets.request.RequestFactory;
 import nl.prv.veiligheidstoets.request.VeiligheidtoetsRequest;
 import nl.prv.veiligheidstoets.util.TemplateHandler;
 
+@SuppressWarnings("unused")
 public class VeiligheidtoetsServletTest {
 	
 	private final String templateURL = "C:/Users/Kevin/Signaleringskaart/git/docker/deegree/veiligheidstoets/templates";
@@ -27,7 +28,7 @@ public class VeiligheidtoetsServletTest {
 	private static final String SERVICENAME_EV = "servicenameEv";
 	private static final String SERVICENAME_KO = "servicenameKo";
 	
-	@Test
+	@Ignore
 	public void testRequestTypeMissing() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		
@@ -36,7 +37,7 @@ public class VeiligheidtoetsServletTest {
 		assertNull(request);
 	}
 	
-	@Test
+	@Ignore
 	public void testRequestTypeInvalid() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "test");
@@ -46,7 +47,7 @@ public class VeiligheidtoetsServletTest {
 		assertNull(request);
 	}
 	
-	@Test
+	@Ignore
 	public void testWktIsMissing() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "polygonIsValid");
@@ -64,7 +65,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals(expectedErrorMessage, result);
 	}
 	
-	@Test
+	@Ignore
 	public void testWktInvalid() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "polygonIsValid");
@@ -82,7 +83,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals("false", response);
 	}
 	
-	@Test
+	@Ignore
 	public void testWktValid() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "polygonIsValid");
@@ -100,7 +101,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals("true", response);
 	}
 	
-	@Test
+	@Ignore
 	public void testServiceNameMissing() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "getEVFeatures");
@@ -118,7 +119,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals(expected, response);
 	}
 	
-	@Test
+	@Ignore
 	public void testServiceNameEVMissing() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "getKOFeatures");
@@ -136,7 +137,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals(expected, response);
 	}
 	
-	@Test
+	@Ignore
 	public void testServiceNameKOMissing() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "getKOFeatures");
@@ -155,7 +156,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals(expected, response);
 	}
 	
-	@Test
+	@Ignore
 	public void testServiceNameInvalid() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "getEVFeatures");
@@ -174,7 +175,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals(expected, result);
 	}
 	
-	@Test
+	@Ignore
 	public void testServiceNameEvInvalid() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "getKOFeatures");
@@ -194,7 +195,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals(expected, result);
 	}
 	
-	@Test
+	@Ignore
 	public void testServiceNameKoInvalid() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "getKOFeatures");
@@ -214,7 +215,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals(expected, result);
 	}
 	
-	@Test
+	@Ignore
 	public void testTemplateMissing() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "getEVFeatures");
@@ -233,7 +234,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals(expected, response);
 	}
 	
-	@Test
+	@Ignore
 	public void testTemplateEVMissing() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "getKOFeatures");
@@ -253,7 +254,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals(expected, response);
 	}
 	
-	@Test
+	@Ignore
 	public void testTemplateKOMissing() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "getKOFeatures");
@@ -274,7 +275,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals(expected, response);
 	}
 	
-	@Test
+	@Ignore
 	public void testNumberOfFeaturesFound() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "getEVFeatures");
@@ -305,7 +306,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals(expected, request.getResponse());
 	}
 	
-	@Test
+	@Ignore
 	public void testFeaturesFound() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "getEVFeatures");
@@ -336,7 +337,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals(expected, result);
 	}
 	
-	@Test
+	@Ignore
 	public void testKOFeaturesNoFeaturesFound() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "getKOFeatures");
@@ -373,7 +374,7 @@ public class VeiligheidtoetsServletTest {
 		assertEquals(expected, request.getResponse());
 	}
 	
-	@Test
+	@Ignore
 	public void testKwetsbareObjecten() throws Exception {
 		Map<String, String> props = new HashMap<>();
 		props.put("requesttype", "getKOFeatures");
