@@ -11,16 +11,10 @@
         <wfs:PropertyName>NAAM_INRICHTING</wfs:PropertyName>
         <wfs:PropertyName>DATE_CHANGED</wfs:PropertyName>
         <ogc:Filter>
-            <ogc:And>
-                <ogc:Intersects>
-                    <ogc:PropertyName>geometrie</ogc:PropertyName>
-						$plangebiedgml$                          
-                </ogc:Intersects>
-                 <ogc:PropertyIsEqualTo>
-                    <ogc:PropertyName>BEVI_IND</ogc:PropertyName>
-                    <ogc:Literal>J</ogc:Literal>
-                </ogc:PropertyIsEqualTo>
-            </ogc:And>   
+            <ogc:Intersects>
+                <ogc:PropertyName>geometrie</ogc:PropertyName>
+					$plangebiedgml$                          
+            </ogc:Intersects>   
         </ogc:Filter>
     </wfs:Query>
 </wfs:GetFeature>
