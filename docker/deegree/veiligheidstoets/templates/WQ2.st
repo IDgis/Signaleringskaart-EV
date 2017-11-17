@@ -5,7 +5,7 @@
     xmlns:wfs="http://www.opengis.net/wfs" service="WFS" version="1.1.0"
     outputFormat="text/xml; subtype=gml/3.2.1"
     resultType="hits">
-    <wfs:Query typeName="wegen_grplafond">
+    <wfs:Query typeName="wegen_prplafond">
         <ogc:Filter>
          <ogc:Intersects>
              <ogc:PropertyName>geom</ogc:PropertyName>

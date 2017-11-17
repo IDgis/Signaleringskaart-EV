@@ -10,6 +10,7 @@
     <wfs:Query typeName="verblijfsobject_ov">
         <ogc:PropertyName>gebruiksdoel</ogc:PropertyName>
         <ogc:PropertyName>oppervlakte</ogc:PropertyName>
+        <ogc:PropertyName>identificatie</ogc:PropertyName>
         <ogc:Filter>
 	        <ogc:And>
        	        <ogc:Within>
