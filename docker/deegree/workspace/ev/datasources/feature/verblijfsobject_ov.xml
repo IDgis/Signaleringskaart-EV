@@ -9,6 +9,7 @@
 	    </FIDMapping>
 	    <Primitive path="gebruiksdoel" mapping="gebruiksdoel"/>
 	    <Primitive path="oppervlakte" mapping="oppervlakte"/>
+	    <Primitive path="identificatie" mapping="identificatie"/>
 	    <Geometry path="geom" mapping="geom">
 	        <StorageCRS srid="28992">EPSG:28992</StorageCRS>
 	    </Geometry>
