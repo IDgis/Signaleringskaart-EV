@@ -18,90 +18,9 @@
   <rows>
    <row>
     <qid><![CDATA[1]]></qid>
-    <code><![CDATA[A12]]></code>
-    <answer><![CDATA[Overig ]]></answer>
-    <sortorder><![CDATA[12]]></sortorder>
-    <language><![CDATA[nl]]></language>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <qid><![CDATA[1]]></qid>
-    <code><![CDATA[A11]]></code>
-    <answer><![CDATA[Afwijken van de bouwverordening middels art 11 Woningwet ]]></answer>
-    <sortorder><![CDATA[11]]></sortorder>
-    <language><![CDATA[nl]]></language>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <qid><![CDATA[1]]></qid>
-    <code><![CDATA[A10]]></code>
-    <answer><![CDATA[2.12 Wabo Tijdelijke buitenplanse afwijking (artikel 2.12, tweede lid) ]]></answer>
-    <sortorder><![CDATA[10]]></sortorder>
-    <language><![CDATA[nl]]></language>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <qid><![CDATA[1]]></qid>
-    <code><![CDATA[A9]]></code>
-    <answer><![CDATA[2.12 Wabo Buitenplanse afwijking (voorheen projectbesluit) (artikel 2.12, eerste lid, onder a, onder 3°) ]]></answer>
-    <sortorder><![CDATA[9]]></sortorder>
-    <language><![CDATA[nl]]></language>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <qid><![CDATA[1]]></qid>
-    <code><![CDATA[A8]]></code>
-    <answer><![CDATA[2.12 Wabo Buitenplanse afwijking (artikel 2.12, eerste lid, onder a, onder 2°) ]]></answer>
-    <sortorder><![CDATA[8]]></sortorder>
-    <language><![CDATA[nl]]></language>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <qid><![CDATA[1]]></qid>
-    <code><![CDATA[A7]]></code>
-    <answer><![CDATA[4.4 Wro proactieve aanwijzing Rijk ]]></answer>
-    <sortorder><![CDATA[7]]></sortorder>
-    <language><![CDATA[nl]]></language>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <qid><![CDATA[1]]></qid>
-    <code><![CDATA[A6]]></code>
-    <answer><![CDATA[4.2 Wro proactieve aanwijzing provincie ]]></answer>
-    <sortorder><![CDATA[6]]></sortorder>
-    <language><![CDATA[nl]]></language>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <qid><![CDATA[1]]></qid>
-    <code><![CDATA[A5]]></code>
-    <answer><![CDATA[3.28 Wro Rijksinpassingsplan ]]></answer>
-    <sortorder><![CDATA[5]]></sortorder>
-    <language><![CDATA[nl]]></language>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <qid><![CDATA[1]]></qid>
-    <code><![CDATA[A4]]></code>
-    <answer><![CDATA[3.26 Wro Provinciaal inpassingsplan ]]></answer>
-    <sortorder><![CDATA[4]]></sortorder>
-    <language><![CDATA[nl]]></language>
-    <assessment_value><![CDATA[0]]></assessment_value>
-    <scale_id><![CDATA[0]]></scale_id>
-   </row>
-   <row>
-    <qid><![CDATA[1]]></qid>
-    <code><![CDATA[A3]]></code>
-    <answer><![CDATA[3.6 Wro wijzigings-/uitwerkingsplan (3.6, eerste lid) ]]></answer>
-    <sortorder><![CDATA[3]]></sortorder>
+    <code><![CDATA[A1]]></code>
+    <answer><![CDATA[2.1 Wro structuurplan <div class="fa fa-info-circle text-info" title="Wro structuurplan"></div>]]></answer>
+    <sortorder><![CDATA[1]]></sortorder>
     <language><![CDATA[nl]]></language>
     <assessment_value><![CDATA[0]]></assessment_value>
     <scale_id><![CDATA[0]]></scale_id>
@@ -109,7 +28,7 @@
    <row>
     <qid><![CDATA[1]]></qid>
     <code><![CDATA[A2]]></code>
-    <answer><![CDATA[3.1 Wro bestemmingsplan  (artikelen 3.1, eerste tot en met derde lid) ]]></answer>
+    <answer><![CDATA[3.1 Wro bestemmingsplan  (artikelen 3.1, eerste tot en met derde lid)  <div class="fa fa-info-circle text-info" title="10 jaars actualisatie"></div>]]></answer>
     <sortorder><![CDATA[2]]></sortorder>
     <language><![CDATA[nl]]></language>
     <assessment_value><![CDATA[0]]></assessment_value>
@@ -117,9 +36,90 @@
    </row>
    <row>
     <qid><![CDATA[1]]></qid>
-    <code><![CDATA[A1]]></code>
-    <answer><![CDATA[2.1 Wro structuurplan ]]></answer>
-    <sortorder><![CDATA[1]]></sortorder>
+    <code><![CDATA[A3]]></code>
+    <answer><![CDATA[3.6 Wro wijzigings-/uitwerkingsplan (3.6, eerste lid) <div class="fa fa-info-circle text-info" title="Wijzigings/uitwerkingsplan"></div>]]></answer>
+    <sortorder><![CDATA[3]]></sortorder>
+    <language><![CDATA[nl]]></language>
+    <assessment_value><![CDATA[0]]></assessment_value>
+    <scale_id><![CDATA[0]]></scale_id>
+   </row>
+   <row>
+    <qid><![CDATA[1]]></qid>
+    <code><![CDATA[A4]]></code>
+    <answer><![CDATA[3.26 Wro Provinciaal inpassingsplan <div class="fa fa-info-circle text-info" title="Provinciaal inpassingsplan"></div>]]></answer>
+    <sortorder><![CDATA[4]]></sortorder>
+    <language><![CDATA[nl]]></language>
+    <assessment_value><![CDATA[0]]></assessment_value>
+    <scale_id><![CDATA[0]]></scale_id>
+   </row>
+   <row>
+    <qid><![CDATA[1]]></qid>
+    <code><![CDATA[A5]]></code>
+    <answer><![CDATA[3.28 Wro Rijksinpassingsplan <div class="fa fa-info-circle text-info" title="Rijks inpassingsplan"></div>]]></answer>
+    <sortorder><![CDATA[5]]></sortorder>
+    <language><![CDATA[nl]]></language>
+    <assessment_value><![CDATA[0]]></assessment_value>
+    <scale_id><![CDATA[0]]></scale_id>
+   </row>
+   <row>
+    <qid><![CDATA[1]]></qid>
+    <code><![CDATA[A6]]></code>
+    <answer><![CDATA[4.2 Wro proactieve aanwijzing Provincie <div class="fa fa-info-circle text-info" title="Proactive aanwijzing Provincie"></div>]]></answer>
+    <sortorder><![CDATA[6]]></sortorder>
+    <language><![CDATA[nl]]></language>
+    <assessment_value><![CDATA[0]]></assessment_value>
+    <scale_id><![CDATA[0]]></scale_id>
+   </row>
+   <row>
+    <qid><![CDATA[1]]></qid>
+    <code><![CDATA[A7]]></code>
+    <answer><![CDATA[4.4 Wro proactieve aanwijzing Rijk <div class="fa fa-info-circle text-info" title="pro-actieve aanwijzing Rijk"></div>]]></answer>
+    <sortorder><![CDATA[7]]></sortorder>
+    <language><![CDATA[nl]]></language>
+    <assessment_value><![CDATA[0]]></assessment_value>
+    <scale_id><![CDATA[0]]></scale_id>
+   </row>
+   <row>
+    <qid><![CDATA[1]]></qid>
+    <code><![CDATA[A8]]></code>
+    <answer><![CDATA[2.12 Wabo Buitenplanse afwijking (artikel 2.12, eerste lid, onder a, onder 2°) <div class="fa fa-info-circle text-info" title="Kruimelgeval"></div>]]></answer>
+    <sortorder><![CDATA[8]]></sortorder>
+    <language><![CDATA[nl]]></language>
+    <assessment_value><![CDATA[0]]></assessment_value>
+    <scale_id><![CDATA[0]]></scale_id>
+   </row>
+   <row>
+    <qid><![CDATA[1]]></qid>
+    <code><![CDATA[A9]]></code>
+    <answer><![CDATA[2.12 Wabo Buitenplanse afwijking (artikel 2.12, eerste lid, onder a, onder 3°) <div class="fa fa-info-circle text-info" title="Voorheen projectbesluit"></div>]]></answer>
+    <sortorder><![CDATA[9]]></sortorder>
+    <language><![CDATA[nl]]></language>
+    <assessment_value><![CDATA[0]]></assessment_value>
+    <scale_id><![CDATA[0]]></scale_id>
+   </row>
+   <row>
+    <qid><![CDATA[1]]></qid>
+    <code><![CDATA[A10]]></code>
+    <answer><![CDATA[2.12 Wabo Tijdelijke buitenplanse afwijking (artikel 2.12, tweede lid)<div class="fa fa-info-circle text-info" title="Tijdelijk buitenplanse afwijking"> </div>]]></answer>
+    <sortorder><![CDATA[10]]></sortorder>
+    <language><![CDATA[nl]]></language>
+    <assessment_value><![CDATA[0]]></assessment_value>
+    <scale_id><![CDATA[0]]></scale_id>
+   </row>
+   <row>
+    <qid><![CDATA[1]]></qid>
+    <code><![CDATA[A11]]></code>
+    <answer><![CDATA[Afwijken van de bouwverordening middels art 11 Woningwet <div class="fa fa-info-circle text-info" title="Afwijken bouwverordening"></div>]]></answer>
+    <sortorder><![CDATA[11]]></sortorder>
+    <language><![CDATA[nl]]></language>
+    <assessment_value><![CDATA[0]]></assessment_value>
+    <scale_id><![CDATA[0]]></scale_id>
+   </row>
+   <row>
+    <qid><![CDATA[1]]></qid>
+    <code><![CDATA[A12]]></code>
+    <answer><![CDATA[Overig ]]></answer>
+    <sortorder><![CDATA[12]]></sortorder>
     <language><![CDATA[nl]]></language>
     <assessment_value><![CDATA[0]]></assessment_value>
     <scale_id><![CDATA[0]]></scale_id>
@@ -143,7 +143,8 @@
     <sid><![CDATA[472989]]></sid>
     <group_name><![CDATA[Algemeen - Type plan]]></group_name>
     <group_order><![CDATA[0]]></group_order>
-    <description/>
+    <description><![CDATA[<p>Vul hier het type plan in dat ontwikkeld gaat worden.</p>
+]]></description>
     <language><![CDATA[nl]]></language>
     <randomization_group/>
     <grelevance/>
@@ -220,7 +221,7 @@
     <title><![CDATA[AV1]]></title>
     <question><![CDATA[Wat voor ruimtelijk plan betreft het?]]></question>
     <preg/>
-    <help/>
+    <help><![CDATA[Selecteer een van de bovenstaande radiobuttons]]></help>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
     <question_order><![CDATA[0]]></question_order>
@@ -256,9 +257,9 @@
     <gid><![CDATA[5]]></gid>
     <type><![CDATA[M]]></type>
     <title><![CDATA[AV2]]></title>
-    <question><![CDATA[Welke kwetsbare objecten worden toegestaan?]]></question>
+    <question><![CDATA[Welke kwetsbare objecten worden mogelijk gemaakt?]]></question>
     <preg/>
-    <help/>
+    <help><![CDATA[Mogelijk wordt de bestemming "Maatschappelijk" toegestaan. Hierin zijn zowel kwetsbare als beperkt kwetsbare objecten mogelijk. Wees zo volledig mogelijk.]]></help>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[N]]></mandatory>
     <question_order><![CDATA[0]]></question_order>
@@ -275,7 +276,7 @@
     <gid><![CDATA[5]]></gid>
     <type><![CDATA[M]]></type>
     <title><![CDATA[AV3]]></title>
-    <question><![CDATA[Welke beperkt kwetsbare objecten worden toegestaan?]]></question>
+    <question><![CDATA[Welke beperkt kwetsbare objecten worden mogelijk gemaakt?]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -294,10 +295,18 @@
     <gid><![CDATA[3]]></gid>
     <type><![CDATA[S]]></type>
     <title><![CDATA[plancontour]]></title>
-    <question><![CDATA[<div class="ev-map dontshowinprint" data-sgq="{SGQ}" data-sid="{SID}">Toon of teken de plancontour: </div>
-]]></question>
+    <question><![CDATA[<div class="ev-map dontshowinprint" data-sgq="{SGQ}" data-sid="{SID}">Teken de plancontour</div>]]></question>
     <preg/>
-    <help/>
+    <help><![CDATA[<p>knoppen rechtsboven</p>
+
+<p>1<sup>e </sup>knop: schuiven en zoomen met muisondersteuning naar de juiste locatie</p>
+
+<p>2<sup>e</sup> knop: Plangebied intekenen linkermuisknop: hoekpunten selecteren; dubbelklik: afsluiten</p>
+
+<p>3<sup>e</sup> knop: schuiven over het plangebied</p>
+
+<p> </p>
+]]></help>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
     <question_order><![CDATA[0]]></question_order>
@@ -562,7 +571,8 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[BR1]]></title>
-    <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is niet aan de orde voor het onderdeel BEVI.</span></div>]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><span style="font-size:14px;"><span style="background-color:rgb(173,216,230);">Externe veiligheid is <span style="color:#FF0000;">NIET</span> aan de orde voor het onderdeel BEVI.</span></span></div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -581,7 +591,8 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[BR2]]></title>
-    <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is aan de orde voor het onderdeel BEVI.</span></div>]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><span style="font-size:14px;"><span style="background-color:rgb(173,216,230);">Externe veiligheid is <span style="color:#FF0000;">WEL</span> aan de orde voor het onderdeel BEVI.</span></span></div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -600,9 +611,10 @@
     <gid><![CDATA[2]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[AV51]]></title>
-    <question><![CDATA[Wilt u risicovolle inrichtingen in het plangebied mogelijk maken?]]></question>
+    <question><![CDATA[<p>Wilt u risicovolle inrichtingen in het plangebied mogelijk maken?</p>
+]]></question>
     <preg/>
-    <help/>
+    <help><![CDATA[zoals LPG/LNG/CNG-tankstation, opslag meer dan 13m3 propaan, gas- druk en regelstation, opslag giftige stoffen. Bij twijfel selecteer "JA:"]]></help>
     <other><![CDATA[N]]></other>
     <mandatory><![CDATA[Y]]></mandatory>
     <question_order><![CDATA[0]]></question_order>
@@ -661,7 +673,8 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[SQ6]]></title>
-    <question><![CDATA[Overlapt het plasbrandaandachtsgebied van spoorwegen uit het basisnet geheel of gedeeltelijk het plangebied?
+    <question><![CDATA[Is de afstand tussen een spoorweg uit het basisnet-spoor en het plangebied kleiner dan 30 meter?<br />
+In de resultaten staat of PAG van toepassing is.
 <div class="spatialquestion" data-filter="SQ6" data-plangebied-wkt="{plancontour}" data-requesttype="getEVFeatures" data-servicename="basisnetWFS" data-sgq="{SGQ}"> </div>
 ]]></question>
     <preg/>
@@ -703,7 +716,7 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[Y]]></type>
     <title><![CDATA[WQ3]]></title>
-    <question><![CDATA[Overlapt een plasbrandaandachtsgebied (PAG) uit het basisnet weg geheel of gedeeltelijk het plangebied?
+    <question><![CDATA[Is de afstand tussen een weg uit het basisnet-weg en het plangebied kleiner dan 30 meter? <br>In de resultaten staat of PAG van toepassing is.
 <div class="spatialquestion" data-filter="WQ3" data-plangebied-wkt="{plancontour}" data-requesttype="getEVFeatures" data-servicename="veiligheidstoetsWFS" data-sgq="{SGQ}"> </div>
 ]]></question>
     <preg/>
@@ -910,7 +923,8 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[SR2]]></title>
-    <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is aan de orde voor het onderdeel basisnet spoor.</span></div>]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><span style="font-size:14px;"><span style="background-color:rgb(173,216,230);">Externe veiligheid is <span style="color:#FF0000;">WEL</span> aan de orde voor het onderdeel basisnet spoor.</span></span></div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -984,9 +998,8 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[SR1]]></title>
-    <question><![CDATA[<div class="ev-visible-print">
-<span style="background-color:#ADD8E6;">Externe veiligheid is niet aan de orde voor het onderdeel basisnet spoor.</span>  
-</div>]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><span style="font-size:14px;"><span style="background-color:rgb(173,216,230);">Externe veiligheid is <span style="color:#FF0000;">NIET </span>aan de orde voor het onderdeel basisnet spoor.</span></span></div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1026,7 +1039,8 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[WR1]]></title>
-    <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is niet aan de orde voor het onderdeel basinet weg</span></div>]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><span style="font-size:14px;"><span style="background-color:rgb(173,216,230);">Externe veiligheid is <span style="color:#FF0000;">NIET </span>aan de orde voor het onderdeel basinet weg</span></span></div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1045,7 +1059,8 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[WR2]]></title>
-    <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is aan de orde voor het onderdeel basisnet weg.</span></div>]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><span style="font-size:14px;"><span style="background-color:rgb(173,216,230);">Externe veiligheid is <span style="color:#FF0000;">WEL</span> aan de orde voor het onderdeel basisnet weg.</span></span></div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1064,7 +1079,8 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[WOR2]]></title>
-    <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is aan de orde voor het onderdeel provinciale routering gevaarlijke stoffen.</span></div>]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><span style="font-size:14px;"><span style="background-color:rgb(173,216,230);">Externe veiligheid is <span style="color:#FF0000;">WEL </span>aan de orde voor het onderdeel provinciale routering gevaarlijke stoffen.</span></span></div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1083,7 +1099,8 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[WOR1]]></title>
-    <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is niet aan de orde voor het onderdeel provinciale routering gevaalijke stoffen</span></div>]]></question>
+    <question><![CDATA[<div class="ev-visible-print"><span style="font-size:14px;"><span style="background-color:rgb(173,216,230);">Externe veiligheid is <span style="color:#FF0000;">NIET </span>aan de orde voor het onderdeel provinciale routering gevaalijke stoffen</span></span></div>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1248,7 +1265,7 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[BLR1]]></title>
-    <question><![CDATA[<div class="ev-visible-print"><span style="background-color:#ADD8E6;">Externe veiligheid is niet aan de orde voor bestaande buisleidingen</span></div>
+    <question><![CDATA[<div class="ev-visible-print"><span style="font-size:14px;"><span style="background-color:rgb(173,216,230);">Externe veiligheid is <span style="color:#FF0000;">NIET </span>aan de orde voor bestaande buisleidingen</span></span></div>
 ]]></question>
     <preg/>
     <help/>
@@ -1268,9 +1285,11 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[BLR3]]></title>
-    <question><![CDATA[<div class="ev-visible-print"><p><span style="background-color:#ADD8E6;">Externe Veiligheid is aan de orde voor buisleidingen.</span></p>
+    <question><![CDATA[<div class="ev-visible-print">
+<p><span style="font-size:14px;"><span style="background-color:rgb(173,216,230);">Externe Veiligheid is <span style="color:#FF0000;">WEL </span>aan de orde voor buisleidingen.</span></span></p>
 
-  <p><span style="background-color:#ffffcc;">Voer een groepsrisicoberekening uit met CAROLA</span></p></div>
+<p><span style="background-color:#ffffcc;">Voer een groepsrisicoberekening uit met CAROLA</span></p>
+</div>
 ]]></question>
     <preg/>
     <help/>
@@ -1467,7 +1486,22 @@
     <gid><![CDATA[1]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[AR1B]]></title>
-    <question><![CDATA[<span style="color:#FF0000;">De resultaten van de toets zijn gebaseerd op live data die in de tijd wijzigt. Wees er daarom van bewust dat deze data beperkt houdbaar is. Bij twijfel over de actualiteit van de data graag contact opnemen met ....</span>]]></question>
+    <question><![CDATA[<p><span style="font-size:14px;">De resultaten van de toets zijn gebaseerd op live data zoals de Risicokaart deze levert en in de tijd wijzigt. Bij twijfel over de actualiteit van de data, contact opnemen met de specialist externe veiligheid</span></p>
+
+<p><span style="font-size:14px;">Wanneer bij een van de onderstaande conclusies is aangegeven dat Externe Veiligheid <span style="color:#FF0000;"><strong>WEL</strong> </span>aan de orde is, neem dan contact op met de specialist externe veiligheid.</span></p>
+
+<p><span style="font-size:14px;">Om de resultaten af te drukken naar printer of PDF toets: control+P </span></p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+]]></question>
     <preg/>
     <help/>
     <other><![CDATA[N]]></other>
@@ -1594,7 +1628,7 @@
     <gid><![CDATA[4]]></gid>
     <type><![CDATA[X]]></type>
     <title><![CDATA[KWOR3]]></title>
-    <question><![CDATA[<div class="ev-visible-print"><span style="background: #add8e6">Deze situatie kan erg gecompliceerd worden. Overleg met de EV-specialist over de vervolgstappen.</span></div>
+    <question><![CDATA[<div class="ev-visible-print">..</div>
 ]]></question>
     <preg/>
     <help/>
@@ -1935,7 +1969,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[175]]></qid>
+    <qid><![CDATA[76]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[4]]></gid>
@@ -1957,7 +1991,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[176]]></qid>
+    <qid><![CDATA[77]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[4]]></gid>
@@ -1979,7 +2013,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[177]]></qid>
+    <qid><![CDATA[78]]></qid>
     <parent_qid><![CDATA[0]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[4]]></gid>
@@ -2024,7 +2058,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
   </fields>
   <rows>
    <row>
-    <qid><![CDATA[76]]></qid>
+    <qid><![CDATA[79]]></qid>
     <parent_qid><![CDATA[3]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2041,7 +2075,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[77]]></qid>
+    <qid><![CDATA[80]]></qid>
     <parent_qid><![CDATA[3]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2058,7 +2092,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[78]]></qid>
+    <qid><![CDATA[81]]></qid>
     <parent_qid><![CDATA[3]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2075,7 +2109,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[79]]></qid>
+    <qid><![CDATA[82]]></qid>
     <parent_qid><![CDATA[3]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2092,7 +2126,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[80]]></qid>
+    <qid><![CDATA[83]]></qid>
     <parent_qid><![CDATA[3]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2109,7 +2143,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[81]]></qid>
+    <qid><![CDATA[84]]></qid>
     <parent_qid><![CDATA[3]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2126,7 +2160,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[82]]></qid>
+    <qid><![CDATA[85]]></qid>
     <parent_qid><![CDATA[3]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2143,7 +2177,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[83]]></qid>
+    <qid><![CDATA[86]]></qid>
     <parent_qid><![CDATA[4]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2160,7 +2194,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[84]]></qid>
+    <qid><![CDATA[87]]></qid>
     <parent_qid><![CDATA[4]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2177,7 +2211,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[85]]></qid>
+    <qid><![CDATA[88]]></qid>
     <parent_qid><![CDATA[4]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2194,7 +2228,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[86]]></qid>
+    <qid><![CDATA[89]]></qid>
     <parent_qid><![CDATA[4]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2211,7 +2245,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[87]]></qid>
+    <qid><![CDATA[90]]></qid>
     <parent_qid><![CDATA[4]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2228,7 +2262,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[88]]></qid>
+    <qid><![CDATA[91]]></qid>
     <parent_qid><![CDATA[4]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2245,7 +2279,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[89]]></qid>
+    <qid><![CDATA[92]]></qid>
     <parent_qid><![CDATA[4]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2262,7 +2296,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[90]]></qid>
+    <qid><![CDATA[93]]></qid>
     <parent_qid><![CDATA[3]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2279,7 +2313,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <modulename/>
    </row>
    <row>
-    <qid><![CDATA[91]]></qid>
+    <qid><![CDATA[94]]></qid>
     <parent_qid><![CDATA[3]]></parent_qid>
     <sid><![CDATA[472989]]></sid>
     <gid><![CDATA[5]]></gid>
@@ -2311,46 +2345,6 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <value><![CDATA[52.5 6.2]]></value>
    </row>
    <row>
-    <qid><![CDATA[20]]></qid>
-    <attribute><![CDATA[statistics_showgraph]]></attribute>
-    <value><![CDATA[0]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[5]]></qid>
-    <attribute><![CDATA[location_mapzoom]]></attribute>
-    <value><![CDATA[9]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[4]]></qid>
-    <attribute><![CDATA[statistics_showgraph]]></attribute>
-    <value><![CDATA[0]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[3]]></qid>
-    <attribute><![CDATA[statistics_showgraph]]></attribute>
-    <value><![CDATA[0]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[1]]></qid>
-    <attribute><![CDATA[hide_tip]]></attribute>
-    <value><![CDATA[1]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[3]]></qid>
-    <attribute><![CDATA[display_columns]]></attribute>
-    <value><![CDATA[2]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[4]]></qid>
-    <attribute><![CDATA[display_columns]]></attribute>
-    <value><![CDATA[2]]></value>
-   </row>
-   <row>
-    <qid><![CDATA[5]]></qid>
-    <attribute><![CDATA[location_mapheight]]></attribute>
-    <value><![CDATA[600]]></value>
-   </row>
-   <row>
     <qid><![CDATA[5]]></qid>
     <attribute><![CDATA[statistics_showgraph]]></attribute>
     <value><![CDATA[0]]></value>
@@ -2374,6 +2368,46 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <qid><![CDATA[46]]></qid>
     <attribute><![CDATA[display_type]]></attribute>
     <value><![CDATA[1]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[20]]></qid>
+    <attribute><![CDATA[statistics_showgraph]]></attribute>
+    <value><![CDATA[0]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[5]]></qid>
+    <attribute><![CDATA[location_mapzoom]]></attribute>
+    <value><![CDATA[9]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[4]]></qid>
+    <attribute><![CDATA[statistics_showgraph]]></attribute>
+    <value><![CDATA[0]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[1]]></qid>
+    <attribute><![CDATA[hide_tip]]></attribute>
+    <value><![CDATA[1]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[3]]></qid>
+    <attribute><![CDATA[statistics_showgraph]]></attribute>
+    <value><![CDATA[0]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[3]]></qid>
+    <attribute><![CDATA[display_columns]]></attribute>
+    <value><![CDATA[2]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[4]]></qid>
+    <attribute><![CDATA[display_columns]]></attribute>
+    <value><![CDATA[2]]></value>
+   </row>
+   <row>
+    <qid><![CDATA[5]]></qid>
+    <attribute><![CDATA[location_mapheight]]></attribute>
+    <value><![CDATA[600]]></value>
    </row>
   </rows>
  </question_attributes>
@@ -2439,7 +2473,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
    <row>
     <sid><![CDATA[472989]]></sid>
     <admin><![CDATA[Administrator]]></admin>
-    <adminemail><![CDATA[linda.vels@idgis.nl]]></adminemail>
+    <adminemail><![CDATA[evs-support@idgis.nl]]></adminemail>
     <anonymized><![CDATA[N]]></anonymized>
     <faxto/>
     <format><![CDATA[G]]></format>
@@ -2451,7 +2485,7 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <usecookie><![CDATA[N]]></usecookie>
     <allowregister><![CDATA[N]]></allowregister>
     <allowsave><![CDATA[Y]]></allowsave>
-    <autonumber_start><![CDATA[8]]></autonumber_start>
+    <autonumber_start><![CDATA[177]]></autonumber_start>
     <autoredirect><![CDATA[N]]></autoredirect>
     <allowprev><![CDATA[Y]]></allowprev>
     <printanswers><![CDATA[Y]]></printanswers>
@@ -2459,14 +2493,14 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <refurl><![CDATA[N]]></refurl>
     <publicstatistics><![CDATA[N]]></publicstatistics>
     <publicgraphs><![CDATA[N]]></publicgraphs>
-    <listpublic><![CDATA[N]]></listpublic>
+    <listpublic><![CDATA[Y]]></listpublic>
     <htmlemail><![CDATA[Y]]></htmlemail>
     <sendconfirmation><![CDATA[Y]]></sendconfirmation>
     <tokenanswerspersistence><![CDATA[N]]></tokenanswerspersistence>
     <assessments><![CDATA[N]]></assessments>
     <usecaptcha><![CDATA[N]]></usecaptcha>
     <usetokens><![CDATA[N]]></usetokens>
-    <bounce_email><![CDATA[linda.vels@idgis.nl]]></bounce_email>
+    <bounce_email><![CDATA[h.hiltjesdam@overijssel.nl]]></bounce_email>
     <emailresponseto/>
     <emailnotificationto/>
     <tokenlength><![CDATA[15]]></tokenlength>
@@ -2523,56 +2557,69 @@ AV2_SQ009.NAOK=="Y") ]]></relevance>
     <surveyls_endtext/>
     <surveyls_url/>
     <surveyls_urldescription/>
-    <surveyls_email_invite_subj><![CDATA[Uitnodiging om deel te nemen aan een enquête]]></surveyls_email_invite_subj>
-    <surveyls_email_invite><![CDATA[Geachte {FIRSTNAME},<br />
-<br />
-U wordt uitgenodigd om deel te nemen aan een enquête.<br />
-<br />
-De titel van de enquête is:<br />
-'{SURVEYNAME}'<br />
-<br />
-'{SURVEYDESCRIPTION}'<br />
-<br />
-Om aan de enquête deel te nemen kunt u op onderstaande link klikken.<br />
-<br />
-Hoogachtend,<br />
-<br />
-{ADMINNAME} ({ADMINEMAIL})<br />
+    <surveyls_email_invite_subj><![CDATA[Toegang Overijsselse signalerngskaart externe veiligheid]]></surveyls_email_invite_subj>
+    <surveyls_email_invite><![CDATA[<html>
+<head>
+	<title></title>
+</head>
+<body>Beste  {FIRSTNAME},
+<p>Met onderstaande de link krijgt u toegang tot de Overijsselse signaleringskaart externe veiligheid<o:p></o:p></p>
+
+<p><br />
+Met vriendelijke groet,<o:p></o:p></p>
+
+<p><span style="font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;mso-fareast-font-family:
+Calibri;mso-fareast-theme-font:minor-latin;mso-ansi-language:NL;mso-fareast-language:
+NL;mso-bidi-language:AR-SA">Henry Hiltjesdam (<a href="mailto:h.hiltjesdam@overijssel.nl">h.hiltjesdam@overijssel.nl</a>)<br style="mso-special-character:line-break" />
+<!--[if !supportLineBreakNewLine]--><br style="mso-special-character:line-break" />
+<!--[endif]--></span><br />
+Met vriendelijk groet,</p>
+
+<p>Henry Hiltjesdam</p>
+
+<p>H.Hiltjesdam@overijssel.nl<br />
 <br />
 ----------------------------------------------<br />
-Klik op <br />
+Klik op<br />
 {SURVEYURL}<br />
- om aan het onderzoek deel te nemen.<br />
 <br />
-Als u deze enquête niet wilt invullen en ook geen nieuwe uitnodigingen wilt ontvangen, klik dan a.u.b. op de volgende link: {OPTOUTURL}<br />
 <br />
-Als u bent uitgesloten, maar toch deze enquête wilt invullen en ook nieuwe uitnodigingen wilt ontvangen, klik dan a.u.b. op de volgende link:<br />
- {OPTINURL} ]]></surveyls_email_invite>
-    <surveyls_email_remind_subj><![CDATA[Herinnering om deel te nemen aan een enquête]]></surveyls_email_remind_subj>
-    <surveyls_email_remind><![CDATA[Geachte {FIRSTNAME},<br />
+ </p>
+</body>
+</html>
+]]></surveyls_email_invite>
+    <surveyls_email_remind_subj><![CDATA[Toegang tot Overijsselse signaleringskaart externe veiligheid]]></surveyls_email_remind_subj>
+    <surveyls_email_remind><![CDATA[<html>
+<head>
+	<title></title>
+</head>
+<body>Beste  {FIRSTNAME},
+<p>Met onderstaande de link krijgt u toegang tot de Overijsselse signaleringskaart externe veiligheid</p>
+
+<p><br />
+Met vriendelijke groet,</p>
+
+<p>Henry Hiltjesdam (<a href="mailto:h.hiltjesdam@overijssel.nl">h.hiltjesdam@overijssel.nl</a>)<br />
 <br />
-Recent bent u uitgenodigd om aan een onderzoek deel te nemen.<br />
 <br />
-We hebben geconstateerd dat u nog niet aan het onderzoek hebt deelgenomen en willen u er bij dezen aan herinneren dat het onderzoek nog loopt en dat u, als u dat wilt, nog kan deelnemen. <br />
-<br />
-Het onderzoek is getiteld: <br />
-''{SURVEYNAME}"<br />
-<br />
-''{SURVEYDESCRIPTION}"<br />
-<br />
-Om deel te nemen klikt u op onderstaande link. <br />
-<br />
-Hoogachtend,<br />
-<br />
-{ADMINNAME} ({ADMINEMAIL})<br />
+Met vriendelijk groet,</p>
+
+<p>Henry Hiltjesdam</p>
+
+<p>H.Hiltjesdam@overijssel.nl<br />
 <br />
 ----------------------------------------------<br />
-Klik op:<br />
-{SURVEYURL} om aan het onderzoek deel te nemen.<br />
-<br />
-Als u deze enquête niet wilt invullen en ook geen nieuwe uitnodigingen wilt ontvangen, klik dan a.u.b. op de volgende link: {OPTOUTURL}]]></surveyls_email_remind>
+Klik op<br />
+{SURVEYURL}</p>
+</body>
+</html>
+]]></surveyls_email_remind>
     <surveyls_email_register_subj><![CDATA[Bevestiging registratie enquête]]></surveyls_email_register_subj>
-    <surveyls_email_register><![CDATA[Geachte {FIRSTNAME},<br />
+    <surveyls_email_register><![CDATA[<html>
+<head>
+	<title></title>
+</head>
+<body>Geachte {FIRSTNAME},<br />
 <br />
 U, of iemand die uw e-mailadres gebruikt, heeft zich aangemeld voor deelname aan het online onderzoek getiteld {SURVEYNAME}.<br />
 <br />
@@ -2580,20 +2627,36 @@ Klik op onderstaande link om aan het onderzoek mee te doen:<br />
 <br />
 {SURVEYURL}<br />
 <br />
-Als u vragen heeft over de enquête, of als u zich niet heeft aangemeld voor deelname en meent dat u deze e-mail ten onrechte heeft ontvangen, kunt u contact opnemen met {ADMINNAME} via {ADMINEMAIL}.]]></surveyls_email_register>
-    <surveyls_email_confirm_subj><![CDATA[Bevestiging van uw deelname aan onze enquête]]></surveyls_email_confirm_subj>
-    <surveyls_email_confirm><![CDATA[Beste {FIRSTNAME},<br />
+Als u vragen heeft over de enquête, of als u zich niet heeft aangemeld voor deelname en meent dat u deze e-mail ten onrechte heeft ontvangen, kunt u contact opnemen met {ADMINNAME} via {ADMINEMAIL}.</body>
+</html>
+]]></surveyls_email_register>
+    <surveyls_email_confirm_subj><![CDATA[Bevestiging gebruik signaleringskaart Externe Veiligheid ]]></surveyls_email_confirm_subj>
+    <surveyls_email_confirm><![CDATA[<html>
+<head>
+	<title></title>
+</head>
+<body>
+<p>Beste {FIRSTNAME},<br />
 <br />
-Dit e-mail bericht bevestigt dat u de enquête {SURVEYNAME} heeft ingevuld en dat uw antwoorden zijn opgeslagen. Hartelijk dank voor uw deelname.<br />
-<br />
-Als u vragen heeft over deze e-mail, neemt u dan contact op met de beheerder {ADMINNAME} via {ADMINEMAIL}.<br />
-<br />
-Hoogachtend,<br />
-<br />
-{ADMINNAME}]]></surveyls_email_confirm>
+Dit e-mail bericht bevestigt dat u de signaleringskaart Externe veiligheid {SURVEYNAME} heeft uitgevoerd.</p>
+
+<p>Dit is een automatisch gegenereerd bericht, antwoorden is niet mogelijk.<br />
+Als u vragen heeft over deze e-mail, neemt u dan contact op met h.hiltjesdam@overijssel.nl</p>
+
+<p>met vriendelijke groet,<br />
+Henry Hiltjesdam</p>
+
+<p>h.hiltjesdam@overijssel.nl</p>
+</body>
+</html>
+]]></surveyls_email_confirm>
     <surveyls_dateformat><![CDATA[2]]></surveyls_dateformat>
     <email_admin_notification_subj><![CDATA[Respons inzending op enquête {SURVEYNAME}]]></email_admin_notification_subj>
-    <email_admin_notification><![CDATA[Hallo,<br />
+    <email_admin_notification><![CDATA[<html>
+<head>
+	<title></title>
+</head>
+<body>Hallo,<br />
 <br />
 Er is een nieuwe respons voor de enquête '{SURVEYNAME}'.<br />
 <br />
@@ -2607,11 +2670,17 @@ Klik op de volgende link om de individuele reactie te bewerken:<br />
 {EDITRESPONSEURL}<br />
 <br />
 Bekijk de statistieken door hier te klikken:<br />
-{STATISTICSURL}]]></email_admin_notification>
+{STATISTICSURL}</body>
+</html>
+]]></email_admin_notification>
     <email_admin_responses_subj><![CDATA[Respons inzending op enquête {SURVEYNAME} met resultaten]]></email_admin_responses_subj>
-    <email_admin_responses><![CDATA[Hallo,<br />
+    <email_admin_responses><![CDATA[<html>
+<head>
+	<title></title>
+</head>
+<body>Hallo,<br />
 <br />
-Er is een nieuwe respons voor  de enquête '{SURVEYNAME}'.<br />
+Er is een nieuwe respons voor de enquête '{SURVEYNAME}'.<br />
 <br />
 Klik op de volgende link om de enquête te herladen:<br />
 {RELOADURL}<br />
@@ -2627,8 +2696,11 @@ Bekijk statistieken door hier te klikken:<br />
 <br />
 <br />
 De volgende antwoorden zijn door de deelnemer gegeven:<br />
-{ANSWERTABLE}]]></email_admin_responses>
+{ANSWERTABLE}</body>
+</html>
+]]></email_admin_responses>
     <surveyls_numberformat><![CDATA[1]]></surveyls_numberformat>
+    <attachments><![CDATA[a:0:{}]]></attachments>
    </row>
   </rows>
  </surveys_languagesettings>
@@ -2642,7 +2714,7 @@ De volgende antwoorden zijn door de deelnemer gegeven:<br />
   </fields>
   <rows>
    <row>
-    <id><![CDATA[2]]></id>
+    <id><![CDATA[4]]></id>
     <sid><![CDATA[472989]]></sid>
     <parameter><![CDATA[test]]></parameter>
    </row>
