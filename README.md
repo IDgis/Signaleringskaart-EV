@@ -3,7 +3,7 @@
 ## Step 1: create docker-machine & network - once
 
 - Create a docker-machine with ``docker-machine create ev-signalering-overijssel`` 
-- Create a network called ev-ov with ``docker create network ev-ov`` 
+- Create a network called ev-ov with ``docker network create ev-ov`` 
 
 ## Step 2: add necessary files
 
