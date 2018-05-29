@@ -7,8 +7,38 @@ services:
     build: nginx
     ports:
       - "80:80"
+      - "443:443"
     volumes:
+      - nginx_conf:/etc/nginx/conf.d
       - nginx_logs:/var/log/nginx
+      - base_certs:/etc/nginx/certs:ro
+      - base_html:/usr/share/nginx/html
+      - base_vhost:/etc/nginx/vhost.d
+    labels:
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.proxy
+     
+  docker_gen:
+    container_name: docker_gen
+    restart: always
+    build: docker_gen
+    command: ["-notify-sighup", "proxy", "-watch", "/etc/docker-gen/templates/nginx.tmpl", "/etc/nginx/conf.d/default.conf"]
+    volumes_from:
+      - nginx
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    labels:
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.docker_gen
+      
+  letsencrypt:
+    container_name: letsencrypt
+    restart: always
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    volumes_from:
+      - nginx
+    volumes:
+      - base_certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      
   db:
     container_name: db-ov
     restart: always
@@ -24,7 +54,9 @@ services:
     expose:
      - "80"
     environment:
-      VIRTUAL_HOST: "overijssel.ev-signaleringskaart.nl"
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - LETSENCRYPT_HOST=${VIRTUAL_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_MAIL}
     build: 
       context: limesurvey
       args:
@@ -55,7 +87,11 @@ services:
 
 volumes:
   db_ov_data:
+  nginx_conf:
   nginx_logs:
+  base_certs:
+  base_html:
+  base_vhost:
 
 networks:
   default:
