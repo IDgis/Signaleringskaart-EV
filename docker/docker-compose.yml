@@ -7,8 +7,24 @@ services:
     build: nginx
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - nginx_logs:/var/log/nginx
+      - base_certs:/etc/nginx/certs:ro
+      - base_html:/usr/share/nginx/html
+      - base_vhost:/etc/nginx/vhost.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      
+  letsencrypt:
+    container_name: letsencrypt
+    restart: always
+    image: jrcs/letsencrypt-nginx-proxy-companion:v1.7
+    volumes_from:
+      - nginx
+    volumes:
+      - base_certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      
   db:
     container_name: db-ov
     restart: always
@@ -24,12 +40,14 @@ services:
     expose:
      - "80"
     environment:
-      VIRTUAL_HOST: "overijssel.ev-signaleringskaart.nl"
+      VIRTUAL_HOST: ${HOST_URL}
+      LETSENCRYPT_HOST: ${HOST_URL}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_MAIL}
     build: 
       context: limesurvey
       args:
-        - WMSURL=http://overijssel.ev-signaleringskaart.nl/services/plangebied_wms_ov
-        - TOETSSERVLETURL=http://overijssel.ev-signaleringskaart.nl/toets
+        - WMSURL=${PROTOCOL}://${HOST_URL}/services/plangebied_wms_ov
+        - TOETSSERVLETURL=${PROTOCOL}://${HOST_URL}/toets
         
   deegree:
     container_name: deegree-ov
@@ -56,6 +74,9 @@ services:
 volumes:
   db_ov_data:
   nginx_logs:
+  base_certs:
+  base_html:
+  base_vhost:
 
 networks:
   default:
