@@ -13,6 +13,7 @@ services:
       - base_certs:/etc/nginx/certs:ro
       - base_html:/usr/share/nginx/html
       - base_vhost:/etc/nginx/vhost.d
+      - /var/run/docker.sock:/tmp/docker.sock:ro
       
   letsencrypt:
     container_name: letsencrypt
