@@ -1,4 +1,4 @@
-FROM crramirez/limesurvey:2.73.1
+FROM crramirez/limesurvey:latest
 
 ARG WMSURL
 ARG TOETSSERVLETURL
