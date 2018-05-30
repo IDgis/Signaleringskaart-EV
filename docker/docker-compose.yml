@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  nginx:
+  proxy:
     container_name: proxy
     restart: always
     build: nginx
@@ -20,7 +20,7 @@ services:
     restart: always
     image: jrcs/letsencrypt-nginx-proxy-companion:v1.7
     volumes_from:
-      - nginx
+      - proxy
     volumes:
       - base_certs:/etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
